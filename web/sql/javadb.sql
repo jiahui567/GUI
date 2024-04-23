@@ -41,7 +41,7 @@ CREATE TABLE "CATEGORY" (
         (START WITH 1, INCREMENT BY 1),
   cat_name varchar(50) NOT NULL,
   description varchar(300) DEFAULT NULL
-)
+);
 
 CREATE TABLE "PRODUCTS" (
   product_ID int NOT NULL primary key GENERATED ALWAYS AS IDENTITY
@@ -108,4 +108,6 @@ insert into CATEGORY (cat_name,description) values ('Bed','Discover the epitome 
 
 -- admin info username = hanjie password = 321
 INSERT INTO USERS (TYPE_ID, FULLNAME, AGE, GENDER, ADDRESS, EMAIL, CONTACT_NUMBER, USERNAME, PASSWORD, PROFILE_PIC) 
-	VALUES (3, 'hanjie', 99, '2a 2a', 'others', 'handashjie@mail.com', '123456789', 'hanjie', 'jSPPbIboNKeqbt7VTCbOK7LnSQNTjGG91dIZeZerL3I=', NULL);
+	VALUES (3, 'hanjie', 99, 'male', '2a 2a', 'handashjie@mail.com', '123456789', 'hanjie', 'jSPPbIboNKeqbt7VTCbOK7LnSQNTjGG91dIZeZerL3I=', NULL);
+INSERT INTO USERS (TYPE_ID, FULLNAME, AGE, GENDER, ADDRESS, EMAIL, CONTACT_NUMBER, USERNAME, PASSWORD, PROFILE_PIC) 
+	VALUES (1, 'admin', 99, 'male', '2a 2a', 'handashjie@mail.com', '123456789', 'admin', 'jSPPbIboNKeqbt7VTCbOK7LnSQNTjGG91dIZeZerL3I=', NULL);
