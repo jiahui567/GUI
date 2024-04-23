@@ -4,6 +4,7 @@
  */
 package controller;
 
+import entity.Orders;
 import entity.Users;
 import java.util.*;
 import jakarta.persistence.EntityManager;
@@ -87,7 +88,11 @@ public class login extends HttpServlet {
                     session.setAttribute("customer",customer);
                     response.sendRedirect(request.getContextPath()+"/Customer/home.jsp ");
                 }else{
+                    Query query = em.createNamedQuery("Orders.findAll");
+                    List<Orders> order = query.getResultList();
+                    session.setAttribute("OrderRecord",order);
                     response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
+                    
                 }
                 System.out.println("LoginSuccess");
             }else{

@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <!-- Coding By CodingNepal - codingnepalweb.com -->
+<%@page import="java.util.*"%>
+<%@page import="entity.*"%>
+<%@page import="entity.Orders" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,55 +66,48 @@
                 </div>
 
                 <div class="activity-data">
-                    <div class="data names">
-                        <span class="data-title">Name</span>
-                        <span class="data-list">Prem Shahi</span>
-                        <span class="data-list">Deepa Chand</span>
-                        <span class="data-list">Manisha Chand</span>
-                        <span class="data-list">Pratima Shahi</span>
-                        <span class="data-list">Man Shahi</span>
-                        <span class="data-list">Ganesh Chand</span>
-                        <span class="data-list">Bikash Chand</span>
+                   
+                    <div class="data names">                      
+                        <span class="data-title">Order ID</span> 
+                        <% List<Orders> OrderRecord = (List) session.getAttribute("OrderRecord");%>
+
+                        <% for(Orders order:OrderRecord){%> 
+                        <span><%=order.getOrderId()%></span>  
+                        <% 
+                            }
+                        %>
                     </div>
                     <div class="data email">
-                        <span class="data-title">Email</span>
-                        <span class="data-list">premshahi@gmail.com</span>
-                        <span class="data-list">deepachand@gmail.com</span>
-                        <span class="data-list">prakashhai@gmail.com</span>
-                        <span class="data-list">manishachand@gmail.com</span>
-                        <span class="data-list">pratimashhai@gmail.com</span>
-                        <span class="data-list">manshahi@gmail.com</span>
-                        <span class="data-list">ganeshchand@gmail.com</span>
+                        <span class="data-title">Item Count</span>
+                        <% for(Orders order:OrderRecord){%> 
+                        <span><%=order.getItemCount()%></span>  
+                        <% 
+                            }
+                        %>
                     </div>
                     <div class="data joined">
-                        <span class="data-title">Joined</span>
-                        <span class="data-list">2022-02-12</span>
-                        <span class="data-list">2022-02-12</span>
-                        <span class="data-list">2022-02-13</span>
-                        <span class="data-list">2022-02-13</span>
-                        <span class="data-list">2022-02-14</span>
-                        <span class="data-list">2022-02-14</span>
-                        <span class="data-list">2022-02-15</span>
+                        <span class="data-title">Cart ID</span>
+                        <% for(Orders order:OrderRecord){%> 
+                        <span><%=order.getCartId()%></span>  
+                        <% 
+                            }
+                        %>
                     </div>
                     <div class="data type">
-                        <span class="data-title">Type</span>
-                        <span class="data-list">New</span>
-                        <span class="data-list">Member</span>
-                        <span class="data-list">Member</span>
-                        <span class="data-list">New</span>
-                        <span class="data-list">Member</span>
-                        <span class="data-list">New</span>
-                        <span class="data-list">Member</span>
+                        <span class="data-title">Status</span>
+                        <% for(Orders order:OrderRecord){%> 
+                        <span><%=order.getStatus()%></span>  
+                        <% 
+                            }
+                        %>
                     </div>
                     <div class="data status">
-                        <span class="data-title">Status</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
+                        <span class="data-title">User</span>
+                        <% for(Orders order:OrderRecord){%> 
+                        <span><%=order.getUserId()%></span>  
+                        <% 
+                            }
+                        %>
                     </div>
                 </div>
             </div>
