@@ -83,7 +83,7 @@
                 <td><%= adminUser.getGender()%></td>
                 <td><%= adminUser.getTypeId().getTypeName()%></td>
                 <td> <button/>Delete</td>
-                <td> <button id="editStaffModalBtn" onClick="edit()"/><i class="uil uil-edit">Edit</i></td> 
+                <td> <button/><a class="uil uil-edit" href="edit.jsp?action=update&UserId=<%=adminUser.getUserId()%>&FullName=<%=adminUser.getFullname()%>&Age=<%=adminUser.getAge()%>&ContactNumber=<%=adminUser.getContactNumber()%>&Email=<%=adminUser.getEmail()%>" id="edit">Edit</a></td> 
                 
             </tr>
             <%}%>
