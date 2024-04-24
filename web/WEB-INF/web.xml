@@ -29,12 +29,16 @@
         <servlet-class>controller.feedback</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>profile</servlet-name>
+        <servlet-name>updateProfile</servlet-name>
         <servlet-class>controller.updateProfile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getFeedbacklog</servlet-name>
         <servlet-class>controller.getFeedbacklog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>custFeedback</servlet-name>
+        <servlet-class>controller.custFeedback</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
@@ -65,12 +69,16 @@
         <url-pattern>/feedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>profile</servlet-name>
-        <url-pattern>/profile</url-pattern>
+        <servlet-name>updateProfile</servlet-name>
+        <url-pattern>/updateProfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getFeedbacklog</servlet-name>
         <url-pattern>/getFeedbacklog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>custFeedback</servlet-name>
+        <url-pattern>/custFeedback</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

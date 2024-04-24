@@ -165,6 +165,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="sidebar">
@@ -181,9 +182,9 @@
             <div id="profile" class="tabcontent">
                 <h2>Profile Information</h2>
                 
-                <form action="<%= request.getContextPath()%>/profile" method="post" enctype="multipart/form-data">
+                <form action="<%= request.getContextPath()%>/updateProfile" method="post" enctype="multipart/form-data">
                     <div class="profile-picture-container">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture" class="profile-picture" id="profile-picture">
+                        <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
                         <div class="profile-picture-actions">
                             <input name="profilePic" type="file">
                             <button class="delete-photo-button" onclick="deleteProfilePicture()">Delete Photo</button>

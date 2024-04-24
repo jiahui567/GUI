@@ -94,7 +94,7 @@
                 </div>
               </div>
 
-                <form action="<%= request.getContextPath()%>/feedback" method="post">
+                <form action="<%= request.getContextPath()%>/custFeedback" method="post">
                 <% if (customer.getFullname() == null) {%>
                 <div class="form-group">
                     <label class="text-black" for="fname">Your name</label>

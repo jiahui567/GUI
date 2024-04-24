@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
-
+import entity.*;
+import java.util.*;
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +23,8 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.UserTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,6 +39,10 @@ import java.util.logging.Logger;
 @MultipartConfig
 public class updateProfile extends HttpServlet {
 
+    @PersistenceContext
+    EntityManager em;
+    @Resource
+    UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,40 +75,37 @@ public class updateProfile extends HttpServlet {
     protected void doPost (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     
-            int userid = 9;
             String fullname = request.getParameter("fullname");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
             String contact = request.getParameter("contact");
-            
-
+            String action = request.getParameter("action");
             Part filePart = request.getPart("profilePic");
             InputStream fileContent = filePart.getInputStream();
-            String databaseURL = "jdbc:derby://localhost:1527/assignment14";
+            HttpSession session = request.getSession();
+            Users customer = (Users) session.getAttribute("customer");
+            int userID = customer.getUserId();
             
-            
-                Connection conn;
-        try {
-            conn = DriverManager.getConnection(databaseURL);
-            String query = "UPDATE USERS SET FULLNAME=?, EMAIL = ?, ADDRESS = ?, CONTACT_NUMBER = ?, PROFILE_PIC = ? WHERE USER_ID = ?";
-            PreparedStatement stm = conn.prepareStatement(query);
-            stm.setString(1,fullname);
-            stm.setString(2,email);
-            stm.setString(3,address);
-            stm.setString(4,contact);
-            stm.setBinaryStream(5,fileContent);
-            stm.setInt(6,userid);
-            int row = stm.executeUpdate();
-            if(row>0){
-                System.out.println("successfully edit profile");
-            } 
-        }catch (SQLException ex) {
-            Logger.getLogger(updateProfile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-                        
-                
-         
+            try{
+                Query query = em.createNamedQuery("Users.findByUserId");
+                query.setParameter("userId",userID);
+                List<Users> user = query.getResultList();
+                Users userDetail = user.get(0);
+                if(userDetail!=null){
+                    userDetail.setFullname(fullname);
+                    userDetail.setAddress(address);
+                    userDetail.setEmail(email);
+                    userDetail.setContactNumber(contact);
+                    utx.begin();
+                    em.merge(userDetail);
+                    utx.commit();
+                    session.setAttribute("customer", userDetail);
+                    RequestDispatcher rd = request.getRequestDispatcher("Customer/profile.jsp");
+                    rd.forward(request, response);
+                }
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
 
     }
 

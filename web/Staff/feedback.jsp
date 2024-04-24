@@ -36,12 +36,12 @@
         </div>       
         
         <% for(Feedbacklog log : logList){%>
-        <div style="display:flex;flex-direction:column;border-radius:15px;padding:5px;margin-bottom:10px;border:1px solid;border-color:lightgrey;margin-top:9%">
+        <div style="display:flex;flex-direction:column;border-radius:15px;padding:5px;margin-bottom:10px;border:1px solid;border-color:lightgrey;margin-top:5%">
             <div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between">
                 <div style="display:flex;flex-direction:column;padding:10px;width:100%">
                         <div style="display:flex;flex-direction:row;padding:10px;width:100%;justify-content: space-between">
                             <div style="font-weight:bold;align-self:flex-start;font-size:16px">
-                                <img src="editing.jpg" alt="alt" width="30px"  style="border-radius: 50%"/> <span>@lee jia hui &nbsp;</span>
+                                <img src="editing.jpg" alt="alt" width="30px"  style="border-radius: 50%"/> <span>@<%= log.getUserId().getFullname()%>&nbsp;</span>
                             </div>
                             <div style="font-weight:bold;align-self:flex-start;font-size:16px">
                                 <%= log.getTime()%>
