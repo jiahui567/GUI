@@ -56,8 +56,14 @@
             <i class="uil uil-bars sidebar-toggle"></i>
 
             <div class="search-box">
-                <i class="uil uil-search"></i>
-                <input type="text" placeholder="Search here...">
+                <form action="<%= request.getContextPath()%>/Filter" method="post">
+                <select name="Role" id="Role" onchange="this.form.submit()">
+                <option disabled selected>Filter</option>
+                <option value="1">Manager</option>
+                <option value="2">Staff</option>
+                <option value="3">Customer</option>
+                </select>
+                </form>
             </div>
             <!--<img src="images/profile.jpg" alt="">-->
         </div>

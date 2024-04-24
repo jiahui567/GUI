@@ -43,6 +43,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findAccount", query = "SELECT u FROM Users u WHERE u.username = :username AND u.password = :password"),
+    @NamedQuery(name = "Users.findByUserType", query = "SELECT u FROM Users u WHERE u.typeId = :typeId"),
 
 })
 public class Users implements Serializable {

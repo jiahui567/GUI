@@ -59,7 +59,7 @@ public class getEmployee extends HttpServlet {
 
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Query query = em.createNativeQuery("SELECT * FROM USERS WHERE TYPE_ID =1 OR TYPE_ID = 2", Users.class);
+        Query query = em.createNativeQuery("SELECT * FROM USERS", Users.class);
         List<Users> userlist = query.getResultList();
         HttpSession session = request.getSession();
         session.setAttribute("adminList", userlist);
