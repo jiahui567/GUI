@@ -30,6 +30,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Feedbacklog.findAll", query = "SELECT f FROM Feedbacklog f"),
+    @NamedQuery(name = "Feedbacklog.countAll", query = "SELECT count(f) FROM Feedbacklog f"),
     @NamedQuery(name = "Feedbacklog.findByLogId", query = "SELECT f FROM Feedbacklog f WHERE f.logId = :logId"),
     @NamedQuery(name = "Feedbacklog.findByRating", query = "SELECT f FROM Feedbacklog f WHERE f.rating = :rating"),
     @NamedQuery(name = "Feedbacklog.findByComment", query = "SELECT f FROM Feedbacklog f WHERE f.comment = :comment"),

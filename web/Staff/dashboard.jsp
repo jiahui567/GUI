@@ -44,17 +44,20 @@
                     <div class="box box1">
                         <i class="uil uil-thumbs-up"></i>
                         <span class="text">Total Sales</span>
-                        <span class="number">50,120</span>
+                        <% int orderCount = (int)session.getAttribute("orderCount");%>
+                        <span class="number"><%= orderCount%></span>
                     </div>
                     <div class="box box2">
                         <i class="uil uil-comments"></i>
                         <span class="text">Feed Backs</span>
-                        <span class="number">20,120</span>
+                        <% int feedbackCount = (int)session.getAttribute("feedbackCount");%>
+                        <span class="number"><%= feedbackCount%></span>
                     </div>
                     <div class="box box3">
                         <i class="uil uil-share"></i>
                         <span class="text">Total User</span>
-                        <span class="number">10,120</span>
+                        <% int userCount = (int) session.getAttribute("userCount");%>
+                        <span class="number"><%= userCount%></span>
                     </div>
                 </div>
             </div>
@@ -88,7 +91,7 @@
                     <div class="data joined">
                         <span class="data-title">Cart ID</span>
                         <% for(Orders order:OrderRecord){%> 
-                        <span><%=order.getCartId()%></span>  
+                        <span><%=order.getCartId().getCartCount()%></span>  
                         <% 
                             }
                         %>
@@ -96,7 +99,7 @@
                     <div class="data type">
                         <span class="data-title">Status</span>
                         <% for(Orders order:OrderRecord){%> 
-                        <span><%=order.getStatus()%></span>  
+                        <span><%=order.getStatus().getStatusType()%></span>  
                         <% 
                             }
                         %>
@@ -104,7 +107,7 @@
                     <div class="data status">
                         <span class="data-title">User</span>
                         <% for(Orders order:OrderRecord){%> 
-                        <span><%=order.getUserId()%></span>  
+                        <span><%=order.getUserId().getFullname()%></span>  
                         <% 
                             }
                         %>

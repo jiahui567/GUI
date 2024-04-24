@@ -4,8 +4,7 @@
  */
 package controller;
 
-import entity.Orders;
-import entity.Users;
+import entity.*;
 import java.util.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -39,6 +38,7 @@ public class login extends HttpServlet {
 
     @PersistenceContext
     EntityManager em;
+    private static int count = 1;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,7 +52,6 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
@@ -87,9 +86,19 @@ public class login extends HttpServlet {
                     Users customer = user.get(0);
                     session.setAttribute("customer",customer);
                     response.sendRedirect(request.getContextPath()+"/Customer/home.jsp ");
-                }else{
+                }else if(usertype==1||usertype==2){
                     Query query = em.createNamedQuery("Orders.findAll");
                     List<Orders> order = query.getResultList();
+                    Query query2 = em.createNamedQuery("Feedbacklog.countAll");
+                    int feedbackCount = Integer.parseInt(query2.getSingleResult().toString());
+                    session.setAttribute("feedbackcount",feedbackCount);
+                    Query query3 = em.createNamedQuery("Orders.countAll");
+                    int orderCount = Integer.parseInt(query3.getSingleResult().toString());
+                    Query query4 = em.createNamedQuery("Users.countAll");
+                    int userCount = Integer.parseInt(query4.getSingleResult().toString());
+                    session.setAttribute("userCount",userCount);
+                    session.setAttribute("feedbackCount",orderCount);
+                    session.setAttribute("orderCount",orderCount);
                     session.setAttribute("OrderRecord",order);
                     response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
                     
@@ -98,8 +107,14 @@ public class login extends HttpServlet {
             }else{
                 dispatcher = request.getRequestDispatcher("index.jsp");
                 dispatcher.include(request,response);
-                System.out.println("failed Login");
+                System.out.println(count);
+                count++;
+                if (count>=5){
+                    response.sendRedirect("error.jsp");
+                } 
             }   
+           
+           
         } catch (SQLException ex) {
             out.println("close database");
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
