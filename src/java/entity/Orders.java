@@ -27,6 +27,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
+    @NamedQuery(name = "Orders.countAll", query = "SELECT count(o) FROM Orders o"),
     @NamedQuery(name = "Orders.findByOrderId", query = "SELECT o FROM Orders o WHERE o.orderId = :orderId"),
     @NamedQuery(name = "Orders.findByItemCount", query = "SELECT o FROM Orders o WHERE o.itemCount = :itemCount")})
 public class Orders implements Serializable {
