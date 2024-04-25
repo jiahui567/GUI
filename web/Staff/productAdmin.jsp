@@ -65,24 +65,26 @@
             <h1>Product</h1>
         </div>
         <div style="margin-top:12%">
-            <label>Category: </label>
-            <select>
-                <option>
+            <form action="<%= request.getContextPath()%>/Filter?action=Product" method="post" margin="0">
+                <label>Category: </label>
+                <select name="Product" id="Product" onchange="this.form.submit()">
+                <option disabled selected>
                     All
                 </option>
-                <option>
+                <option value="1">
                     Furniture
                 </option>
-                <option>
+                <option value="2">
                     Bed
                 </option>
-                <option>
+                <option value="3">
                     Bathroom
                 </option>
-                <option>
+                <option value="4">
                     Kitchen
                 </option>
             </select>
+            </form>
             <button id="addProdModalBtn">Create Product</button>
             <button id="editProdModalBtn">Edit Product</button>
 
