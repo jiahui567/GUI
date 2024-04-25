@@ -36,7 +36,9 @@ import jakarta.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Products.findByProductName", query = "SELECT p FROM Products p WHERE p.productName = :productName"),
     @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price"),
     @NamedQuery(name = "Products.findByStockCount", query = "SELECT p FROM Products p WHERE p.stockCount = :stockCount"),
-    @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")})
+    @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description"),
+    @NamedQuery(name = "Products.findByCategory", query = "SELECT p FROM Products p WHERE p.categoryId = :categoryId")
+})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;

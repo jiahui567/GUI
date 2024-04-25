@@ -4,6 +4,7 @@
  */
 package controller;
 
+import entity.*;
 import entity.UserType;
 import entity.Users;
 import jakarta.persistence.EntityManager;
@@ -59,16 +60,23 @@ public class Filter extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+        if(action.equals("Role")){
         String role = request.getParameter("Role");
         UserType user2 = new UserType(Integer.parseInt(role));
         Query query = em.createNamedQuery("Users.findByUserType").setParameter("typeId", user2);
         List<Users> users = query.getResultList();
-        if(users != null){
-            session.setAttribute("adminList",users);
-        }
-       
-                    response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp?Role="+user2.getTypeId());
+        session.setAttribute("adminList",users);
+        response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp?Role="+user2.getTypeId());
+        }else if(action.equals("Product")){
+        String product = request.getParameter("Product");
+        Category category = new Category(Integer.parseInt(product));
+        Query query = em.createNamedQuery("Products.findByCategory").setParameter("categoryId", category);
+        List<Products> products = query.getResultList();
+        session.setAttribute("adminList",products);
+        response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp?Product="+product);
         
+        }
     }
 
     /**

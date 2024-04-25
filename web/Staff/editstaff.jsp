@@ -56,12 +56,11 @@
             <i class="uil uil-bars sidebar-toggle"></i>
 
             <div class="search-box">
-                <form action="<%= request.getContextPath()%>/Filter" method="post">
+                <form action="<%= request.getContextPath()%>/Filter?action=Role" method="post">
                 <select name="Role" id="Role" onchange="this.form.submit()">
                 <option disabled selected>Filter</option>
                 <option value="1">Manager</option>
                 <option value="2">Staff</option>
-                <option value="3">Customer</option>
                 </select>
                 </form>
             </div>
@@ -165,7 +164,7 @@
         <div id="addStaffModal" class="modal">
             <div class="modal-content">
                 <span id="addStaffModalClose" style="align-self:flex-end;font-size: 48px;display:flex;text-align: right">&times;</span>
-                <form action="<%= request.getContextPath()%>/addEmployee" method="post"">
+                <form action="<%= request.getContextPath()%>/addEmployee?action=role" method="post"">
                     <div style="display: flex ;flex-direction: column" >
                         <div style="display:flex;flex-direction: row">
                             
@@ -255,24 +254,6 @@ sidebarToggle.addEventListener("click", () => {
         localStorage.setItem("status", "open");
     }
 })
-
-let staffModal = document.getElementById("editStaffModal");
-let staffBtn = document.getElementById("editStaffModalBtn");
-let staffClose = document.getElementById("closeStaffModal");
-
-staffBtn.onclick=function(){
-    staffModal.style.display="block";
-}
-
-staffClose.onclick=function(){
-    staffModal.style.display="none";
-}
-
-window.onclick=function(event){
-    if(event.target == staffModal){
-        staffModal.style.display = "none";
-    }
-}
 
 let addStaffModal = document.getElementById("addStaffModal");
 let addStaffBtn = document.getElementById("addStaffModalBtn");
