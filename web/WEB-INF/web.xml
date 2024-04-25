@@ -40,6 +40,10 @@
         <servlet-name>custFeedback</servlet-name>
         <servlet-class>controller.custFeedback</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Filter</servlet-name>
+        <servlet-class>controller.Filter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>custFeedback</servlet-name>
         <url-pattern>/custFeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Filter</servlet-name>
+        <url-pattern>/Filter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
