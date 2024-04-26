@@ -1,16 +1,16 @@
 <%-- 
-    Document   : profile
-    Created on : 19 Apr 2024, 10:09:42 AM
+    Document   : setting
+    Created on : 25 Apr 2024, 4:06:19 PM
     Author     : User
 --%>
-<jsp:useBean id="customer" scope="session" class="entity.Users"/> 
+<jsp:useBean id="staff" scope="session" class="entity.Users"/>  
+<%@page import="entity.Users" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Setting</title>
     <style>
         
         body {
@@ -172,10 +172,9 @@
             <h2>My Account</h2>
             <ul>
                 <li><a href="#profile" onclick="openTab(event, 'profile')">Profile</a></li>
-                <li><a href="#orders" onclick="openTab(event, 'orders')">Order History</a></li>
                 <li><a href="#settings" onclick="openTab(event, 'settings')">Settings</a></li>
                 <li><a href="<%= request.getContextPath()%>/logout" onclick="logout()">Logout</a></li>
-                <li><a href="<%= request.getContextPath()%>/Customer/home.jsp">Home</a></li>
+                <li><a href="<%= request.getContextPath()%>/Staff/dashboard.jsp">Home</a></li>
             </ul>
         </div>
         <div class="content">
@@ -193,13 +192,13 @@
                 
                     <div class="profile-info">
                         <label for="name">Name:</label>
-                        <input type="text" name="fullname" id="name" value="<%= customer.getFullname()%>" required>
+                        <input type="text" name="fullname" id="name" value="<%= staff.getFullname()%>" required>
                         <label for="email">Email: </label>
-                        <input type="email" name="email" id="email" value="<%= customer.getEmail()%>" required>
+                        <input type="email" name="email" id="email" value="<%= staff.getEmail()%>" required>
                         <label for="address">Address:</label>
-                        <input type="text" name="address" id="address" value="<%= customer.getAddress()%>">
+                        <input type="text" name="address" id="address" value="<%= staff.getAddress()%>">
                         <label for="phoneNumber">Phone Number:</label>
-                        <input type="text" name="contact" id="phoneNumber" value="<%= customer.getContactNumber()%>" required>
+                        <input type="text" name="contact" id="phoneNumber" value="<%= staff.getContactNumber()%>" required>
                     </div>
                     <input class="btn btn-save" type="submit" value="Save"></input>
                 </form>
@@ -234,18 +233,39 @@
 
             <div id="settings" class="tabcontent">
                 <h2>Settings</h2>
-                <!-- Settings form goes here -->
-            </div>
+                <h3>Change password</h3>
+               
+                <form action="<%= request.getContextPath()%>/updateStaffPassword" method="post" onsubmit="return validation()" >
+                    <div class="profile-info">
+                        <label for="password">Current Password:</label>
+                        <input type="password" name="password" id="password" required>
+                        <label for="newpassword">New Password </label>
+                        <input type="password" name="newpassword" id="newpassword" required>
+                        <label for="confirmpassword">Confirm Password</label>
+                        <input type="password" name="confirmpassword" id="confirmpassword" required >
+                    </div>
+                    <input class="btn btn-save" type="submit" value="Save"></input>
+                </form>
 
-            <div id="logout" class="tabcontent">
-                <h2>Logout</h2>
-                <!-- Logout button or link goes here -->
             </div>
+            
         </div>
     </div>
 
     <script>
-        
+        function validation(){
+            
+            let password = document.getElementById("newpassword").value;
+            let password2 = document.getElementById("confirmpassword").value;
+            if(password.length<8){
+                alert("Password must be longer than 8 character");
+                return false;
+            }
+            if(password != password2){
+                alert("Confirm password not match please check");
+                return false;
+            }
+        }
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");

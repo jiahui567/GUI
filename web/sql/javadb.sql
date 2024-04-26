@@ -97,6 +97,8 @@ CREATE TABLE "FEEDBACKLOG" (
   user_ID int NOT NULL references "USERS"(user_ID)
 );
 
+
+
 insert into USER_TYPE (type_name,description) values ('Manager','Can edit all permission for staff,product and customer');
 insert into USER_TYPE (type_name,description) values ('Staff','Help manage customer and product detail');
 insert into USER_TYPE (type_name,description) values ('Customer','Account to view website and buy product');
@@ -111,3 +113,8 @@ INSERT INTO USERS (TYPE_ID, FULLNAME, AGE, GENDER, ADDRESS, EMAIL, CONTACT_NUMBE
 	VALUES (3, 'hanjie', 99, 'male', '2a 2a', 'handashjie@mail.com', '123456789', 'hanjie', 'jSPPbIboNKeqbt7VTCbOK7LnSQNTjGG91dIZeZerL3I=', NULL);
 INSERT INTO USERS (TYPE_ID, FULLNAME, AGE, GENDER, ADDRESS, EMAIL, CONTACT_NUMBER, USERNAME, PASSWORD, PROFILE_PIC) 
 	VALUES (1, 'admin', 99, 'male', '2a 2a', 'handashjie@mail.com', '123456789', 'admin', 'jSPPbIboNKeqbt7VTCbOK7LnSQNTjGG91dIZeZerL3I=', NULL);
+
+insert into ORDER_STATUS (STATUS_TYPE,DESCRIPTION) values ('Pending','Processing for order and waiting for packaging.');
+insert into ORDER_STATUS (STATUS_TYPE,DESCRIPTION) values ('Shipping','The order processsed and prepared for shipping.');
+insert into ORDER_STATUS (STATUS_TYPE,DESCRIPTION) values ('Delivery','The order is currently in transit and on its way to the customer specified delivery address.');
+

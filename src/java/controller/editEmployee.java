@@ -4,29 +4,31 @@
  */
 package controller;
 
-import entity.*;
-import entity.UserType;
 import entity.Users;
+import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.UserTransaction;
 import java.util.List;
 
 /**
  *
- * @author Isaacweng
+ * @author User
  */
-public class Filter extends HttpServlet {
+public class editEmployee extends HttpServlet {
     @PersistenceContext
     EntityManager em;
+    @Resource
+    UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +38,22 @@ public class Filter extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet editEmployee</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet editEmployee at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,6 +64,11 @@ public class Filter extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -59,33 +81,27 @@ public class Filter extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String name = request.getParameter("fullname");
+        int age = Integer.parseInt(request.getParameter("age"));
+        String phone = request.getParameter("phonenumber");
+        String email = request.getParameter("email");
+        int id = Integer.parseInt(request.getParameter("id"));
+       
+        Users userDetail = em.find(Users.class,id);
         HttpSession session = request.getSession();
-        String action = request.getParameter("action");
-        
-        if(action.equals("Role")){
-            int role = Integer.parseInt(request.getParameter("Role"));
-            if(role == 0){
-                Query query = em.createNamedQuery("Users.findAll");
-                List<Users> users = query.getResultList();
-                if(users != null){
-                    session.setAttribute("adminList",users);
+        try {
+            if(userDetail!=null){
+                    userDetail.setFullname(name);
+                    userDetail.setAge(age);
+                    userDetail.setEmail(email);
+                    userDetail.setContactNumber(phone);
+                    utx.begin();
+                    em.merge(userDetail);
+                    utx.commit();
+                    response.sendRedirect("Staff/editstaff.jsp");
                 }
-                response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp");
-            }else{
-                UserType user2 = new UserType(role);
-                Query query = em.createNamedQuery("Users.findByUserType").setParameter("typeId", user2);
-                List<Users> users = query.getResultList();
-                session.setAttribute("adminList",users);
-                response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp?Role="+user2.getTypeId());
-            }
-        }else if(action.equals("Product")){
-            String product = request.getParameter("Product");
-            Category category = new Category(Integer.parseInt(product));
-            Query query = em.createNamedQuery("Products.findByCategory").setParameter("categoryId", category);
-            List<Products> products = query.getResultList();
-            session.setAttribute("adminList",products);
-            response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp?Product="+product);
-        
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
         }
     }
 

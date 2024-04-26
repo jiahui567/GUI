@@ -1,40 +1,35 @@
+<%-- 
+    Document   : forgotPassword
+    Created on : 25 Apr 2024, 10:14:26 PM
+    Author     : User
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HAN-KEA</title> 
-    <link rel="stylesheet" href="style.css">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Forgot Password</title>
+        <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-  </head>
-  <body>
-    <div class="container">
-        <div class="wrapper">
-            <div class="title"><span>Login Form</span></div>
-            <form action= "<%= request.getContextPath()%>/login" method="POST">
-                <div class="row">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" name="username" required >
+    </head>
+    <body>
+            <div class="container">
+                <div class="wrapper">
+                    <div class="title"><span>Forgot Password</span></div>
+                    <form action= "<%= request.getContextPath()%>/testingEmail" method="POST">
+                        <div class="row">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Email" name="email" required >
+                        </div>
+                        <div class="row button">
+                            <input type="submit" value="Login">
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="row">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" name="password" required>
-                </div>
-                <div class="pass"><a href="forgotPassword.jsp">Forgot password?</a></div>
-                <div class="row button">
-                    <input type="submit" value="Login">
-                </div>
-                <div class="signup-link">Not a member? <a href="Customer/signup.jsp">Signup now</a></div>
-                <div style="color:#000000;border-top:1px solid;border-right-style:0px;margin-top:5px;margin-bottom:5px;width:100%;color:lightgrey"/>
-                <div style="text-align: center;margin-top: 5px;font-size: 17px;"><a style="text-decoration: none;color:#A155B9" href="Customer/home.jsp">Login As Guest</a></div>
-            </form>
-        </div>
-    </div>
-  </body>
+            </div>            
+    </body>
 </html>
-
-
 <style>
 *{
   margin: 0;
@@ -143,5 +138,5 @@ form .button input:hover{
 }
 form .signup-link a:hover{
   text-decoration: underline;
-}      
+}     
 </style>

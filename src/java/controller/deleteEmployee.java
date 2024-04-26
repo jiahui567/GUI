@@ -4,29 +4,31 @@
  */
 package controller;
 
-import entity.*;
-import entity.UserType;
 import entity.Users;
+import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.UserTransaction;
 import java.util.List;
 
 /**
  *
- * @author Isaacweng
+ * @author User
  */
-public class Filter extends HttpServlet {
+public class deleteEmployee extends HttpServlet {
+
     @PersistenceContext
     EntityManager em;
+    @Resource
+    UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +38,27 @@ public class Filter extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            int userId = Integer.parseInt(request.getParameter("userID"));
+            
+            Users userDetail = em.find(Users.class,userId);
+            if(userDetail != null){
+                try{
+                    utx.begin();
+                    Users entity = em.merge(userDetail);
+                    em.remove(entity);
+                    utx.commit();
+                    response.sendRedirect("Staff/editstaff.jsp");
+                }catch(Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+            
+            
+            
+        
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,6 +69,11 @@ public class Filter extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -59,34 +86,7 @@ public class Filter extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String action = request.getParameter("action");
-        
-        if(action.equals("Role")){
-            int role = Integer.parseInt(request.getParameter("Role"));
-            if(role == 0){
-                Query query = em.createNamedQuery("Users.findAll");
-                List<Users> users = query.getResultList();
-                if(users != null){
-                    session.setAttribute("adminList",users);
-                }
-                response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp");
-            }else{
-                UserType user2 = new UserType(role);
-                Query query = em.createNamedQuery("Users.findByUserType").setParameter("typeId", user2);
-                List<Users> users = query.getResultList();
-                session.setAttribute("adminList",users);
-                response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp?Role="+user2.getTypeId());
-            }
-        }else if(action.equals("Product")){
-            String product = request.getParameter("Product");
-            Category category = new Category(Integer.parseInt(product));
-            Query query = em.createNamedQuery("Products.findByCategory").setParameter("categoryId", category);
-            List<Products> products = query.getResultList();
-            session.setAttribute("adminList",products);
-            response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp?Product="+product);
-        
-        }
+        processRequest(request, response);
     }
 
     /**

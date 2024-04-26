@@ -59,6 +59,7 @@
                 <form action="<%= request.getContextPath()%>/Filter?action=Role" method="post">
                 <select name="Role" id="Role" onchange="this.form.submit()">
                 <option disabled selected>Filter</option>
+                <option value="0">All</option>
                 <option value="1">Manager</option>
                 <option value="2">Staff</option>
                 </select>
@@ -87,7 +88,7 @@
                 <td><%= adminUser.getContactNumber()%></td>
                 <td><%= adminUser.getGender()%></td>
                 <td><%= adminUser.getTypeId().getTypeName()%></td>
-                <td> <button/>Delete</td>
+                <td> <button/><a href="<%= request.getContextPath()%>/deleteEmployee?userID=<%=adminUser.getUserId()%>">Delete</a></td>
                 <td> <button/><a class="uil uil-edit" href="edit.jsp?action=update&UserId=<%=adminUser.getUserId()%>&FullName=<%=adminUser.getFullname()%>&Age=<%=adminUser.getAge()%>&ContactNumber=<%=adminUser.getContactNumber()%>&Email=<%=adminUser.getEmail()%>" id="edit">Edit</a></td> 
                 
             </tr>

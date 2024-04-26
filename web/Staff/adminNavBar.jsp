@@ -3,7 +3,8 @@
     Created on : 27 Mar 2024, 6:33:19 PM
     Author     : User
 --%>
-
+<jsp:useBean id="staff" scope="session" class="entity.Users"/>  
+<%@page import="entity.Users" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -47,6 +48,10 @@
                 <li><a href="<%= request.getContextPath()%>/getFeedbacklog">
                     <i class="uil uil-comments"></i>
                     <span class="link-name">FeedBack</span>
+                </a></li>
+                <li><a href="setting.jsp">
+                    <i class="uil uil-setting"></i>
+                    <span class="link-name">Setting</span>
                 </a></li>
             </ul>
             

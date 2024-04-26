@@ -20,25 +20,25 @@
         <%String PhoneNumber = (String) request.getParameter("ContactNumber");%>
         <%String Email = (String) request.getParameter("Email");%>
         <%@ include file="adminNavBar.jsp" %>
-        <form action="<%= request.getContextPath()%>/addEmployee" method="post"">
+        <form action="<%= request.getContextPath()%>/editEmployee" method="post"">
             <div style=" padding-left: 300px; padding-top: 20px;" >
 
                 <label>Username:</label>
                 <input type="text" name="username" value="<%=UserId%>" size="40" placeholder="Enter your username"/><br />
                 <label>Full Name:</label>
-                <input type="text" name="last" value="<%=FullName%>" size="40" placeholder="Enter your Full Name"/><br />
+                <input type="text" name="fullname" value="<%=FullName%>" size="40" placeholder="Enter your Full Name"/><br />
                 <label>Age:</label>
                 <input type="number" name="age" value="<%=Age%>" placeholder="Enter your age"/><br />
                 <label>Phone Number:</label>
                 <input type="text" name="phonenumber" value="<%=PhoneNumber%>" size="40" placeholder="Enter your Phone Number"/><br />
                 <label>Email:</label>
                 <input type="text" name="email" value="<%=Email%>" size="40"placeholder="Enter your Email"/><br />
-
+                <input type="hidden" name="id" value="<%=UserId%>"/>
             </div>
         </div>
 
         <div style="display: flex;flex-direction: row;margin-top:20px;justify-content: space-evenly ">
-            <input type="submit" value="Create"/>
+            <input type="submit" value="Edit"/>
         </div>
 
     </form>

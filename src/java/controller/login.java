@@ -87,6 +87,13 @@ public class login extends HttpServlet {
                     session.setAttribute("customer",customer);
                     response.sendRedirect(request.getContextPath()+"/Customer/home.jsp ");
                 }else if(usertype==1||usertype==2){
+                    Query staff = em.createNamedQuery("Users.findAccount");
+                    staff.setParameter("username",username);
+                    staff.setParameter("password",encodedPassword);
+                    List<Users> user = staff.getResultList();
+                    Users customer = user.get(0);
+                    session.setAttribute("staff",customer);
+                    
                     Query query = em.createNamedQuery("Orders.findAll");
                     List<Orders> order = query.getResultList();
                     Query query2 = em.createNamedQuery("Feedbacklog.countAll");
