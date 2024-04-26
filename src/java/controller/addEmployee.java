@@ -41,11 +41,9 @@ public class addEmployee extends HttpServlet {
 
     @Resource
     UserTransaction ut;
-    @PersistenceUnit
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("testentPU");
     
     @PersistenceContext
-    EntityManager em = emf.createEntityManager();
+    EntityManager em;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -125,12 +123,12 @@ public class addEmployee extends HttpServlet {
             Logger.getLogger(addEmployee.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
-        System.out.println("create successfully");
+                    System.out.println("create successfully");
                     request.setAttribute("status","success");
                     response.sendRedirect("Staff/editstaff.jsp");
     }
 
-    //            PreparedStatement pstmt = null;
+//            PreparedStatement pstmt = null;
 //            String databaseURL = "jdbc:derby://localhost:1527/assignment14";
 //            RequestDispatcher dispatcher = request.getRequestDispatcher("registration.jsp");
 //            String name = request.getParameter("name");
