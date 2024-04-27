@@ -45,7 +45,7 @@
 </style>
 </head>
 <%
-    List<Users> admin = (List) request.getAttribute("adminList");
+    List<Users> admin = (List) session.getAttribute("adminList");
 %>
 <body>
     <%@ include file="adminNavBar.jsp" %>
