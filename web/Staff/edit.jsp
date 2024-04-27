@@ -20,7 +20,7 @@
         <%String PhoneNumber = (String) request.getParameter("ContactNumber");%>
         <%String Email = (String) request.getParameter("Email");%>
         <%@ include file="adminNavBar.jsp" %>
-        <form action="<%= request.getContextPath()%>/editEmployee" method="post"">
+        <form action="<%= request.getContextPath()%>/EmployeeCRUD?action=edit" method="post"">
             <div style=" padding-left: 300px; padding-top: 20px;" >
 
                 <label>Username:</label>

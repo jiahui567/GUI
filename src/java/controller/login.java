@@ -93,22 +93,7 @@ public class login extends HttpServlet {
                     List<Users> user = staff.getResultList();
                     Users customer = user.get(0);
                     session.setAttribute("staff",customer);
-                    
-                    Query query = em.createNamedQuery("Orders.findAll");
-                    List<Orders> order = query.getResultList();
-                    Query query2 = em.createNamedQuery("Feedbacklog.countAll");
-                    int feedbackCount = Integer.parseInt(query2.getSingleResult().toString());
-                    session.setAttribute("feedbackcount",feedbackCount);
-                    Query query3 = em.createNamedQuery("Orders.countAll");
-                    int orderCount = Integer.parseInt(query3.getSingleResult().toString());
-                    Query query4 = em.createNamedQuery("Users.countAll");
-                    int userCount = Integer.parseInt(query4.getSingleResult().toString());
-                    session.setAttribute("userCount",userCount);
-                    session.setAttribute("feedbackCount",orderCount);
-                    session.setAttribute("orderCount",orderCount);
-                    session.setAttribute("OrderRecord",order);
                     response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
-                    
                 }
                 System.out.println("LoginSuccess");
             }else{

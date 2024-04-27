@@ -278,7 +278,7 @@ nav.close ~ .dashboard .top{
     margin: 0 30px;
 }
 .top .search-box select{
-    position: absolute;
+    position: relative;
     border: 1px solid var(--border-color);
     background-color: var(--panel-color);
     padding: 0 25px 0 50px;

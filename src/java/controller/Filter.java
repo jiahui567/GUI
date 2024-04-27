@@ -27,6 +27,9 @@ import java.util.List;
 public class Filter extends HttpServlet {
     @PersistenceContext
     EntityManager em;
+    
+    
+   
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -63,7 +66,9 @@ public class Filter extends HttpServlet {
         String action = request.getParameter("action");
         
         if(action.equals("Role")){
+            
             int role = Integer.parseInt(request.getParameter("Role"));
+            
             if(role == 0){
                 Query query = em.createNamedQuery("Users.findAll");
                 List<Users> users = query.getResultList();
