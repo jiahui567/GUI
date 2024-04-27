@@ -68,6 +68,14 @@
         <servlet-name>deleteProduct</servlet-name>
         <servlet-class>controller.deleteProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>search_staff</servlet-name>
+        <servlet-class>controller.search_staff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editProduct</servlet-name>
+        <servlet-class>controller.editProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -135,6 +143,14 @@
     <servlet-mapping>
         <servlet-name>deleteProduct</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search_staff</servlet-name>
+        <url-pattern>/search_staff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editProduct</servlet-name>
+        <url-pattern>/editProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
