@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -35,19 +36,20 @@ public class Loaddashboard extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Loaddashboard</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Loaddashboard at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            HttpSession session = request.getSession();
+        Query query = em.createNamedQuery("Orders.findAll");
+                    List<Orders> order = query.getResultList();
+                    Query query2 = em.createNamedQuery("Feedbacklog.countAll");
+                    int feedbackCount = Integer.parseInt(query2.getSingleResult().toString());
+                    session.setAttribute("feedbackcount",feedbackCount);
+                    Query query3 = em.createNamedQuery("Orders.countAll");
+                    int orderCount = Integer.parseInt(query3.getSingleResult().toString());
+                    Query query4 = em.createNamedQuery("Users.countAll");
+                    int userCount = Integer.parseInt(query4.getSingleResult().toString());
+                    session.setAttribute("userCount",userCount);
+                    session.setAttribute("feedbackCount",orderCount);
+                    session.setAttribute("orderCount",orderCount);
+                    session.setAttribute("OrderRecord",order);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,19 +78,7 @@ public class Loaddashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                    Query query = em.createNamedQuery("Orders.findAll");
-                    List<Orders> order = query.getResultList();
-                    Query query2 = em.createNamedQuery("Feedbacklog.countAll");
-                    int feedbackCount = Integer.parseInt(query2.getSingleResult().toString());
-                    request.setAttribute("feedbackcount",feedbackCount);
-                    Query query3 = em.createNamedQuery("Orders.countAll");
-                    int orderCount = Integer.parseInt(query3.getSingleResult().toString());
-                    Query query4 = em.createNamedQuery("Users.countAll");
-                    int userCount = Integer.parseInt(query4.getSingleResult().toString());
-                    request.setAttribute("userCount",userCount);
-                    request.setAttribute("feedbackCount",orderCount);
-                    request.setAttribute("orderCount",orderCount);
-                    request.setAttribute("OrderRecord",order);
+            processRequest(request, response);
     }
 
     /**
