@@ -50,8 +50,7 @@ CREATE TABLE "PRODUCTS" (
   product_name varchar(50) NOT NULL,
   price double NOT NULL,
   stock_count int NOT NULL,
-  description varchar(300) DEFAULT NULL,
-  image blob
+  description varchar(300) DEFAULT NULL
 );
 
 CREATE TABLE "DELIVERY" (
@@ -97,7 +96,12 @@ CREATE TABLE "FEEDBACKLOG" (
   user_ID int NOT NULL references "USERS"(user_ID)
 );
 
-
+CREATE TABLE IMAGE_TABLE (
+     IMAGE_ID int NOT NULL primary key GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
+     IMAGE BLOB,
+     PRODUCT_ID INT references PRODUCTS(PRODUCT_ID)
+);
 
 insert into USER_TYPE (type_name,description) values ('Manager','Can edit all permission for staff,product and customer');
 insert into USER_TYPE (type_name,description) values ('Staff','Help manage customer and product detail');

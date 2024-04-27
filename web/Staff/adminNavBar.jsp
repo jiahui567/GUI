@@ -37,7 +37,7 @@
                     <i class="uil uil-chart"></i>
                     <span class="link-name">Report</span>
                 </a></li>
-                <li><a href="productAdmin.jsp">
+                <li><a href="<%= request.getContextPath()%>/getProduct">
                     <i class="uil uil-thumbs-up"></i>
                     <span class="link-name">Product </span>
                 </a></li>

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="entity.*" %>
+<%@page import="java.util.*"%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -45,6 +48,7 @@
     cursor:pointer;
 }
       </style>
+      <% List<Products> productList = (List) session.getAttribute("productList");%>
 <body>
     
     <%@include file="adminNavBar.jsp" %>
@@ -92,23 +96,23 @@
         </div>
         <table border-color="#CCC" class="staff-content" style="margin-top:5%">
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Stock</th>
                 <th>Price</th>
                 <th>category</th>
                 
             </tr>
+            <% for(Products prod:productList){%>
             <tr>
-                <td>1</td>
-                <td>king bed</td>
-                <td>1000</td>
-                <td>10.00</td>
-                <td>bed</td>
-                <td> <button/>Delete</td>
-                <td> <button id="editStaffModalBtn" /><i class="uil uil-edit">Edit</i></td> 
+                <td><%= prod.getProductName()%></td>
+                <td><%= prod.getStockCount()%></td>
+                <td><%= prod.getPrice()%></td>
+                <td><%= prod.getCategoryId().getCatName()%></td>
+                <td> <button/><a href="<%= request.getContextPath()%>/deleteProduct?prodID=<%= prod.getProductId()%>">Delete</a></td>
+                <td> <button/><i class="uil uil-edit">Edit</i></td> 
                 
             </tr>
+            <%}%>
         </table>
         
 <!--        <div class="first_product">
@@ -153,9 +157,9 @@
                         <input type="text" required name="productName"/>
 
                         <div>Category:</div>
-                        <select required >
+                        <select name="category" required >
                             <option>Select a category</option>
-                            <option id="C01" name="category" value="cat.id?idk">text</option>
+                            <option value="1">Furniture</option>
                         </select>
 
                         <div>Description:</div>

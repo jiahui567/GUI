@@ -4,6 +4,9 @@
  */
 package controller;
 
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -13,11 +16,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import jakarta.transaction.UserTransaction;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.*;
+import entity.*;
 
 @MultipartConfig
 public class addProduct extends HttpServlet {
 
+    @PersistenceContext
+    EntityManager em;
+    @Resource
+    UserTransaction utx;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -26,40 +37,85 @@ public class addProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        String productName = request.getParameter("productName");
+//        String category = request.getParameter("category");
+//        String description = request.getParameter("productDescription");
+//        double price = Double.parseDouble(request.getParameter("productPrice"));
+//        int stock = Integer.parseInt(request.getParameter("stockCount"));
+//        Part filePart = request.getPart("imageFile");
+//        InputStream fileContent = filePart.getInputStream();
+//        
+//        String databaseURL = "jdbc:derby://localhost:1527/assignment14";
+//        PrintWriter out = response.getWriter();
+//        
+//        
+//        try{
+//            Connection conn = DriverManager.getConnection(databaseURL);
+//            String query = "INSERT INTO PRODUCTS ( category_ID, product_name, price, stock_count, description, image) VALUES (?, ?, ?, ?, ?, ?)";
+//            PreparedStatement stm = conn.prepareStatement(query);
+//            stm.setInt(1,1);
+//            stm.setString(2, productName);
+//            stm.setDouble(3, price);
+//            stm.setInt(4, stock);
+//            stm.setString(5,description);
+//            stm.setBinaryStream(6,fileContent);
+//            int rows = stm.executeUpdate();
+//            if(rows>0){
+//                System.out.println("upload success!!!!!");
+//                response.sendRedirect("productAdmin.jsp");
+//
+//            }else{
+//                System.out.println("fail noob shit");
+//            }
+//
+//
+//        }catch(SQLException ex){
+//            ex.printStackTrace();
+//        }
         String productName = request.getParameter("productName");
-        String category = request.getParameter("category");
+        int category = Integer.parseInt(request.getParameter("category"));
         String description = request.getParameter("productDescription");
         double price = Double.parseDouble(request.getParameter("productPrice"));
         int stock = Integer.parseInt(request.getParameter("stockCount"));
         Part filePart = request.getPart("imageFile");
         InputStream fileContent = filePart.getInputStream();
-        
-        String databaseURL = "jdbc:derby://localhost:1527/assignment14";
-        PrintWriter out = response.getWriter();
-        
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int bytesRead;
+        byte[] data = new byte[1024];
+
+        while ((bytesRead = fileContent.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, bytesRead);
+        }
+
+        byte[] imageBytes = buffer.toByteArray();
         
         try{
-            Connection conn = DriverManager.getConnection(databaseURL);
-            String query = "INSERT INTO PRODUCTS ( category_ID, product_name, price, stock_count, description, image) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement stm = conn.prepareStatement(query);
-            stm.setInt(1,1);
-            stm.setString(2, productName);
-            stm.setDouble(3, price);
-            stm.setInt(4, stock);
-            stm.setString(5,description);
-            stm.setBinaryStream(6,fileContent);
-            int rows = stm.executeUpdate();
-            if(rows>0){
-                System.out.println("upload success!!!!!");
-                response.sendRedirect("productAdmin.jsp");
-
-            }else{
-                System.out.println("fail noob shit");
-            }
-
-
-        }catch(SQLException ex){
-            ex.printStackTrace();
+            //create product item first
+            utx.begin();
+            Products product = new Products();
+            Category cat = new Category(category);
+            product.setProductName(productName);
+            product.setCategoryId(cat);
+            product.setDescription(description);
+            product.setPrice(price);
+            product.setStockCount(stock);
+            
+            em.persist(product);
+            System.out.println("Success add product");
+            response.sendRedirect("Staff/productAdmin.jsp");
+            request.setAttribute("status","success");
+            utx.commit();
+            
+            //create image for the product
+            utx.begin();
+            ImageTable image = new ImageTable();
+            image.setImage(imageBytes);
+            image.setProductId(product);
+            em.persist(image);
+            utx.commit();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
         }
+
     }
 }
