@@ -93,7 +93,10 @@ public class login extends HttpServlet {
                     List<Users> user = staff.getResultList();
                     Users customer = user.get(0);
                     session.setAttribute("staff",customer);
+                    dispatcher = request.getRequestDispatcher("Loaddashboard");
+                    dispatcher.include(request,response);
                     response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
+
                 }
                 System.out.println("LoginSuccess");
             }else{
