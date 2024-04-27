@@ -28,7 +28,7 @@
                     <span class="link-name">Dashboard</span>
                 </a></li>
                 <li>
-                    <a href="<%= request.getContextPath()%>/getEmployee">
+                    <a href="<%= request.getContextPath()%>/EmployeeCRUD?action=get">
                     <!--<a href="editstaff.jsp">-->
                     <i class="uil uil-files-landscapes"></i>
                     <span class="link-name" >Staff</span>

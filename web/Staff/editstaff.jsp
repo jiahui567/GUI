@@ -45,7 +45,7 @@
 </style>
 </head>
 <%
-    List<Users> admin = (List) session.getAttribute("adminList");
+    List<Users> admin = (List) request.getAttribute("adminList");
 %>
 <body>
     <%@ include file="adminNavBar.jsp" %>
@@ -93,7 +93,7 @@
                 <td><%= adminUser.getContactNumber()%></td>
                 <td><%= adminUser.getGender()%></td>
                 <td><%= adminUser.getTypeId().getTypeName()%></td>
-                <td> <button/><a href="<%= request.getContextPath()%>/deleteEmployee?userID=<%=adminUser.getUserId()%>">Delete</a></td>
+                <td> <button/><a href="<%= request.getContextPath()%>/EmployeeCRUD?action=delete&userID=<%=adminUser.getUserId()%>">Delete</a></td>
                 <td> <button/><a class="uil uil-edit" href="edit.jsp?action=update&UserId=<%=adminUser.getUserId()%>&FullName=<%=adminUser.getFullname()%>&Age=<%=adminUser.getAge()%>&ContactNumber=<%=adminUser.getContactNumber()%>&Email=<%=adminUser.getEmail()%>" id="edit">Edit</a></td> 
                 
             </tr>
@@ -170,7 +170,7 @@
         <div id="addStaffModal" class="modal">
             <div class="modal-content">
                 <span id="addStaffModalClose" style="align-self:flex-end;font-size: 48px;display:flex;text-align: right">&times;</span>
-                <form action="<%= request.getContextPath()%>/addEmployee?action=role" method="post"">
+                <form action="<%= request.getContextPath()%>/EmployeeCRUD?action=add" method="post">
                     <div style="display: flex ;flex-direction: column" >
                         <div style="display:flex;flex-direction: row">
                             
