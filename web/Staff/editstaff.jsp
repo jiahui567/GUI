@@ -54,8 +54,13 @@
 
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
-
-            <div class="search-box">
+            
+            <form method="get" action="<%= request.getContextPath()%>/search_staff">
+                <i class="uil uil-search"></i>
+                <input type="text" name="fullname" placeholder="Search here..." onchange="this.form.submit()">
+            </form>
+                
+            <div class="option-role">
                 <form action="<%= request.getContextPath()%>/Filter?action=Role" method="post">
                 <select name="Role" id="Role" onchange="this.form.submit()">
                 <option disabled selected>Filter</option>
@@ -64,7 +69,7 @@
                 <option value="2">Staff</option>
                 </select>
                 </form>
-            </div>
+            </div> 
             <!--<img src="images/profile.jpg" alt="">-->
         </div>
         <button style="margin-top:7%;margin-bottom: 5px;float:right" id="addStaffModalBtn" ><i class="uil uil-plus"></i>Add Employee</button>
