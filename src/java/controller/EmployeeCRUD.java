@@ -110,7 +110,7 @@ public class EmployeeCRUD extends HttpServlet {
         Query query = em.createNativeQuery("SELECT * FROM USERS", Users.class);
         List<Users> userlist = query.getResultList();
         HttpSession session = request.getSession();
-        request.setAttribute("adminList", userlist);
+        session.setAttribute("adminList", userlist);
     }
 
     private void deleteEmployee(HttpServletRequest request) {
