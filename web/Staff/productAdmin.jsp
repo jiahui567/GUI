@@ -57,7 +57,7 @@
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
 
-            <div class="search-box">
+            <div>
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
@@ -90,7 +90,7 @@
             </select>
             </form>
             <button id="addProdModalBtn">Create Product</button>
-            <button id="editProdModalBtn">Edit Product</button>
+            <button id="editProdModalBtn" >Edit Product</button>
 
 
         </div>
@@ -98,18 +98,20 @@
             <tr>
                 <th>Name</th>
                 <th>Stock</th>
+                <th>Description</th>
                 <th>Price</th>
-                <th>category</th>
+                <th>Category</th>
                 
             </tr>
             <% for(Products prod:productList){%>
             <tr>
                 <td><%= prod.getProductName()%></td>
                 <td><%= prod.getStockCount()%></td>
+                <td><%= prod.getDescription()%></td>
                 <td><%= prod.getPrice()%></td>
                 <td><%= prod.getCategoryId().getCatName()%></td>
-                <td> <button/><a href="<%= request.getContextPath()%>/deleteProduct?prodID=<%= prod.getProductId()%>">Delete</a></td>
-                <td> <button/><i class="uil uil-edit">Edit</i></td> 
+                <td> <button/><a href="<%= request.getContextPath()%>/deleteProduct?productId=<%= prod.getProductId()%>">Delete</a></td>
+                <td> <button/><a class="uil uil-edit" href="product_edit.jsp?productId=<%= prod.getProductId()%>&productName=<%= prod.getProductName()%>&price=<%= prod.getPrice()%>&STOCK_COUNT=<%= prod.getStockCount()%>&description=<%= prod.getDescription()%>">Edit</a></td> 
                 
             </tr>
             <%}%>
