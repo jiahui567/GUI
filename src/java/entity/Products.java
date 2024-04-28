@@ -7,12 +7,14 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -23,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "PRODUCTS")
@@ -34,7 +36,8 @@ import jakarta.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Products.findByProductName", query = "SELECT p FROM Products p WHERE p.productName = :productName"),
     @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price"),
     @NamedQuery(name = "Products.findByStockCount", query = "SELECT p FROM Products p WHERE p.stockCount = :stockCount"),
-    @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")})
+    @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description"),
+    @NamedQuery(name = "Products.findByCategory", query = "SELECT p FROM Products p WHERE p.categoryId = :categoryId")})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,11 +57,18 @@ public class Products implements Serializable {
     private int stockCount;
     @Column(name = "DESCRIPTION")
     private String description;
-    @OneToMany(mappedBy = "productId",orphanRemoval=true)
+    @Lob
+    @Column(name = "IMAGE")
+    private Serializable image;
+    @OneToMany(mappedBy = "productId")
     private List<ImageTable> imageTableList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
     private Category categoryId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productid")
+    private List<OrderItem> orderItemList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productid")
+    private List<CartItem> cartItemList;
 
     public Products() {
     }
@@ -114,6 +124,14 @@ public class Products implements Serializable {
         this.description = description;
     }
 
+    public Serializable getImage() {
+        return image;
+    }
+
+    public void setImage(Serializable image) {
+        this.image = image;
+    }
+
     @XmlTransient
     public List<ImageTable> getImageTableList() {
         return imageTableList;
@@ -129,6 +147,24 @@ public class Products implements Serializable {
 
     public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @XmlTransient
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
+    }
+
+    @XmlTransient
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
+    }
+
+    public void setCartItemList(List<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
     }
 
     @Override
@@ -155,5 +191,5 @@ public class Products implements Serializable {
     public String toString() {
         return "entity.Products[ productId=" + productId + " ]";
     }
-    
+
 }

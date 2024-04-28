@@ -7,6 +7,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "ORDER_STATUS")
@@ -44,7 +45,7 @@ public class OrderStatus implements Serializable {
     private String statusType;
     @Column(name = "DESCRIPTION")
     private String description;
-    @OneToMany(mappedBy = "status")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status")
     private List<Orders> ordersList;
 
     public OrderStatus() {

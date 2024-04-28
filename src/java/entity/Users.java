@@ -25,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "USERS")
@@ -43,9 +43,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findAccount", query = "SELECT u FROM Users u WHERE u.username = :username AND u.password = :password"),
-    @NamedQuery(name = "Users.findByUserType", query = "SELECT u FROM Users u WHERE u.typeId = :typeId"),
-
-})
+    @NamedQuery(name = "Users.findByUserType", query = "SELECT u FROM Users u WHERE u.typeId = :typeId")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,22 +75,18 @@ public class Users implements Serializable {
     private String password;
     @Lob
     @Column(name = "PROFILE_PIC")
-    private byte[] profilePic;
+    private Serializable profilePic;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private List<Delivery> deliveryList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<Feedbacklog> feedbacklogList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<Payment> paymentList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<Orders> ordersList;
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "TYPE_ID")
     @ManyToOne(optional = false)
     private UserType typeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<Transactions> transactionsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(mappedBy = "userId")
     private List<Cart> cartList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<Delivery> deliveryList;
 
     public Users() {
     }
@@ -108,17 +102,18 @@ public class Users implements Serializable {
         this.contactNumber = contactNumber;
         this.username = username;
         this.password = password;
-        
     }
 
-    public Users(String fullname, String email, String contactNumber, String username, String password,UserType typeId,int Age) {
+    public Users(String fullname, Integer age, String gender, String address, String email, String contactNumber, String username, String password, UserType typeId) {
         this.fullname = fullname;
+        this.age = age;
+        this.gender = gender;
+        this.address = address;
         this.email = email;
         this.contactNumber = contactNumber;
         this.username = username;
         this.password = password;
         this.typeId = typeId;
-        this.age = Age;
     }
     
     public Integer getUserId() {
@@ -193,12 +188,21 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public byte[] getProfilePic() {
+    public Serializable getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(byte[] profilePic) {
+    public void setProfilePic(Serializable profilePic) {
         this.profilePic = profilePic;
+    }
+
+    @XmlTransient
+    public List<Delivery> getDeliveryList() {
+        return deliveryList;
+    }
+
+    public void setDeliveryList(List<Delivery> deliveryList) {
+        this.deliveryList = deliveryList;
     }
 
     @XmlTransient
@@ -208,15 +212,6 @@ public class Users implements Serializable {
 
     public void setFeedbacklogList(List<Feedbacklog> feedbacklogList) {
         this.feedbacklogList = feedbacklogList;
-    }
-
-    @XmlTransient
-    public List<Payment> getPaymentList() {
-        return paymentList;
-    }
-
-    public void setPaymentList(List<Payment> paymentList) {
-        this.paymentList = paymentList;
     }
 
     @XmlTransient
@@ -237,30 +232,12 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public List<Transactions> getTransactionsList() {
-        return transactionsList;
-    }
-
-    public void setTransactionsList(List<Transactions> transactionsList) {
-        this.transactionsList = transactionsList;
-    }
-
-    @XmlTransient
     public List<Cart> getCartList() {
         return cartList;
     }
 
     public void setCartList(List<Cart> cartList) {
         this.cartList = cartList;
-    }
-
-    @XmlTransient
-    public List<Delivery> getDeliveryList() {
-        return deliveryList;
-    }
-
-    public void setDeliveryList(List<Delivery> deliveryList) {
-        this.deliveryList = deliveryList;
     }
 
     @Override

@@ -57,10 +57,10 @@
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
 
-            <div>
+            <form method="get" action="<%= request.getContextPath()%>/Search?search=product">
                 <i class="uil uil-search"></i>
-                <input type="text" placeholder="Search here...">
-            </div>
+                <input type="text" name="value" placeholder="Search here..." onchange="this.form.submit()">
+            </form>
             
             <!--<img src="images/profile.jpg" alt="">-->
         </div>
@@ -72,7 +72,10 @@
             <form action="<%= request.getContextPath()%>/Filter?action=Product" method="post" margin="0">
                 <label>Category: </label>
                 <select name="Product" id="Product" onchange="this.form.submit()">
-                <option disabled selected>
+                <option selected disabled>
+                    Filter
+                </option>
+                <option value="0">
                     All
                 </option>
                 <option value="1">
@@ -90,7 +93,6 @@
             </select>
             </form>
             <button id="addProdModalBtn">Create Product</button>
-            <button id="editProdModalBtn" >Edit Product</button>
 
 
         </div>

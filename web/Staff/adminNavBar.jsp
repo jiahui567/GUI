@@ -33,7 +33,7 @@
                     <i class="uil uil-files-landscapes"></i>
                     <span class="link-name" >Staff</span>
                 </a></li>
-                <li><a href="report.jsp">
+                <li><a href="<%= request.getContextPath()%>/reportGenerate">
                     <i class="uil uil-chart"></i>
                     <span class="link-name">Report</span>
                 </a></li>

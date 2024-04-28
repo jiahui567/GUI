@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Ong
  */
-public class search_staff extends HttpServlet {
+public class Search extends HttpServlet {
 
     @PersistenceContext
     EntityManager em;
@@ -69,8 +69,9 @@ public class search_staff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
-        String fullname = request.getParameter("fullname");
+        String fullname = request.getParameter("value");
         Query query = em.createNativeQuery("SELECT * FROM Users WHERE fullname LIKE '%"+fullname+"%'",Users.class);
         List<Users> userlist = query.getResultList();
         session.setAttribute("adminList", userlist);

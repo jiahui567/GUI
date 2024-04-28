@@ -52,7 +52,6 @@ public class EmployeeCRUD extends HttpServlet {
             throws ServletException, IOException {
         
         String action = request.getParameter("action");
-        RequestDispatcher dispatcher = null;
         if (action.equals("add")) {
             addEmployee(request);
             getEmployee(request);
@@ -165,6 +164,7 @@ public class EmployeeCRUD extends HttpServlet {
             int age = Integer.parseInt(request.getParameter("age"));
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
+            String gender = request.getParameter("gender");
             int category = Integer.parseInt(request.getParameter("category"));
             String password = "default";
             String encryption = "";
@@ -176,7 +176,7 @@ public class EmployeeCRUD extends HttpServlet {
                 Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
             }
             UserType userCategory = new UserType(category);
-            Users newUser = new Users(name, email, phone, username, encryption, userCategory, age);
+            Users newUser = new Users(name, age, gender, null , email, phone, username, encryption, userCategory);
             save(newUser);
             utx.commit();
         } catch (Exception ex) {

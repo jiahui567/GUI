@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "IMAGE_TABLE")
@@ -39,7 +39,7 @@ public class ImageTable implements Serializable {
     private Integer imageId;
     @Lob
     @Column(name = "IMAGE")
-    private byte[] image;
+    private Serializable image;
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne
     private Products productId;
@@ -59,11 +59,11 @@ public class ImageTable implements Serializable {
         this.imageId = imageId;
     }
 
-    public byte[] getImage() {
+    public Serializable getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(Serializable image) {
         this.image = image;
     }
 

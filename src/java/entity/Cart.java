@@ -5,9 +5,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,22 +15,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "CART")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
-    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartId = :cartId"),
-    @NamedQuery(name = "Cart.findByCartCount", query = "SELECT c FROM Cart c WHERE c.cartCount = :cartCount")})
+    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartId = :cartId")})
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,16 +36,11 @@ public class Cart implements Serializable {
     @Basic(optional = false)
     @Column(name = "CART_ID")
     private Integer cartId;
-    @Basic(optional = false)
-    @Column(name = "CART_COUNT")
-    private int cartCount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartId")
-    private List<Orders> ordersList;
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-    @ManyToOne(optional = false)
-    private Products productId;
+    @JoinColumn(name = "CART_ITEMID", referencedColumnName = "CART_ITEMID")
+    @ManyToOne
+    private CartItem cartItemid;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Users userId;
 
     public Cart() {
@@ -58,11 +48,6 @@ public class Cart implements Serializable {
 
     public Cart(Integer cartId) {
         this.cartId = cartId;
-    }
-
-    public Cart(Integer cartId, int cartCount) {
-        this.cartId = cartId;
-        this.cartCount = cartCount;
     }
 
     public Integer getCartId() {
@@ -73,29 +58,12 @@ public class Cart implements Serializable {
         this.cartId = cartId;
     }
 
-    public int getCartCount() {
-        return cartCount;
+    public CartItem getCartItemid() {
+        return cartItemid;
     }
 
-    public void setCartCount(int cartCount) {
-        this.cartCount = cartCount;
-    }
-
-    @XmlTransient
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
-    }
-
-    public Products getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Products productId) {
-        this.productId = productId;
+    public void setCartItemid(CartItem cartItemid) {
+        this.cartItemid = cartItemid;
     }
 
     public Users getUserId() {
