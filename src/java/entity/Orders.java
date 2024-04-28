@@ -5,6 +5,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,21 +16,22 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "ORDERS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
-    @NamedQuery(name = "Orders.countAll", query = "SELECT count(o) FROM Orders o"),
     @NamedQuery(name = "Orders.findByOrderId", query = "SELECT o FROM Orders o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "Orders.findByItemCount", query = "SELECT o FROM Orders o WHERE o.itemCount = :itemCount")})
+    @NamedQuery(name = "Orders.countAll", query = "SELECT count(o) FROM Orders o"),})
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,29 +40,22 @@ public class Orders implements Serializable {
     @Basic(optional = false)
     @Column(name = "ORDER_ID")
     private Integer orderId;
-    @Basic(optional = false)
-    @Column(name = "ITEM_COUNT")
-    private int itemCount;
-    @JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")
-    @ManyToOne(optional = false)
-    private Cart cartId;
+    @OneToMany(mappedBy = "orderId")
+    private List<Payment> paymentList;
     @JoinColumn(name = "STATUS", referencedColumnName = "STATUS_ID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private OrderStatus status;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne(optional = false)
     private Users userId;
+    @OneToMany(mappedBy = "orderId")
+    private List<OrderItem> orderItemList;
 
     public Orders() {
     }
 
     public Orders(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public Orders(Integer orderId, int itemCount) {
-        this.orderId = orderId;
-        this.itemCount = itemCount;
     }
 
     public Integer getOrderId() {
@@ -71,20 +66,13 @@ public class Orders implements Serializable {
         this.orderId = orderId;
     }
 
-    public int getItemCount() {
-        return itemCount;
+    @XmlTransient
+    public List<Payment> getPaymentList() {
+        return paymentList;
     }
 
-    public void setItemCount(int itemCount) {
-        this.itemCount = itemCount;
-    }
-
-    public Cart getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(Cart cartId) {
-        this.cartId = cartId;
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
     }
 
     public OrderStatus getStatus() {
@@ -102,7 +90,16 @@ public class Orders implements Serializable {
     public void setUserId(Users userId) {
         this.userId = userId;
     }
-    
+
+    @XmlTransient
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -127,5 +124,5 @@ public class Orders implements Serializable {
     public String toString() {
         return "entity.Orders[ orderId=" + orderId + " ]";
     }
-    
+
 }

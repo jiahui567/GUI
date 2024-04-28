@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author User
+ * @author User_01
  */
 @Entity
 @Table(name = "PAYMENT")
@@ -31,8 +31,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
     @NamedQuery(name = "Payment.findByPaymentId", query = "SELECT p FROM Payment p WHERE p.paymentId = :paymentId"),
-    @NamedQuery(name = "Payment.findByQuantity", query = "SELECT p FROM Payment p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount"),
     @NamedQuery(name = "Payment.findByPaymentDate", query = "SELECT p FROM Payment p WHERE p.paymentDate = :paymentDate")})
 public class Payment implements Serializable {
 
@@ -43,21 +41,15 @@ public class Payment implements Serializable {
     @Column(name = "PAYMENT_ID")
     private Integer paymentId;
     @Basic(optional = false)
-    @Column(name = "QUANTITY")
-    private int quantity;
-    @Basic(optional = false)
-    @Column(name = "AMOUNT")
-    private double amount;
-    @Basic(optional = false)
     @Column(name = "PAYMENT_DATE")
     @Temporal(TemporalType.DATE)
     private Date paymentDate;
-    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
-    @ManyToOne(optional = false)
-    private Products productId;
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @ManyToOne(optional = false)
-    private Users userId;
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
+    @ManyToOne
+    private Orders orderId;
+    @JoinColumn(name = "PAYMENTMETHOD", referencedColumnName = "PAYMENT_METHODID")
+    @ManyToOne
+    private PaymentMethod paymentmethod;
 
     public Payment() {
     }
@@ -66,10 +58,8 @@ public class Payment implements Serializable {
         this.paymentId = paymentId;
     }
 
-    public Payment(Integer paymentId, int quantity, double amount, Date paymentDate) {
+    public Payment(Integer paymentId, Date paymentDate) {
         this.paymentId = paymentId;
-        this.quantity = quantity;
-        this.amount = amount;
         this.paymentDate = paymentDate;
     }
 
@@ -81,22 +71,6 @@ public class Payment implements Serializable {
         this.paymentId = paymentId;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public Date getPaymentDate() {
         return paymentDate;
     }
@@ -105,20 +79,20 @@ public class Payment implements Serializable {
         this.paymentDate = paymentDate;
     }
 
-    public Products getProductId() {
-        return productId;
+    public Orders getOrderId() {
+        return orderId;
     }
 
-    public void setProductId(Products productId) {
-        this.productId = productId;
+    public void setOrderId(Orders orderId) {
+        this.orderId = orderId;
     }
 
-    public Users getUserId() {
-        return userId;
+    public PaymentMethod getPaymentmethod() {
+        return paymentmethod;
     }
 
-    public void setUserId(Users userId) {
-        this.userId = userId;
+    public void setPaymentmethod(PaymentMethod paymentmethod) {
+        this.paymentmethod = paymentmethod;
     }
 
     @Override

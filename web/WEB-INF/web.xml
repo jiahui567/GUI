@@ -69,8 +69,8 @@
         <servlet-class>controller.deleteProduct</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>search_staff</servlet-name>
-        <servlet-class>controller.search_staff</servlet-class>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>controller.Search</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>editProduct</servlet-name>
@@ -83,6 +83,10 @@
     <servlet>
         <servlet-name>Loaddashboard</servlet-name>
         <servlet-class>controller.Loaddashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>reportGenerate</servlet-name>
+        <servlet-class>controller.reportGenerate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
@@ -153,8 +157,8 @@
         <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>search_staff</servlet-name>
-        <url-pattern>/search_staff</url-pattern>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editProduct</servlet-name>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>Loaddashboard</servlet-name>
         <url-pattern>/Loaddashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reportGenerate</servlet-name>
+        <url-pattern>/reportGenerate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

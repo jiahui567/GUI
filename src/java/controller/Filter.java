@@ -84,13 +84,20 @@ public class Filter extends HttpServlet {
                 response.sendRedirect(request.getContextPath()+"/Staff/editstaff.jsp?Role="+user2.getTypeId());
             }
         }else if(action.equals("Product")){
-            String product = request.getParameter("Product");
-            Category category = new Category(Integer.parseInt(product));
-            Query query = em.createNamedQuery("Products.findByCategory").setParameter("categoryId", category);
-            List<Products> products = query.getResultList();
-            session.setAttribute("adminList",products);
-            response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp?Product="+product);
-        
+ 
+            int product = Integer.parseInt(request.getParameter("Product"));
+            if(product == 0){
+                Query query = em.createNamedQuery("Products.findAll");
+                List<Products> products = query.getResultList();
+                session.setAttribute("productList",products);
+                response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+            }else{
+                Category category = new Category(product);
+                Query query = em.createNamedQuery("Products.findByCategory").setParameter("categoryId", category);
+                List<Products> products = query.getResultList();
+                session.setAttribute("productList",products);
+                response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+            }
         }
     }
 

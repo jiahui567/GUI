@@ -80,30 +80,6 @@
                             }
                         %>
                     </div>
-                    <div class="data email">
-                        <span class="data-title">Item Count</span>
-                        <% for(Orders order:OrderRecord){%> 
-                        <span><%=order.getItemCount()%></span>  
-                        <% 
-                            }
-                        %>
-                    </div>
-                    <div class="data joined">
-                        <span class="data-title">Cart ID</span>
-                        <% for(Orders order:OrderRecord){%> 
-                        <span><%=order.getCartId().getCartCount()%></span>  
-                        <% 
-                            }
-                        %>
-                    </div>
-                    <div class="data type">
-                        <span class="data-title">Status</span>
-                        <% for(Orders order:OrderRecord){%> 
-                        <span><%=order.getStatus().getStatusType()%></span>  
-                        <% 
-                            }
-                        %>
-                    </div>
                     <div class="data status">
                         <span class="data-title">User</span>
                         <% for(Orders order:OrderRecord){%> 
