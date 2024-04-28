@@ -13,7 +13,9 @@
         <title>Edit Staff</title>
     </head>
     <body>
-
+        <div class="formbold-form-title">
+        <h2 class="">Staff</h2>
+      </div>
         <%String UserId = (String) request.getParameter("UserId");%>
         <%String FullName = (String) request.getParameter("FullName");%>
         <%String Age = (String)request.getParameter("Age");%>
@@ -21,37 +23,135 @@
         <%String Email = (String) request.getParameter("Email");%>
         <%@ include file="adminNavBar.jsp" %>
         <form action="<%= request.getContextPath()%>/EmployeeCRUD?action=edit" method="post"">
-            <div style=" padding-left: 300px; padding-top: 20px;" >
 
-                <label>Username:</label>
-                <input type="text" name="username" value="<%=UserId%>" size="40" placeholder="Enter your username"/><br />
-                <label>Full Name:</label>
-                <input type="text" name="fullname" value="<%=FullName%>" size="40" placeholder="Enter your Full Name"/><br />
-                <label>Age:</label>
-                <input type="number" name="age" value="<%=Age%>" placeholder="Enter your age"/><br />
-                <label>Phone Number:</label>
-                <input type="text" name="phonenumber" value="<%=PhoneNumber%>" size="40" placeholder="Enter your Phone Number"/><br />
-                <label>Email:</label>
-                <input type="text" name="email" value="<%=Email%>" size="40"placeholder="Enter your Email"/><br />
-                <input type="hidden" name="id" value="<%=UserId%>"/>
+            <div class="formbold-input-flex">
+                <div class="formbold-input-flex-left">
+                    <label class="formbold-form-label">Username:</label>
+                    <input class="formbold-form-input" type="text" name="username" value="<%=UserId%>" size="40" placeholder="Enter your username"/><br />
+                </div>    
+                <div class="formbold-input-flex-right">
+                    <label class="formbold-form-label">Full Name:</label>
+                    <input class="formbold-form-input" type="text" name="fullname" value="<%=FullName%>" size="40" placeholder="Enter your Full Name"/><br />
+                </div>
             </div>
-        </div>
+            <div class="formbold-input-flex">
+                <div class="formbold-input-flex-left">
+                    <label class="formbold-form-label">Age:</label> 
+                    <input class="formbold-form-input" type="number" name="age" value="<%=Age%>" placeholder="Enter your age"/><br />
+                </div>
+                <div class="formbold-input-flex-right">   
+                    <label class="formbold-form-label">Phone Number:</label>
+                    <input class="formbold-form-input" type="text" name="phonenumber" value="<%=PhoneNumber%>" size="40" placeholder="Enter your Phone Number"/><br />
+                </div>
+            </div>
 
-        <div style="display: flex;flex-direction: row;margin-top:20px;justify-content: space-evenly ">
-            <input type="submit" value="Edit"/>
-        </div>
+            <div class="formbold-input-flex">
+                <div class="formbold-input-flex-left">
+                    <label class="formbold-form-label">Gender</label>
+                    <select name="Gender" id="Gender" onchange="this.form.submit()">
+                        <option value="1">
+                            Male
+                        </option>
+                        <option value="2">
+                            Female
+                        </option>
+                    </select>
+                </div>
+                <div class="formbold-input-flex-right">
+                    <label class="formbold-form-label">Email:</label>
+                    <input class="formbold-form-input" type="text" name="email" value="<%=Email%>" size="40"placeholder="Enter your Email"/><br />
+                    <input type="hidden" name="id" value="<%=UserId%>"/>
+                </div>
+            </div>
 
-    </form>
-</body>
+
+            <div style="display: flex;flex-direction: row;margin-top:20px;justify-content: space-evenly ">
+
+            </div>
+          
+            
+               
+       
+             <div style="margin-top:20px;justify-content: space-evenly; width: 500px">
+                <input class="formbold-btn" type="submit" value="Submit"/>
+                <button class="formbold-btn">Cancel</button>
+            </div>
+                 
+<!--            <img src="fish-on-bicycle.jpg" alt="Fish and Bicyle">  
+            <img style=" width:300px;height:316px;"src="fishandbicycle2.jpg" alt="Fish and Bicyle">  
+            <img style=" width:300px;height:316px;"src="2k703xb_1.jpg" alt="Fish and Bicyle"> 
+            <img style=" width:300px;height:316px;"src="fishbike.jpg" alt="Fish and Bicyle"> -->
+        </form>
+    </body>
 </html>
 <style>
-    input{
-        margin-top: 10;
-    }
+
     body{
         min-height: 100vh;
         background-color: var(--primary-color);
     }
+    form  {
+        /*        display: table;*/
+        /*        padding-left: 300px;*/
+        padding-top: 40px;
+        margin-left: 200px;
+    }
+    .formbold-input-flex-left{
+        margin-left:200px;
+    }
+    .formbold-input-flex-right{
+        margin-right:200px;
+    }
+    .formbold-input-flex {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+    }
+    .formbold-input-flex > div {
+        width: 50%;
+    }
+    .formbold-form-input {
+        text-align: center;
+        width: 100%;
+        padding: 13px 22px;
+        border-radius: 5px;
+        border: 1px solid #dde3ec;
+        background: #ffffff;
+        font-weight: 500;
+        font-size: 16px;
+        color: #536387;
+        outline: none;
+        resize: none;
+    }
+    .formbold-form-label {
+        color: #536387;
+        font-size: 14px;
+        line-height: 24px;
+        display: block;
+        margin-bottom: 10px;
+    }
+ .formbold-btn {
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 14px 25px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 25px;
+    margin-left: 500px;
+  }
+  .formbold-btn:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+  .formbold-form-title {
+    margin-bottom: 30px;
+  }
+  .formbold-form-title h2 {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 34px;
+    color: #07074d;
+  }
 </style>
 
 <script>
