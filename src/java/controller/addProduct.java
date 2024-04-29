@@ -79,15 +79,7 @@ public class addProduct extends HttpServlet {
         int stock = Integer.parseInt(request.getParameter("stockCount"));
         Part filePart = request.getPart("imageFile");
         InputStream fileContent = filePart.getInputStream();
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int bytesRead;
-        byte[] data = new byte[1024];
-
-        while ((bytesRead = fileContent.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, bytesRead);
-        }
-
-        byte[] imageBytes = buffer.toByteArray();
+        byte[] photoByte = fileContent.readAllBytes();
         
         try{
             //create product item first
@@ -109,7 +101,7 @@ public class addProduct extends HttpServlet {
             //create image for the product
             utx.begin();
             ImageTable image = new ImageTable();
-            image.setImage(imageBytes);
+            image.setImage(photoByte);
             image.setProductId(product);
             em.persist(image);
             utx.commit();

@@ -1,89 +1,75 @@
 <%-- 
-    Document   : profile
-    Created on : 19 Apr 2024, 10:09:42 AM
+    Document   : setting
+    Created on : 25 Apr 2024, 4:06:19 PM
     Author     : User
 --%>
-<jsp:useBean id="staff" scope="session" class="entity.Users"/> 
+<jsp:useBean id="staff" scope="session" class="entity.Users"/>  
+<%@page import="entity.Users" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*"%>
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Staff Profile</title>
-    
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Setting</title>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Nunito:wght@400;900&family=Roboto:wght@400;900&display=swap");
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      background: linear-gradient(to right, #3fb6a8, #7ed386);
-      overflow: hidden;
-      box-sizing: border-box;
-    }
+        .container {
+            display: flex;
+            flex-direction: row;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-    .container {
-      background: #fff;
-      width: 850px;
-      height: 500px;
-      margin: 0 auto;
-      position: relative;
-      margin-top: 10%;
-      box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
-    }
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
 
-    .leftbox {
-      float: left;
-      top: -5%;
-      left: 5%;
-      position: absolute;
-      width: 15%;
-      height: 110%;
-      background: #7ed386;
-      box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
-    }
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
 
-    nav a {
-      list-style: none;
-      margin-top: 50px;
-      padding: 20px;
-      margin-left: 30px;
-      color: #fff;
-      font-size: 1.5em;
-      display: block;
-      transition: all 0.3s ease-in-out;
-    }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    nav a:hover {
-      color: #3fb6a8;
-      transform: scale(1.2);
-      cursor: pointer;
-    }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
 
-    nav a:first-child {
-      margin-top: 7px;
-    }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+        }
 
-    .rightbox {
-      float: right;
-      width: 60%;
-      height: 100%;
-    }
-    
-    .tabcontent {
-        display: none;
-    }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
 
-    .tabcontent.active {
-        display: block;
-    }
+        .tabcontent {
+            display: none;
+        }
 
-    .tabcontent {
-      position: absolute;
-      width: 70%;
-}
+        .tabcontent.active {
+            display: block;
+        }
+
+        .profile-picture-container {
+            text-align: center;
+        }
 
         .profile-picture {
             background-color: black;
@@ -96,71 +82,71 @@
 
         .profile-picture-actions {
             margin-top: 10px;
-            width: 540px;
         }
 
         .change-photo-button,
         .delete-photo-button,
-        #profile-image-upload,
-        .view-button{
-            margin-top: 10px;
+        #profile-image-upload{
             padding: 10px 15px;
             font-size: 13px;
             text-align: center;
             cursor: pointer;
             outline: none;
             color: #fff;
-            background-color: #7ed386;
+            background-color: #04AA6D;
             border: none;
             border-radius: 10px;
+            box-shadow: 0 5px #999;
         }
 
         .change-photo-button:hover,
-        .delete-photo-button:hover,
-        .view-button:hover{
+        .delete-photo-button:hover {
             background-color: #3e8e41;
         }
 
         .change-photo-button:active,
-        .delete-photo-button:active,
-        .view-button:active{
+        .delete-photo-button:active {
             background-color: #3e8e41;
+            box-shadow: 0 2px #666;
             transform: translateY(2px);
         }
 
-        .profile label {
-            color: #777;
-            font-family: "Roboto", sans-serif;
-            width: 80%;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-            margin-left: 2px;
+        .profile-info label {
+            font-weight: bold;
         }
 
-        .profile input{
-            border: 0;
-            border-bottom: 1px solid #3fb6a8;
-            width: 60%;
-            font-family: "Montserrat", sans-serif;
-            font-size: 13px;
-            padding: 7px 0;
-            color: #070707;
-            outline: none;
+        .profile-info input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.5);
         }
-        
+
+        .btn-save {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-save:hover {
+            background-color: #0056b3;
+        }
 
         .order-history table {
-            width: 70%;
+            width: 100%;
             border-collapse: collapse;
             background-color: transparent;
         }
 
         .order-history th,
         .order-history td {
-            font-family: "Montserrat", sans-serif;
-            color: #black;
-            font-size: 12px;
             padding: 8px;
             border-bottom: 1px solid transparent;
             text-align: left;
@@ -169,74 +155,58 @@
         .order-history th {
             background-color: rgba(242, 242, 242, 0.5);
         }
-        
-    h1 {
-      font-family: "Montserrat", sans-serif;
-      color: #7ed386;
-      font-size: 1em;
-      margin-top: 40px;
-      margin-bottom: 35px;
-    }
-    
-    .btn-update{
-        font-family: "Montserrat", sans-serif;
-        text-transform: uppercase;
-        font-size: 13px;
-        border-radius: 10px;
-        border: none;
-        color: #fff;
-        background: #7ed386;
-        padding: 7px 15px;
-        box-shadow: 0px 2px 4px 0px;
-        cursor: pointer;
-        margin-top: 15px
-    }
+
+        .view-button {
+            transition: background-color 0.3s ease;
+        }
+
+        .view-button:hover {
+            background-color: skyblue;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="leftbox">
-            <nav>
-                <a href="#profile" onclick="openTab(event, 'profile')" class="fa-solid fa-user"></a>
-                <a href="#orders" onclick="openTab(event, 'orders')" class="fa-solid fa-tasks"></a>
-                <a href="#settings" onclick="openTab(event, 'settings')" class="fa-solid fa-gear"></a>
-                <a href="<%= request.getContextPath()%>/logout" onclick="logout()" class="fa-solid fa-right-from-bracket"></a>
-                <a href="<%= request.getContextPath()%>/Staff/dashboard.jsp" class="fa-solid fa-house"></a>
-            </nav>
+        <div class="sidebar">
+            <h2>My Account</h2>
+            <ul>
+                <li><a href="#profile" onclick="openTab(event, 'profile')">Profile</a></li>
+                <li><a href="#settings" onclick="openTab(event, 'settings')">Settings</a></li>
+                <li><a href="<%= request.getContextPath()%>/logout" onclick="logout()">Logout</a></li>
+                <li><a href="<%= request.getContextPath()%>/Staff/dashboard.jsp">Home</a></li>
+            </ul>
         </div>
-            
-        <div class="rightbox">
+        <div class="content">
             <div id="profile" class="tabcontent">
-                <h1>Profile Information</h1>
+                <h2>Profile Information</h2>
                 
-                <form action="<%= request.getContextPath()%>/updateStaffPassword?action=profile" method="post" enctype="multipart/form-data">
+                <form action="<%= request.getContextPath()%>/updateProfile" method="post" enctype="multipart/form-data">
                     <div class="profile-picture-container">
+                        <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
                         <div class="profile-picture-actions">
-                            <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(staff.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
-                            <input class="file" name="profilePic" type="file">
+                            <input name="profilePic" type="file">
                             <button class="delete-photo-button" onclick="deleteProfilePicture()">Delete Photo</button>
                         </div>
                     </div>
                 
-                    <div class="profile">
+                    <div class="profile-info">
                         <label for="name">Name:</label>
-                        <input type="text" name="fullname" id="name" value="<%= staff.getFullname()%>" required><br>
+                        <input type="text" name="fullname" id="name" value="<%= staff.getFullname()%>" required>
                         <label for="email">Email: </label>
-                        <input type="email" name="email" id="email" value="<%= staff.getEmail()%>" required><br>
+                        <input type="email" name="email" id="email" value="<%= staff.getEmail()%>" required>
                         <label for="address">Address:</label>
-                        <input type="text" name="address" id="address" value="<%= staff.getAddress()%>"><br>
+                        <input type="text" name="address" id="address" value="<%= staff.getAddress()%>">
                         <label for="phoneNumber">Phone Number:</label>
-                        <input type="text" name="contact" id="phoneNumber" value="<%= staff.getContactNumber()%>" required><br>
-                        <button class="btn-update" type="submit">Update</button>
+                        <input type="text" name="contact" id="phoneNumber" value="<%= staff.getContactNumber()%>" required>
                     </div>
-                    
+                    <input class="btn btn-save" type="submit" value="Save"></input>
                 </form>
             </div>
 
 
             <div id="orders" class="tabcontent">
-                <h1>Order History</h1>
+                <h2>Order History</h2>
                 <div class="order-history">
                     <table>
                         <thead>
@@ -265,7 +235,7 @@
                 <h2>Settings</h2>
                 <h3>Change password</h3>
                
-                <form action="<%= request.getContextPath()%>/updateStaffPassword?action=password" method="post" onsubmit="return validation()" >
+                <form action="<%= request.getContextPath()%>/updateStaffPassword" method="post" onsubmit="return validation()" >
                     <div class="profile-info">
                         <label for="password">Current Password:</label>
                         <input type="password" name="password" id="password" required>
@@ -276,15 +246,26 @@
                     </div>
                     <input class="btn btn-save" type="submit" value="Save"></input>
                 </form>
-            </div>
 
-            <div id="logout" class="tabcontent">
             </div>
+            
         </div>
     </div>
 
     <script>
-        
+        function validation(){
+            
+            let password = document.getElementById("newpassword").value;
+            let password2 = document.getElementById("confirmpassword").value;
+            if(password.length<8){
+                alert("Password must be longer than 8 character");
+                return false;
+            }
+            if(password != password2){
+                alert("Confirm password not match please check");
+                return false;
+            }
+        }
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");

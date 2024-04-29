@@ -5,6 +5,7 @@
 --%>
 <jsp:useBean id="customer" scope="session" class="entity.Users"/> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -184,7 +185,7 @@
                 
                 <form action="<%= request.getContextPath()%>/updateProfile" method="post" enctype="multipart/form-data">
                     <div class="profile-picture-container">
-                        <img src="" alt="Profile Picture" class="profile-picture" id="profile-picture">
+                        <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
                         <div class="profile-picture-actions">
                             <input name="profilePic" type="file">
                             <button class="delete-photo-button" onclick="deleteProfilePicture()">Delete Photo</button>
