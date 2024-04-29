@@ -1,3 +1,5 @@
+<%@page import="entity.*" %>
+<%@page import="java.util.*"%>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -15,7 +17,7 @@
 		<link href="css/style.css" rel="stylesheet">
 		<title>HAN-KEA</title>
 	</head>
-
+        <% List<Products> productList = (List) session.getAttribute("productList");%>
 	<body>
 
 		<!-- Start Header/Navigation -->
@@ -46,116 +48,19 @@
 		      	<div class="row">
 
 		      		<!-- Start Column 1 -->
+                                <%for(Products prod:productList){%>
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
 						<a class="product-item" href="#">
 							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
+							<h3 class="product-title"><%=prod.getProductName()%></h3>
+							<strong class="product-price"><%=prod.getPrice()%></strong>
 							<span class="icon-cross">
 								<img src="images/cross.svg" class="img-fluid">
 							</span>
 						</a>
 					</div> 
-					<!-- End Column 1 -->
-						
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-1.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-2.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Kruzo Aero Chair</h3>
-							<strong class="product-price">$78.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 3 -->
-
-					<!-- Start Column 4 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="productDetail.jsp">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 4 -->
-
-
-					<!-- Start Column 1 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 1 -->
-						
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-1.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-2.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Kruzo Aero Chair</h3>
-							<strong class="product-price">$78.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 3 -->
-
-					<!-- Start Column 4 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
+                                        <%}%>
+					
 					<!-- End Column 4 -->
 
 		      	</div>

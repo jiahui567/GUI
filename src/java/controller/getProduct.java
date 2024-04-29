@@ -36,13 +36,17 @@ public class getProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String userType = (String) session.getAttribute("userType");
         try{
             Query query = em.createNamedQuery("Products.findAll");
             List<Products> prod = query.getResultList();
-            HttpSession session = request.getSession();
             session.setAttribute("productList",prod);
             
-            response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+            if(userType.equals("staff"))
+                response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+            else if(userType.equals("customer"))
+                response.sendRedirect(request.getContextPath()+"/Customer/product.jsp");
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }

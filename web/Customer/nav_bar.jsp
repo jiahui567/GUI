@@ -30,7 +30,7 @@
                             <li class="nav-item ">
                                     <a class="nav-link" href="home.jsp">Home</a>
                             </li>
-                            <li id="shop"><a class="nav-link" href="product.jsp">Shop</a></li>
+                            <li id="shop"><a class="nav-link" href="<%= request.getContextPath()%>/getProduct">Shop</a></li>
                             <li id="aboutus"><a class="nav-link" href="aboutUs.jsp">About us</a></li>
                             <li id="service"><a class="nav-link" href="service.jsp">Services</a></li>
                             <li id="contact"><a class="nav-link" href="contactUs.jsp">Contact us</a></li>

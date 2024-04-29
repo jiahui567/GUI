@@ -85,6 +85,7 @@ public class login extends HttpServlet {
                     List<Users> user = query.getResultList();
                     Users customer = user.get(0);
                     session.setAttribute("customer",customer);
+                    session.setAttribute("userType","customer");
                     response.sendRedirect(request.getContextPath()+"/Customer/home.jsp ");
                 }else if(usertype==1||usertype==2){
                     Query staff = em.createNamedQuery("Users.findAccount");
@@ -95,6 +96,7 @@ public class login extends HttpServlet {
                     session.setAttribute("staff",customer);
                     dispatcher = request.getRequestDispatcher("Loaddashboard");
                     dispatcher.include(request,response);
+                    session.setAttribute("userType","staff");
                     response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
 
                 }

@@ -55,7 +55,7 @@
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
             
-            <form method="get" action="<%= request.getContextPath()%>/Search?search=staff">
+            <form method="post" action="<%= request.getContextPath()%>/Search?search=staff">
                 <i class="uil uil-search"></i>
                 <input type="text" name="value" placeholder="Search here..." onchange="this.form.submit()">
             </form>

@@ -58,10 +58,10 @@ public class OrderItem implements Serializable {
         this.orderItemid = orderItemid;
     }
 
-    public OrderItem(Integer orderItemid, int quantity, double price) {
+    public OrderItem(Integer orderItemid,Products productid, int quantity) {
         this.orderItemid = orderItemid;
         this.quantity = quantity;
-        this.price = price;
+        this.price = quantity * (productid.getPrice());
     }
 
     public Integer getOrderItemid() {
