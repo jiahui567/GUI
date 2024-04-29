@@ -4,12 +4,12 @@
  */
 package controller;
 
+import entity.Products;
 import entity.Users;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -70,12 +70,6 @@ public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
-        String fullname = request.getParameter("value");
-        Query query = em.createNativeQuery("SELECT * FROM Users WHERE fullname LIKE '%"+fullname+"%'",Users.class);
-        List<Users> userlist = query.getResultList();
-        session.setAttribute("adminList", userlist);
-        response.sendRedirect("Staff/editstaff.jsp");
     }
 
     /**
@@ -89,9 +83,24 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        
+        HttpSession session = request.getSession();
+        String action = request.getParameter("search");
+
+        if (action.equals("staff")) {
+            String fullname = request.getParameter("value");
+            Query query = em.createNativeQuery("SELECT * FROM Users WHERE fullname LIKE '%" + fullname + "%'", Users.class);
+            List<Users> userlist = query.getResultList();
+            session.setAttribute("adminList", userlist);
+            response.sendRedirect("Staff/editstaff.jsp");
+        } else if (action.equals("product")) {
+
+            String fullname = request.getParameter("value");
+            Query query = em.createNativeQuery("SELECT * FROM Products WHERE PRODUCT_NAME LIKE '%" + fullname + "%'", Products.class);
+            List<Products> product = query.getResultList();
+            session.setAttribute("productList", product);
+            response.sendRedirect("Staff/productAdmin.jsp");
+        }
+
     }
 
     /**

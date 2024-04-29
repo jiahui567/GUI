@@ -12,18 +12,7 @@
       <!----===== Iconscout CSS ===== -->
       <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      <style>
-          .selected-status{
-              color:black;
-              box-shadow:0px 0px 5px 5px greenyellow ;
-              border:1px solid grey;
-          }
-          button {
-              margin-left:30px;
-              margin-right: 30px; 
-          }
-      </style>
-      <% List<Orders> orderList = (List) session.getAttribute("orderList");%>
+      <% List<OrderItem> itemList = (List) session.getAttribute("orderItemList");%>
 <body>
     <%@ include file="adminNavBar.jsp"%>
 
@@ -38,37 +27,23 @@
             
             <!--<img src="images/profile.jpg" alt="">-->
         </div>
-  
+        <div class="product_title">
+            <h1>Order Detail: <%=request.getParameter("orderId")%></h1>
+        </div>
         <table border-color="#CCC" class="staff-content" style="width:100%;margin-top:9%">
             <tr>
-                <th>Order ID</th>
-                <th>USER ID</th>
-                <th>Order Status</th>
-                <th>Details</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
                 
             </tr>
-            <% for(Orders order:orderList){%>
+            <% for(OrderItem item:itemList){%>
             <tr>
-                <td><%=order.getOrderId()%></td>
-                <td><%=order.getUserId().getUserId()%></td>
-                <td>
-                <% if(order.getStatus().getStatusId() == 1){%>
-                <button class="selected-status">Pending</button>
-                <%} else {%>
-                <button>Pending</button>
-                <%}%>
-                <% if(order.getStatus().getStatusId() == 2){%>
-                <button class="selected-status">Shipping</button>
-                <%} else {%>
-                <button>Shipping</button>
-                <%}%>
-                <% if(order.getStatus().getStatusId() == 3){%>
-                <button class="selected-status">Delivery</button>
-                <%} else {%>
-                <button>Delivery</button>
-                <%}%>
-                </td>
-                <td><button><a href="<%= request.getContextPath()%>/OrderDetail?Id=<%=order.getOrderId()%>">Show Details</a></button></td>
+                <td><%=item.getProductid().getProductId()%></td>
+                <td><%=item.getProductid().getProductName()%></td>
+                <td><%=item.getQuantity()%></td>
+                <td><%=item.getPrice()%></td>
             </tr>
             <%}%>
         </table>

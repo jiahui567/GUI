@@ -41,7 +41,7 @@
                     <i class="uil uil-thumbs-up"></i>
                     <span class="link-name">Product </span>
                 </a></li>
-                <li><a href="orderstatus.jsp">
+                <li><a href="<%= request.getContextPath()%>/Order">
                     <i class="uil uil-share"></i>
                     <span class="link-name">Order Status</span>
                 </a></li>
