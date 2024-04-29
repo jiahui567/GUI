@@ -213,7 +213,7 @@
                 <form action="<%= request.getContextPath()%>/updateStaffPassword?action=profile" method="post" enctype="multipart/form-data">
                     <div class="profile-picture-container">
                         <div class="profile-picture-actions">
-                            <% if(staff.getProfilePic != null){%>
+                            <% if(staff.getProfilePic() != null){%>
                             <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(staff.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
                             <%}%>
                             <input class="file" name="profilePic" type="file">
