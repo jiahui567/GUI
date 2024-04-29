@@ -41,15 +41,17 @@ public class Loaddashboard extends HttpServlet {
                     List<Orders> order = query.getResultList();
                     Query query2 = em.createNamedQuery("Feedbacklog.countAll");
                     int feedbackCount = Integer.parseInt(query2.getSingleResult().toString());
+                    System.out.println(feedbackCount);
                     session.setAttribute("feedbackcount",feedbackCount);
                     Query query3 = em.createNamedQuery("Orders.countAll");
                     int orderCount = Integer.parseInt(query3.getSingleResult().toString());
                     Query query4 = em.createNamedQuery("Users.countAll");
                     int userCount = Integer.parseInt(query4.getSingleResult().toString());
                     session.setAttribute("userCount",userCount);
-                    session.setAttribute("feedbackCount",orderCount);
+                    session.setAttribute("feedbackCount",feedbackCount);
                     session.setAttribute("orderCount",orderCount);
                     session.setAttribute("OrderRecord",order);
+                    response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

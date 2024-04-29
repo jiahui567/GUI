@@ -94,11 +94,9 @@ public class login extends HttpServlet {
                     List<Users> user = staff.getResultList();
                     Users customer = user.get(0);
                     session.setAttribute("staff",customer);
-                    dispatcher = request.getRequestDispatcher("Loaddashboard");
-                    dispatcher.include(request,response);
                     session.setAttribute("userType","staff");
-                    response.sendRedirect(request.getContextPath()+"/Staff/dashboard.jsp");
-
+                    response.sendRedirect(request.getContextPath()+"/Loaddashboard");
+                    
                 }
                 System.out.println("LoginSuccess");
             }else{
