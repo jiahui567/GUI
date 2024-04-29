@@ -4,20 +4,18 @@
  */
 package controller;
 
+import entity.Category;
 import entity.Products;
-import entity.Users;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
-import java.util.Set;
 
 /**
  *
@@ -45,6 +43,7 @@ public class editProduct extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         int STOCK_COUNT = Integer.parseInt(request.getParameter("STOCK_COUNT"));
         String description = request.getParameter("description");
+        int category = Integer.parseInt(request.getParameter("category"));
 //          String IMAGE = request.getParameter(Image);
         Products productDetails = em.find(Products.class,productId);
         HttpSession session = request.getSession();
@@ -54,6 +53,8 @@ public class editProduct extends HttpServlet {
                     productDetails.setStockCount(STOCK_COUNT);
                     productDetails.setPrice(price);
                     productDetails.setDescription(description);
+                    Category type = new Category(category);
+                    productDetails.setCategoryId(type);
                 
                     utx.begin();
                     em.merge(productDetails);

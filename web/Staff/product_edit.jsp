@@ -18,6 +18,7 @@
         <%double price = Double.parseDouble(request.getParameter("price"));%>
         <%int STOCK_COUNT = Integer.parseInt(request.getParameter("STOCK_COUNT"));%>
         <%String description = (String) request.getParameter("description");%>
+        <%int category = Integer.parseInt(request.getParameter("category"));%>
         <%@ include file="adminNavBar.jsp" %>
         <form action="<%= request.getContextPath()%>/editProduct?" method="post"">
             <div style=" padding-left: 300px; padding-top: 20px;" >
@@ -37,23 +38,53 @@
                         <input class="formbold-form-input" type="number" name="STOCK_COUNT" value="<%=STOCK_COUNT%>" placeholder="Enter the Stock"/><br />
                     </div>
                     <div class="formbold-input-flex-right">   
-                        <label>Description:</label>
-                        <input class="formbold-form-label"type="text" name="description" value="<%=description%>" size="40" placeholder="Enter the Description"/><br />
-                        <input class="formbold-form-input" type="hidden" name="productId" value="<%= productId%>"/>
+                        <label class="formbold-form-label">Description:</label>
+                        <input class="formbold-form-input" type="text" name="description" value="<%=description%>" size="40" placeholder="Enter the Description"/><br />
+                        <input type="hidden" name="productId" value="<%= productId%>"/>
+                    </div>
+                </div>
+                <div>
+                    <div class="formbold-input-flex-left">
+                        <label class="formbold-form-label">Category : </label>
+                        <select name="category" id="category" >
+                            <%if(category == 1 ){%>
+                            <option value="1" selected>
+                                Furniture
+                            </option>
+                            <%} else {%>
+                            <option value="1">Furniture</option>
+                            <%}%>
+                            <%if(category == 2 ){%>
+                            <option value="2" selected> Bed </option>
+                            <%} else {%>
+                            <option value="2">Bed</option>
+                            <%}%>
+                            <%if(category == 3 ){%>
+                            <option value="3" selected>
+                                Bathroom
+                            </option>
+                        
+                            <%}else {%>
+                            <option value="3">Bathroom</option>
+                            <%}%>
+                            <%if(category == 4 ){%>
+                            <option value="4" selected>
+                                Kitchen
+                            </option>
+                            <%}else {%>
+                            <option value="4">Kitchen</option>
+                            <%}%>
+                        </select>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div style="display: flex;flex-direction: row;margin-top:20px;justify-content: space-evenly ">
-            <input type="submit" value="Submit"/>
-        </div>
-        <img src="fish-on-bicycle.jpg" alt="Fish and Bicyle">  
-        <img style=" width:300px;height:316px;"src="fishandbicycle2.jpg" alt="Fish and Bicyle">  
-        <img style=" width:300px;height:316px;"src="2k703xb_1.jpg" alt="Fish and Bicyle"> 
-        <img style=" width:300px;height:316px;"src="fishbike.jpg" alt="Fish and Bicyle"> 
-    </form>
-</body>
+            <div style="display: flex;flex-direction: row;margin-top:20px;justify-content: space-evenly ">
+                <input type="submit" value="Submit"/>
+            </div>
+
+        </form>
+    </body>
 </html>
 <style>
     body{
@@ -61,7 +92,7 @@
         background-color: var(--primary-color);
     }
     form  {
-        /*        display: table;*/
+        /*     display: table;*/
         /*        padding-left: 300px;*/
         padding-top: 40px;
         margin-left: 200px;
@@ -79,6 +110,48 @@
     }
     .formbold-input-flex > div {
         width: 50%;
+    }
+    .formbold-form-input {
+        text-align: center;
+        width: 100%;
+        padding: 13px 22px;
+        border-radius: 5px;
+        border: 1px solid #dde3ec;
+        background: #ffffff;
+        font-weight: 500;
+        font-size: 16px;
+        color: #536387;
+        outline: none;
+        resize: none;
+    }
+    .formbold-form-label {
+        color: #536387;
+        font-size: 14px;
+        line-height: 24px;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .formbold-btn {
+        font-size: 16px;
+        border-radius: 5px;
+        padding: 14px 25px;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 25px;
+        margin-left: 500px;
+    }
+    .formbold-btn:hover {
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    }
+    .formbold-form-title {
+        margin-bottom: 30px;
+    }
+    .formbold-form-title h2 {
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 34px;
+        color: #07074d;
     }
 </style>
 

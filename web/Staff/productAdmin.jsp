@@ -113,7 +113,7 @@
                 <td><%= prod.getPrice()%></td>
                 <td><%= prod.getCategoryId().getCatName()%></td>
                 <td> <button/><a href="<%= request.getContextPath()%>/deleteProduct?productId=<%= prod.getProductId()%>">Delete</a></td>
-                <td> <button/><a class="uil uil-edit" href="product_edit.jsp?productId=<%= prod.getProductId()%>&productName=<%= prod.getProductName()%>&price=<%= prod.getPrice()%>&STOCK_COUNT=<%= prod.getStockCount()%>&description=<%= prod.getDescription()%>">Edit</a></td> 
+                <td> <button/><a class="uil uil-edit" href="product_edit.jsp?productId=<%= prod.getProductId()%>&productName=<%= prod.getProductName()%>&price=<%= prod.getPrice()%>&STOCK_COUNT=<%= prod.getStockCount()%>&description=<%= prod.getDescription()%>&category=<%= prod.getCategoryId().getCategoryId()%>">Edit</a></td> 
                 
             </tr>
             <%}%>
