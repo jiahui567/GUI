@@ -75,7 +75,7 @@ public class Users implements Serializable {
     private String password;
     @Lob
     @Column(name = "PROFILE_PIC")
-    private Serializable profilePic;
+    private byte[] profilePic;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<Delivery> deliveryList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -188,11 +188,11 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public Serializable getProfilePic() {
+    public byte[] getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Serializable profilePic) {
+    public void setProfilePic(byte[] profilePic) {
         this.profilePic = profilePic;
     }
 

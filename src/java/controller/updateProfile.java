@@ -82,6 +82,7 @@ public class updateProfile extends HttpServlet {
             String action = request.getParameter("action");
             Part filePart = request.getPart("profilePic");
             InputStream fileContent = filePart.getInputStream();
+            byte[] photoByte = fileContent.readAllBytes();
             HttpSession session = request.getSession();
             Users customer = (Users) session.getAttribute("customer");
             int userID = customer.getUserId();
@@ -96,6 +97,7 @@ public class updateProfile extends HttpServlet {
                     userDetail.setAddress(address);
                     userDetail.setEmail(email);
                     userDetail.setContactNumber(contact);
+                    userDetail.setProfilePic(photoByte);
                     utx.begin();
                     em.merge(userDetail);
                     utx.commit();

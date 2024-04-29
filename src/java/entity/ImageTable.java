@@ -39,7 +39,7 @@ public class ImageTable implements Serializable {
     private Integer imageId;
     @Lob
     @Column(name = "IMAGE")
-    private Serializable image;
+    private byte[] image;
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne
     private Products productId;
@@ -59,11 +59,11 @@ public class ImageTable implements Serializable {
         this.imageId = imageId;
     }
 
-    public Serializable getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Serializable image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

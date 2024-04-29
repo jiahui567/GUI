@@ -20,6 +20,8 @@ import entity.*;
 import jakarta.persistence.Query;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.InputStream;
 import java.lang.System.Logger.Level;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -46,19 +48,19 @@ public class updateStaffPassword extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet updateStaffPassword</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet updateStaffPassword at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String action = request.getParameter("action");
+        if(action.equals("password")){
+            doPostPassword(request,response);
+        }else if(action.equals("profile")){
+            doPostProfile(request,response);
+        }else{
+            System.out.println("do something idk error in profile page");
         }
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,8 +86,44 @@ public class updateStaffPassword extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPostProfile(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+            String fullname = request.getParameter("fullname");
+            String email = request.getParameter("email");
+            String address = request.getParameter("address");
+            String contact = request.getParameter("contact");
+            String action = request.getParameter("action");
+            Part filePart = request.getPart("profilePic");
+            InputStream fileContent = filePart.getInputStream();
+            byte[] photoByte = fileContent.readAllBytes();
+            HttpSession session = request.getSession();
+            Users staff = (Users) session.getAttribute("staff");
+            int userID = staff.getUserId();
+            
+            try{
+                Query query = em.createNamedQuery("Users.findByUserId");
+                query.setParameter("userId",userID);
+                List<Users> user = query.getResultList();
+                Users userDetail = user.get(0);
+                if(userDetail!=null){
+                    userDetail.setFullname(fullname);
+                    userDetail.setAddress(address);
+                    userDetail.setEmail(email);
+                    userDetail.setContactNumber(contact);
+                    userDetail.setProfilePic(photoByte);
+                    utx.begin();
+                    em.merge(userDetail);
+                    utx.commit();
+                    session.setAttribute("staff", userDetail);
+                    RequestDispatcher rd = request.getRequestDispatcher("Staff/setting.jsp");
+                    rd.forward(request, response);
+                }
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+    }
+
+    protected void doPostPassword(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             HttpSession session = request.getSession();
             Users staff = (Users) session.getAttribute("staff");

@@ -31,6 +31,10 @@
     <servlet>
         <servlet-name>updateProfile</servlet-name>
         <servlet-class>controller.updateProfile</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>getFeedbacklog</servlet-name>
@@ -51,6 +55,10 @@
     <servlet>
         <servlet-name>updateStaffPassword</servlet-name>
         <servlet-class>controller.updateStaffPassword</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>testingEmail</servlet-name>
@@ -200,4 +208,24 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbc-realm</realm-name>
+        <form-login-config>
+            <form-login-page>/index.jsp</form-login-page>
+            <form-error-page>/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>AdminRole</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>StaffRole</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>CustomerRole</role-name>
+    </security-role>
 </web-app>
