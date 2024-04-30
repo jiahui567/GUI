@@ -5,26 +5,28 @@
 package controller;
 
 import entity.Products;
+import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.UserTransaction;
+import java.io.IOException;
 import java.util.List;
 
 /**
  *
- * @author User
+ * @author Ong
  */
-public class getProduct extends HttpServlet {
-
-    @PersistenceContext
+public class find_Category extends HttpServlet {
+      @PersistenceContext
     EntityManager em;
+    @Resource
+    UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,28 +38,8 @@ public class getProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String userType = (String) session.getAttribute("userType");
-        try{
-            Query query = em.createNamedQuery("Category.findAll");
-            List<find_Category> category = query.getResultList();
-            session.setAttribute("categoryList",category);
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        try{
-            Query query = em.createNamedQuery("Products.findAll");
-            List<Products> prod = query.getResultList();
-            session.setAttribute("productList",prod);
-            
-            if(userType.equals("staff"))
-                response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
-            else if(userType.equals("customer"))
-                response.sendRedirect(request.getContextPath()+"/Customer/product.jsp");
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        
+        response.setContentType("text/html;charset=UTF-8");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,7 +68,31 @@ public class getProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String productName = request.getParameter("productName");
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        int STOCK_COUNT = Integer.parseInt(request.getParameter("STOCK_COUNT"));
+        String description = request.getParameter("description");
+        int category = Integer.parseInt(request.getParameter("category"));
+          Products productDetails = em.find(Products.class,productId);
+        HttpSession session = request.getSession();
+        try {
+            if(productDetails!=null){
+                    productDetails.setProductName(productName);
+                    productDetails.setStockCount(STOCK_COUNT);
+                    productDetails.setPrice(price);
+                    productDetails.setDescription(description);
+                    entity.Category type = new entity.Category(category);
+                    productDetails.setCategoryId(type);
+                
+                    utx.begin();
+                    em.merge(productDetails);
+                    utx.commit();
+                    response.sendRedirect("Staff/productAdmin.jsp");
+                }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**

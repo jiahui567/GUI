@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="entity.*" %>
+<%@page import="java.util.*"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +15,8 @@
 
         <title>Edit Staff</title>
     </head>
+    
+    <% List<Category> categoryList = (List) session.getAttribute("categoryList");%>
     <body>
         <%int productId =  Integer.parseInt(request.getParameter("productId"));%>
         <%String productName = (String) request.getParameter("productName");%>
@@ -47,33 +52,17 @@
                     <div class="formbold-input-flex-left">
                         <label class="formbold-form-label">Category : </label>
                         <select name="category" id="category" >
-                            <%if(category == 1 ){%>
-                            <option value="1" selected>
-                                Furniture
+                            
+                            <%for(Category cat: categoryList){%>
+                            <%if(category == cat.getCategoryId()){%>
+                            <option value="<%=cat.getCategoryId()%>" selected>
+                                <%=cat.getCatName()%>
                             </option>
                             <%} else {%>
-                            <option value="1">Furniture</option>
-                            <%}%>
-                            <%if(category == 2 ){%>
-                            <option value="2" selected> Bed </option>
-                            <%} else {%>
-                            <option value="2">Bed</option>
-                            <%}%>
-                            <%if(category == 3 ){%>
-                            <option value="3" selected>
-                                Bathroom
-                            </option>
-                        
-                            <%}else {%>
-                            <option value="3">Bathroom</option>
-                            <%}%>
-                            <%if(category == 4 ){%>
-                            <option value="4" selected>
-                                Kitchen
-                            </option>
-                            <%}else {%>
-                            <option value="4">Kitchen</option>
-                            <%}%>
+                            <option value="<%=cat.getCategoryId()%>"> <%=cat.getCatName()%></option>
+                            <%}}%>
+                          
+                            
                         </select>
                     </div>
                 </div>
