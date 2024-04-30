@@ -47,7 +47,7 @@
             .closeProdModal:hover{
                 cursor:pointer;
             }
-            #newCategory,#newCategoryLabel{
+            #newCategory,#newCategoryLabel,#newCategoryDesc,#newCategoryLabelDesc{
             display:none;
             }
         </style>
@@ -157,7 +157,7 @@
                             <input type="text" required name="productName"/>
 
                             <div>Category:</div>
-                            <select id="category" name="category" required >
+                            <select id="category" name="category" onchange="showCategory()" required >
                                 <option>Select A Category</option>
                                 <%for(Category cat: categoryList){%>
                                 <option value="<%=cat.getCategoryId()%>"> <%=cat.getCatName()%></option>
@@ -166,7 +166,8 @@
                             </select>
                             <div id="newCategoryLabel">New Category:</div>
                             <input id="newCategory" type="text" name="newCategory"/>
-                                
+                            <div id="newCategoryLabelDesc">Category Desc:</div>
+                            <input id="newCategoryDesc" type="text" name="newCategoryDesc"/>   
                             <div>Description:</div>
                             <input type="text" required name="productDescription"/>
 
@@ -244,6 +245,25 @@
         }
     }
     
-    
+    function showCategory(){
+        let categoryLabel = document.getElementById("newCategoryLabel");
+        let categoryText = document.getElementById("newCategory");
+        let categoryLabelDesc = document.getElementById("newCategoryLabelDesc");
+        let categoryTextDesc = document.getElementById("newCategoryDesc");
+        let value = document.getElementById("category").value;
+        
+        if(value == "99"){
+            categoryLabel.style.display = "block";
+            categoryText.style.display = "block";
+            categoryLabelDesc.style.display = "block";
+            categoryTextDesc.style.display = "block";
+        }else{
+            categoryLabel.style.display = "none";
+            categoryText.style.display = "none";
+            categoryLabelDesc.style.display = "none";
+            categoryTextDesc.style.display = "none";
+        }
+
+    }
     
 </script>
