@@ -38,11 +38,13 @@ public class getCartItem extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Users customer = (Users) session.getAttribute("customer");
-        int userID = customer.getUserId();
         Query query = em.createNamedQuery("Cart.findByUserId");
         query.setParameter("userId",customer);
-        List<Cart> cart = query.getResultList();
-        session.setAttribute("cart",cart);
+        Cart cart = (Cart)query.getSingleResult();
+        query = em.createNamedQuery("CartItem.findByCartId");
+        query.setParameter("cartId",cart);
+        List<CartItem> cartItem = query.getResultList();
+        session.setAttribute("cart",cartItem);
         response.sendRedirect("Customer/cart.jsp");
 
         

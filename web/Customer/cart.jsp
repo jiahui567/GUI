@@ -18,12 +18,13 @@
 		<link href="css/style.css" rel="stylesheet">
 		<title>HAN-KEA </title>
 	</head>
-<% List<Cart> cartList = (List) session.getAttribute("cart");
-%>
+
 	<body>
 
 		<!-- Start Header/Navigation -->
                 <%@include file="nav_bar.jsp"%>
+                <% List<CartItem> cartList = (List)session.getAttribute("cart");
+            %>
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
@@ -62,17 +63,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                          <% for(Cart cart:cartList){
-                            List<CartItem> cartItems = cart.getCartItemList();
-                            for (CartItem cartItem : cartItems){
+                          <% 
+                            for (CartItem cartItem : cartList){
                                 Products prod = cartItem.getProductid();
                                 List<ImageTable> image = prod.getImageTableList();
                                 ImageTable firstImage = image.get(0);
-                            
                           %>
                           <tr>
                               <td>
-                                    <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(firstImage.getImage())%>">
+                                    <img width="100%" height="100%" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(firstImage.getImage())%>">
                               </td>
                               <td class="product-name">
                                     <h2 class="h5 text-black"><%= prod.getProductName()%></h2>
@@ -94,7 +93,7 @@
                                    <a href="#" class="btn btn-black btn-sm">X</a></td>
                                </td>
                           </tr>
-                          <%}}%>
+                          <%}%>
 <!--                        <tr>
                           <td class="product-thumbnail">
                             <img src="images/product-1.png" alt="Image" class="img-fluid">

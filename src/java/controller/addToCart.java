@@ -9,6 +9,7 @@ import entity.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
 
 /**
@@ -68,17 +70,15 @@ public class addToCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int userID = Integer.parseInt(request.getParameter("user"));
         int productID = Integer.parseInt(request.getParameter("product"));
-        Users user = em.find(Users.class, userID);
         Products prod = em.find(Products.class, productID);
+        Users customer = (Users) session.getAttribute("customer");
+        Query query = em.createNamedQuery("Cart.findByUserId");
+        query.setParameter("userId",customer);
+        Cart cart = (Cart)query.getSingleResult();
         try{
-             utx.begin();
-            Cart cart = new Cart();
-            cart.setUserId(user);
-            em.persist(cart);
-            utx.commit();
             utx.begin();
             CartItem cartItem = new CartItem();
             cartItem.setQuantity(quantity);
