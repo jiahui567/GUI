@@ -25,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "PRODUCTS")
@@ -65,8 +65,6 @@ public class Products implements Serializable {
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
     private Category categoryId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productid")
-    private List<OrderItem> orderItemList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productid")
     private List<CartItem> cartItemList;
 
@@ -150,15 +148,6 @@ public class Products implements Serializable {
     }
 
     @XmlTransient
-    public List<OrderItem> getOrderItemList() {
-        return orderItemList;
-    }
-
-    public void setOrderItemList(List<OrderItem> orderItemList) {
-        this.orderItemList = orderItemList;
-    }
-
-    @XmlTransient
     public List<CartItem> getCartItemList() {
         return cartItemList;
     }
@@ -191,5 +180,5 @@ public class Products implements Serializable {
     public String toString() {
         return "entity.Products[ productId=" + productId + " ]";
     }
-
+    
 }

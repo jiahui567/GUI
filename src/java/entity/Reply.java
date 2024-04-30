@@ -6,7 +6,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,78 +16,62 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author User
  */
 @Entity
-@Table(name = "FEEDBACKLOG")
+@Table(name = "REPLY")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Feedbacklog.findAll", query = "SELECT f FROM Feedbacklog f"),
-    @NamedQuery(name = "Feedbacklog.findByLogId", query = "SELECT f FROM Feedbacklog f WHERE f.logId = :logId"),
-    @NamedQuery(name = "Feedbacklog.findByRating", query = "SELECT f FROM Feedbacklog f WHERE f.rating = :rating"),
-    @NamedQuery(name = "Feedbacklog.findByComment", query = "SELECT f FROM Feedbacklog f WHERE f.comment = :comment"),
-    @NamedQuery(name = "Feedbacklog.findByTime", query = "SELECT f FROM Feedbacklog f WHERE f.time = :time"),
-    @NamedQuery(name = "Feedbacklog.countAll", query = "SELECT count(f) FROM Feedbacklog f")
-})
-public class Feedbacklog implements Serializable {
+    @NamedQuery(name = "Reply.findAll", query = "SELECT r FROM Reply r"),
+    @NamedQuery(name = "Reply.findByReplyId", query = "SELECT r FROM Reply r WHERE r.replyId = :replyId"),
+    @NamedQuery(name = "Reply.findByComment", query = "SELECT r FROM Reply r WHERE r.comment = :comment"),
+    @NamedQuery(name = "Reply.findByTime", query = "SELECT r FROM Reply r WHERE r.time = :time")})
+public class Reply implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "LOG_ID")
-    private Integer logId;
-    @Basic(optional = false)
-    @Column(name = "RATING")
-    private String rating;
+    @Column(name = "REPLY_ID")
+    private Integer replyId;
     @Basic(optional = false)
     @Column(name = "COMMENT")
     private String comment;
     @Column(name = "TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @OneToMany(mappedBy = "logId")
-    private List<Reply> replyList;
+    @JoinColumn(name = "LOG_ID", referencedColumnName = "LOG_ID")
+    @ManyToOne
+    private Feedbacklog logId;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Users userId;
 
-    public Feedbacklog() {
+    public Reply() {
     }
 
-    public Feedbacklog(Integer logId) {
-        this.logId = logId;
+    public Reply(Integer replyId) {
+        this.replyId = replyId;
     }
 
-    public Feedbacklog(Integer logId, String rating, String comment) {
-        this.logId = logId;
-        this.rating = rating;
+    public Reply(Integer replyId, String comment) {
+        this.replyId = replyId;
         this.comment = comment;
     }
 
-    public Integer getLogId() {
-        return logId;
+    public Integer getReplyId() {
+        return replyId;
     }
 
-    public void setLogId(Integer logId) {
-        this.logId = logId;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setReplyId(Integer replyId) {
+        this.replyId = replyId;
     }
 
     public String getComment() {
@@ -107,13 +90,12 @@ public class Feedbacklog implements Serializable {
         this.time = time;
     }
 
-    @XmlTransient
-    public List<Reply> getReplyList() {
-        return replyList;
+    public Feedbacklog getLogId() {
+        return logId;
     }
 
-    public void setReplyList(List<Reply> replyList) {
-        this.replyList = replyList;
+    public void setLogId(Feedbacklog logId) {
+        this.logId = logId;
     }
 
     public Users getUserId() {
@@ -127,18 +109,18 @@ public class Feedbacklog implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (logId != null ? logId.hashCode() : 0);
+        hash += (replyId != null ? replyId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Feedbacklog)) {
+        if (!(object instanceof Reply)) {
             return false;
         }
-        Feedbacklog other = (Feedbacklog) object;
-        if ((this.logId == null && other.logId != null) || (this.logId != null && !this.logId.equals(other.logId))) {
+        Reply other = (Reply) object;
+        if ((this.replyId == null && other.replyId != null) || (this.replyId != null && !this.replyId.equals(other.replyId))) {
             return false;
         }
         return true;
@@ -146,7 +128,7 @@ public class Feedbacklog implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Feedbacklog[ logId=" + logId + " ]";
+        return "entity.Reply[ replyId=" + replyId + " ]";
     }
     
 }

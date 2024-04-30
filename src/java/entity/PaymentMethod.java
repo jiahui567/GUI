@@ -21,7 +21,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "PAYMENT_METHOD")

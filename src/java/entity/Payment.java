@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "PAYMENT")

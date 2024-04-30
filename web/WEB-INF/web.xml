@@ -104,6 +104,18 @@
         <servlet-name>OrderDetail</servlet-name>
         <servlet-class>controller.OrderDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadProductDetail</servlet-name>
+        <servlet-class>controller.loadProductDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getCartItem</servlet-name>
+        <servlet-class>controller.getCartItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addToCart</servlet-name>
+        <servlet-class>controller.addToCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -199,6 +211,18 @@
     <servlet-mapping>
         <servlet-name>OrderDetail</servlet-name>
         <url-pattern>/OrderDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadProductDetail</servlet-name>
+        <url-pattern>/loadProductDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getCartItem</servlet-name>
+        <url-pattern>/getCartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addToCart</servlet-name>
+        <url-pattern>/addToCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -53,7 +53,7 @@
                             <% if (name == null) {%>
                             <a class="nav-link" href="<%= request.getContextPath()%>/index.jsp"><img src="images/cart.png" style="width:22px"></a>
                             <%} else {%>
-                            <a class="nav-link" href="cart.jsp"><img src="images/cart.png" style="width:22px"></a>
+                            <a class="nav-link" href="<%= request.getContextPath()%>/getCartItem"><img src="images/cart.png" style="width:22px"></a>
                             <%}%>
                         </li>
                     </ul>

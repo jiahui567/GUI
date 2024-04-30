@@ -20,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "ORDER_ITEM")
@@ -47,9 +47,9 @@ public class OrderItem implements Serializable {
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne
     private Orders orderId;
-    @JoinColumn(name = "PRODUCTID", referencedColumnName = "PRODUCT_ID")
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne(optional = false)
-    private Products productid;
+    private Products productId;
 
     public OrderItem() {
     }
@@ -58,10 +58,10 @@ public class OrderItem implements Serializable {
         this.orderItemid = orderItemid;
     }
 
-    public OrderItem(Integer orderItemid,Products productid, int quantity) {
+    public OrderItem(Integer orderItemid, int quantity, double price) {
         this.orderItemid = orderItemid;
         this.quantity = quantity;
-        this.price = quantity * (productid.getPrice());
+        this.price = price;
     }
 
     public Integer getOrderItemid() {
@@ -96,12 +96,12 @@ public class OrderItem implements Serializable {
         this.orderId = orderId;
     }
 
-    public Products getProductid() {
-        return productid;
+    public Products getProductId() {
+        return productId;
     }
 
-    public void setProductid(Products productid) {
-        this.productid = productid;
+    public void setProductId(Products productId) {
+        this.productId = productId;
     }
 
     @Override

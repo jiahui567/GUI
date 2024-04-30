@@ -5,6 +5,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,19 +16,24 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "CART")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
-    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartId = :cartId")})
+    @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userId = :userId"),
+    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartId = :cartId")
+})
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,11 +42,10 @@ public class Cart implements Serializable {
     @Basic(optional = false)
     @Column(name = "CART_ID")
     private Integer cartId;
-    @JoinColumn(name = "CART_ITEMID", referencedColumnName = "CART_ITEMID")
-    @ManyToOne
-    private CartItem cartItemid;
+    @OneToMany(mappedBy = "cartId")
+    private List<CartItem> cartItemList;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @ManyToOne
+    @OneToOne
     private Users userId;
 
     public Cart() {
@@ -58,12 +63,13 @@ public class Cart implements Serializable {
         this.cartId = cartId;
     }
 
-    public CartItem getCartItemid() {
-        return cartItemid;
+    @XmlTransient
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
     }
 
-    public void setCartItemid(CartItem cartItemid) {
-        this.cartItemid = cartItemid;
+    public void setCartItemList(List<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
     }
 
     public Users getUserId() {
