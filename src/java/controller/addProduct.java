@@ -80,18 +80,26 @@ public class addProduct extends HttpServlet {
         Part filePart = request.getPart("imageFile");
         InputStream fileContent = filePart.getInputStream();
         byte[] photoByte = fileContent.readAllBytes();
-        
+        Category cat = new Category();
         try{
-            //create product item first
-            utx.begin();
+
             Products product = new Products();
-            Category cat = new Category(category);
+            if(category == 99){
+            utx.begin();
+            cat.setCatName(request.getParameter("newCategory"));
+            cat.setDescription(request.getParameter("newCategoryDesc"));
+            em.persist(cat);
+            utx.commit();
+            }else{
+            cat = new Category(category);
+            }
+            
             product.setProductName(productName);
             product.setCategoryId(cat);
             product.setDescription(description);
             product.setPrice(price);
             product.setStockCount(stock);
-            
+            utx.begin();
             em.persist(product);
             System.out.println("Success add product");
             response.sendRedirect("Staff/productAdmin.jsp");
