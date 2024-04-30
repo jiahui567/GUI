@@ -5,7 +5,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,14 +15,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "CART_ITEM")
@@ -43,11 +40,12 @@ public class CartItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "QUANTITY")
     private int quantity;
+    @JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")
+    @ManyToOne
+    private Cart cartId;
     @JoinColumn(name = "PRODUCTID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne(optional = false)
     private Products productid;
-    @OneToMany(mappedBy = "cartItemid")
-    private List<Cart> cartList;
 
     public CartItem() {
     }
@@ -77,21 +75,20 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
+    public Cart getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Cart cartId) {
+        this.cartId = cartId;
+    }
+
     public Products getProductid() {
         return productid;
     }
 
     public void setProductid(Products productid) {
         this.productid = productid;
-    }
-
-    @XmlTransient
-    public List<Cart> getCartList() {
-        return cartList;
-    }
-
-    public void setCartList(List<Cart> cartList) {
-        this.cartList = cartList;
     }
 
     @Override

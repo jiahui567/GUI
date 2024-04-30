@@ -22,7 +22,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "USER_TYPE")

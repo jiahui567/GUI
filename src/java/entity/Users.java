@@ -7,7 +7,6 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "USERS")
@@ -76,12 +75,6 @@ public class Users implements Serializable {
     @Lob
     @Column(name = "PROFILE_PIC")
     private byte[] profilePic;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<Delivery> deliveryList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<Feedbacklog> feedbacklogList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<Orders> ordersList;
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "TYPE_ID")
     @ManyToOne(optional = false)
     private UserType typeId;
@@ -115,7 +108,7 @@ public class Users implements Serializable {
         this.password = password;
         this.typeId = typeId;
     }
-    
+     
     public Integer getUserId() {
         return userId;
     }
@@ -194,33 +187,6 @@ public class Users implements Serializable {
 
     public void setProfilePic(byte[] profilePic) {
         this.profilePic = profilePic;
-    }
-
-    @XmlTransient
-    public List<Delivery> getDeliveryList() {
-        return deliveryList;
-    }
-
-    public void setDeliveryList(List<Delivery> deliveryList) {
-        this.deliveryList = deliveryList;
-    }
-
-    @XmlTransient
-    public List<Feedbacklog> getFeedbacklogList() {
-        return feedbacklogList;
-    }
-
-    public void setFeedbacklogList(List<Feedbacklog> feedbacklogList) {
-        this.feedbacklogList = feedbacklogList;
-    }
-
-    @XmlTransient
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
     }
 
     public UserType getTypeId() {

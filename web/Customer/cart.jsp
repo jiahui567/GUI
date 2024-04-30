@@ -1,3 +1,6 @@
+<%@page import="java.util.*" %>
+<%@page import="entity.*" %>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -15,7 +18,8 @@
 		<link href="css/style.css" rel="stylesheet">
 		<title>HAN-KEA </title>
 	</head>
-
+<% List<Cart> cartList = (List) session.getAttribute("cart");
+%>
 	<body>
 
 		<!-- Start Header/Navigation -->
@@ -58,7 +62,40 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                          <% for(Cart cart:cartList){
+                            List<CartItem> cartItems = cart.getCartItemList();
+                            for (CartItem cartItem : cartItems){
+                                Products prod = cartItem.getProductid();
+                                List<ImageTable> image = prod.getImageTableList();
+                                ImageTable firstImage = image.get(0);
+                            
+                          %>
+                          <tr>
+                              <td>
+                                    <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(firstImage.getImage())%>">
+                              </td>
+                              <td class="product-name">
+                                    <h2 class="h5 text-black"><%= prod.getProductName()%></h2>
+                              </td>
+                              <td>$<%= prod.getPrice()%></td>
+                              <td>
+                                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                                    </div>
+                                        <input type="text" class="form-control text-center quantity-amount" value="<%= cartItem.getQuantity()%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                                    </div>
+                                </div>
+                                <% double total = prod.getPrice() * cartItem.getQuantity();%>
+                              <td><%=total%></td>
+                               <td>
+                                   <a href="#" class="btn btn-black btn-sm">X</a></td>
+                               </td>
+                          </tr>
+                          <%}}%>
+<!--                        <tr>
                           <td class="product-thumbnail">
                             <img src="images/product-1.png" alt="Image" class="img-fluid">
                           </td>
@@ -104,7 +141,7 @@
                           </td>
                           <td>$49.00</td>
                           <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                        </tr>
+                        </tr>-->
                       </tbody>
                     </table>
                   </div>

@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author User_01
+ * @author User
  */
 @Entity
 @Table(name = "ORDERS")
@@ -124,5 +124,5 @@ public class Orders implements Serializable {
     public String toString() {
         return "entity.Orders[ orderId=" + orderId + " ]";
     }
-
+    
 }

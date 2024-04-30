@@ -185,7 +185,10 @@
                 
                 <form action="<%= request.getContextPath()%>/updateProfile" method="post" enctype="multipart/form-data">
                     <div class="profile-picture-container">
-                        <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
+                        <% if(customer.getProfilePic() != null){%>
+                          <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
+                        <%}%>
+                        <img>
                         <div class="profile-picture-actions">
                             <input name="profilePic" type="file">
                             <button class="delete-photo-button" onclick="deleteProfilePicture()">Delete Photo</button>
