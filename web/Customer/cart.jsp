@@ -155,7 +155,7 @@
                       <button class="btn btn-black btn-sm btn-block">Update Cart</button>
                     </div>-->
                     <div class="col-md-6">
-                        <button class="btn btn-outline-black btn-sm btn-block"><a style="color:white;text-decoration: none" href="product.jsp">Continue Shopping</a></button>
+                        <a style="color:white;text-decoration: none" href="product.jsp"><button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button></a>
                     </div>
                   </div>
                   <div class="row">
