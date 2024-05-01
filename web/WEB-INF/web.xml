@@ -120,6 +120,14 @@
         <servlet-name>find_Category</servlet-name>
         <servlet-class>controller.find_Category</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteCartItem</servlet-name>
+        <servlet-class>controller.deleteCartItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>quantityCart</servlet-name>
+        <servlet-class>controller.quantityCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -231,6 +239,14 @@
     <servlet-mapping>
         <servlet-name>find_Category</servlet-name>
         <url-pattern>/find_Category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteCartItem</servlet-name>
+        <url-pattern>/deleteCartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>quantityCart</servlet-name>
+        <url-pattern>/quantityCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

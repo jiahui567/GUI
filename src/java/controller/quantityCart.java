@@ -4,18 +4,19 @@
  */
 package controller;
 
-import entity.ImageTable;
-import entity.Products;
+import entity.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
 import java.util.List;
 
@@ -23,8 +24,7 @@ import java.util.List;
  *
  * @author User
  */
-public class deleteProduct extends HttpServlet {
-
+public class quantityCart extends HttpServlet {
     @PersistenceContext
     EntityManager em;
     @Resource 
@@ -40,20 +40,13 @@ public class deleteProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int productId = Integer.parseInt(request.getParameter("productId"));
-            Products prodDetail = em.find(Products.class,productId);
-            if(prodDetail != null){
-                try{
-                    utx.begin();
-                    Products entity = em.merge(prodDetail);
-                    em.remove(entity);
-                    utx.commit();
-                    response.sendRedirect("Staff/productAdmin.jsp");
-                    System.out.println("siccess");
-                }catch(Exception ex){
-                    System.out.println(ex.getMessage());
-                }
-            }
+        String action = request.getParameter("action");
+        if(action.equals("minus")||action.equals("inc")){
+            updateCart(request,response);
+        }else if(action.equals("update")){
+            update(request,response);
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,6 +58,44 @@ public class deleteProduct extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private void update(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        int cartitem = Integer.parseInt(request.getParameter("cartItem"));
+        int qty = Integer.parseInt(request.getParameter("qty"));
+        HttpSession session = request.getSession();
+        try{
+            utx.begin();
+            CartItem itemDetail = em.find(CartItem.class,cartitem);
+            itemDetail.setQuantity(qty);
+            utx.commit();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        response.sendRedirect("Customer/cart.jsp");
+        
+    }
+                
+    private void updateCart(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        int cartitem = Integer.parseInt(request.getParameter("cartItem"));
+        String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        try{
+            utx.begin();
+            CartItem itemDetail = em.find(CartItem.class,cartitem);
+            if(action.equals("minus")){
+                itemDetail.decreaseQuantity();
+            }else if(action.equals("inc")){
+                itemDetail.increaseQuantity();
+            }
+            utx.commit();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        response.sendRedirect("Customer/cart.jsp");
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Customer/cart.jsp");
+//        dispatcher.include(request, response);  
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
