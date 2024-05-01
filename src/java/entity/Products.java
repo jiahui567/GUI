@@ -59,8 +59,8 @@ public class Products implements Serializable {
     private String description;
     @Lob
     @Column(name = "IMAGE")
-    private Serializable image;
-    @OneToMany(mappedBy = "productId")
+    private byte[] image;
+    @OneToMany(mappedBy = "productId",orphanRemoval = true)
     private List<ImageTable> imageTableList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
@@ -122,11 +122,11 @@ public class Products implements Serializable {
         this.description = description;
     }
 
-    public Serializable getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Serializable image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

@@ -49,13 +49,10 @@
 
 		      		<!-- Start Column 1 -->
                                 <%for(Products prod:productList){%>
-                                <% 
-                                    List<ImageTable> image = prod.getImageTableList();
-                                    ImageTable firstImage = image.get(0);
-                                %>
+                                
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
                                             <a class="product-item" href="<%=request.getContextPath()%>/loadProductDetail?prodID=<%=prod.getProductId()%>">
-							<img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(firstImage.getImage())%>" class="img-fluid product-thumbnail">
+							<img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(prod.getImage())%>" class="img-fluid product-thumbnail">
 							<h3 class="product-title"><%=prod.getProductName()%></h3>
 							<strong class="product-price">RM <%=prod.getPrice()%></strong>
 							<span class="icon-cross">

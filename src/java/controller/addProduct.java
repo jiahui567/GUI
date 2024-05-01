@@ -99,6 +99,7 @@ public class addProduct extends HttpServlet {
             product.setDescription(description);
             product.setPrice(price);
             product.setStockCount(stock);
+            product.setImage(photoByte);
             utx.begin();
             em.persist(product);
             System.out.println("Success add product");
@@ -107,12 +108,12 @@ public class addProduct extends HttpServlet {
             utx.commit();
             
             //create image for the product
-            utx.begin();
-            ImageTable image = new ImageTable();
-            image.setImage(photoByte);
-            image.setProductId(product);
-            em.persist(image);
-            utx.commit();
+//            utx.begin();
+//            ImageTable image = new ImageTable();
+//            image.setImage(photoByte);
+//            image.setProductId(product);
+//            em.persist(image);
+//            utx.commit();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }

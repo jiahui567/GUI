@@ -4,12 +4,10 @@
  */
 package controller;
 
-import entity.ImageTable;
-import entity.Products;
+import entity.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,13 +15,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.UserTransaction;
-import java.util.List;
 
 /**
  *
  * @author User
  */
-public class deleteProduct extends HttpServlet {
+public class deleteCartItem extends HttpServlet {
 
     @PersistenceContext
     EntityManager em;
@@ -40,20 +37,22 @@ public class deleteProduct extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int productId = Integer.parseInt(request.getParameter("productId"));
-            Products prodDetail = em.find(Products.class,productId);
-            if(prodDetail != null){
+        int id = Integer.parseInt(request.getParameter("id"));
+        CartItem cartItem = em.find(CartItem.class,id);
+            if(cartItem != null){
                 try{
                     utx.begin();
-                    Products entity = em.merge(prodDetail);
+                    CartItem entity = em.merge(cartItem);
                     em.remove(entity);
                     utx.commit();
-                    response.sendRedirect("Staff/productAdmin.jsp");
-                    System.out.println("siccess");
+                    response.sendRedirect("Customer/cart.jsp");
+                    System.out.println("succesfully delete cart item");
                 }catch(Exception ex){
                     System.out.println(ex.getMessage());
                 }
             }
+        
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

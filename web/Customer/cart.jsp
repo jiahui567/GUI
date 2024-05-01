@@ -66,12 +66,11 @@
                           <% 
                             for (CartItem cartItem : cartList){
                                 Products prod = cartItem.getProductid();
-                                List<ImageTable> image = prod.getImageTableList();
-                                ImageTable firstImage = image.get(0);
+                               
                           %>
                           <tr>
                               <td>
-                                    <img width="100%" height="100%" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(firstImage.getImage())%>">
+                                    <img width="100%" height="100%" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(prod.getImage())%>">
                               </td>
                               <td class="product-name">
                                     <h2 class="h5 text-black"><%= prod.getProductName()%></h2>
@@ -80,17 +79,19 @@
                               <td>
                                 <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                     <div class="input-group-prepend">
-                                        <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                                        <button class="btn btn-outline-black decrease" type="button"><a href="<%=request.getContextPath()%>/quantityCart?action=minus&cartItem=<%=cartItem.getCartItemid()%>" style="text-decoration:none">&minus;</a></button>
                                     </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="<%= cartItem.getQuantity()%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    <form action="<%=request.getContextPath()%>/quantityCart?action=update&cartItem=<%=cartItem.getCartItemid()%>" method="post">
+                                        <input type="number" name="qty" class="form-control text-center quantity-amount" value="<%= cartItem.getQuantity()%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    </form>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                                        <button class="btn btn-outline-black increase" type="button"><a href="<%=request.getContextPath()%>/quantityCart?action=inc&cartItem=<%=cartItem.getCartItemid()%>" style="text-decoration:none">&plus;</a></button>
                                     </div>
                                 </div>
                                 <% double total = prod.getPrice() * cartItem.getQuantity();%>
                               <td><%=total%></td>
                                <td>
-                                   <a href="#" class="btn btn-black btn-sm">X</a></td>
+                                   <a href="<%= request.getContextPath()%>/deleteCartItem?id=<%=cartItem.getCartItemid()%>" class="btn btn-black btn-sm">X</a></td>
                                </td>
                           </tr>
                           <%}%>
@@ -150,11 +151,11 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="row mb-5">
-                    <div class="col-md-6 mb-3 mb-md-0">
+<!--                    <div class="col-md-6 mb-3 mb-md-0">
                       <button class="btn btn-black btn-sm btn-block">Update Cart</button>
-                    </div>
+                    </div>-->
                     <div class="col-md-6">
-                      <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
+                        <button class="btn btn-outline-black btn-sm btn-block"><a style="color:white;text-decoration: none" href="product.jsp">Continue Shopping</a></button>
                     </div>
                   </div>
                   <div class="row">
@@ -216,6 +217,34 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
+                <script
+                    src="https://code.jquery.com/jquery-3.7.1.min.js"
+                    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+                    crossorigin="anonymous">
+                </script>
+<!--                <script>
+                    $(".decrease").on("click",async function(){
+                        let id = $(this).attr("data-id");
+                        console.log(id);
+                        let quantity = $(".quantity-amount-"+id).val();
+                        quantity--;
+                        console.log(quantity);
+                        let data = {'quantity' : quantity};
+                        try{
+                            const response = await fetch("<%=request.getContextPath()%>/quantityCart",{
+                                method:"POST",
+                                headers:{
+                                    "Content-Type":"application/json",
+                                },
+                                body:JSON.stringify(data),
+                            });
+                            const result = await response.json();
+                            console.log("success",result);
+                        }catch(error){
+                            console.log("ERROR",error);
+                        }
+                    });
+                </script>-->
 	</body>
 
 </html>

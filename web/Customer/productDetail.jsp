@@ -242,10 +242,7 @@
     <!-- Breadcrumb Section End -->
         <%@include file="nav_bar.jsp" %>
 
-<% 
-    List<ImageTable> image = prod.getImageTableList();
-    ImageTable firstImage = image.get(0);
-%>
+
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
@@ -254,7 +251,7 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(firstImage.getImage())%>" alt="">
+                                src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(prod.getImage())%>" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="images/product/details/product-details-2.jpg"
