@@ -30,7 +30,7 @@
                             <li class="nav-item ">
                                     <a class="nav-link" href="home.jsp">Home</a>
                             </li>
-                            <li id="shop"><a class="nav-link" href="<%= request.getContextPath()%>/ProductCRUD">Shop</a></li>
+                            <li id="shop"><a class="nav-link" href="<%= request.getContextPath()%>/ProductCRUD?action=get">Shop</a></li>
                             <li id="aboutus"><a class="nav-link" href="aboutUs.jsp">About us</a></li>
                             <li id="service"><a class="nav-link" href="service.jsp">Services</a></li>
                             <li id="contact"><a class="nav-link" href="contactUs.jsp">Contact us</a></li>
@@ -53,7 +53,7 @@
                             <% if (name == null) {%>
                             <a class="nav-link" href="<%= request.getContextPath()%>/index.jsp"><img src="images/cart.png" style="width:22px"></a>
                             <%} else {%>
-                            <a class="nav-link" href="<%= request.getContextPath()%>/getCartItem"><img src="images/cart.png" style="width:22px"></a>
+                            <a class="nav-link" href="<%= request.getContextPath()%>/CartCRUD?function=get"><img src="images/cart.png" style="width:22px"></a>
                             <%}%>
                         </li>
                     </ul>

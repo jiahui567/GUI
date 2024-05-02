@@ -10,6 +10,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,7 +61,7 @@ public class Products implements Serializable {
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
-    @OneToMany(mappedBy = "productId",orphanRemoval = true)
+    @OneToMany(mappedBy = "productId",orphanRemoval = true ,fetch = FetchType.EAGER)
     private List<ImageTable> imageTableList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
