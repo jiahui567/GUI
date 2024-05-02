@@ -25,7 +25,7 @@
         <%String description = (String) request.getParameter("description");%>
         <%int category = Integer.parseInt(request.getParameter("category"));%>
         <%@ include file="adminNavBar.jsp" %>
-        <form action="<%= request.getContextPath()%>/editProduct?" method="post"">
+        <form action="<%= request.getContextPath()%>/ProductCRUD?action=edit" method="post"">
             <div style=" padding-left: 300px; padding-top: 20px;" >
                 <div class="formbold-input-flex">
                     <div class="formbold-input-flex-left">

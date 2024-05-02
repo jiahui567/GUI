@@ -118,10 +118,9 @@
             <div id="editStaffModal" class="modal">
                 <div class="modal-content">
                     <span id="closeStaffModal" style="align-self:flex-end;font-size: 48px;display:flex;text-align: right">&times;</span>
-                    <form action="<%= request.getContextPath()%>/editstaff" method="post">
+                    <form action="<%= request.getContextPath()%>/ProductCRUD?action=edit" method="post">
                         <div style="display: flex ;flex-direction: column" >
                             <div style="display:flex;flex-direction: row">
-
                                 <div class="input-box">
                                     <span class="details">Full Name:</span>
                                     <input name="name" type="text" placeholder="Enter your name" required>

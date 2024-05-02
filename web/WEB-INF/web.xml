@@ -128,6 +128,10 @@
         <servlet-name>quantityCart</servlet-name>
         <servlet-class>controller.quantityCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductCRUD</servlet-name>
+        <servlet-class>controller.ProductCRUD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -247,6 +251,10 @@
     <servlet-mapping>
         <servlet-name>quantityCart</servlet-name>
         <url-pattern>/quantityCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductCRUD</servlet-name>
+        <url-pattern>/ProductCRUD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
