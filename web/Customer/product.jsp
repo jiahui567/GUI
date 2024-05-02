@@ -17,7 +17,9 @@
 		<link href="css/style.css" rel="stylesheet">
 		<title>HAN-KEA</title>
 	</head>
-        <% List<Products> productList = (List) session.getAttribute("productList");%>
+        <% 
+            List<Products> productList = (List<Products>) session.getAttribute("productList");
+        %>
 	<body>
 
 		<!-- Start Header/Navigation -->

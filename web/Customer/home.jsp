@@ -33,7 +33,7 @@
                                             <div class="intro-excerpt">
                                                 <h1>Elegance & Comfort<span clsas="d-block"><br>A Guide to Home Furniture</span></h1>
                                                 <p class="mb-4">Transform Your Space with Timeless Designs and Cozy Accents</p>
-                                                <p><a href="product.jsp" class="btn btn-secondary me-2">Shop Now</a><a href="product.jsp" class="btn btn-white-outline">Explore</a></p>
+                                                <p><a href="<%= request.getContextPath()%>/getProduct" class="btn btn-secondary me-2">Shop Now</a><a href="<%= request.getContextPath()%>/getProduct" class="btn btn-white-outline">Explore</a></p>
                                             </div>
                                         </div>
                                         <div class="col-lg-7">
