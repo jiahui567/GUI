@@ -129,6 +129,10 @@
         <servlet-class>controller.ProductCRUD</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>controller.Checkout</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CartCRUD</servlet-name>
         <servlet-class>controller.CartCRUD</servlet-class>
     </servlet>
@@ -253,6 +257,10 @@
         <url-pattern>/ProductCRUD</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>  
         <servlet-name>CartCRUD</servlet-name>
         <url-pattern>/CartCRUD</url-pattern>
     </servlet-mapping>
