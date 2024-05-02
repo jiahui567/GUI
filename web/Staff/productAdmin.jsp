@@ -108,7 +108,7 @@
                     <td><%= prod.getDescription()%></td>
                     <td><%= prod.getPrice()%></td>
                     <td><%= prod.getCategoryId().getCatName()%></td>
-                    <td> <button/><a href="<%= request.getContextPath()%>/deleteProduct?productId=<%= prod.getProductId()%>">Delete</a></td>
+                    <td> <button/><a href="<%= request.getContextPath()%>/ProductCRUD?action=delete&productId=<%= prod.getProductId()%>">Delete</a></td>
                     <td> <button/><a class="uil uil-edit" href="<%= request.getContextPath()%>/Staff/product_edit.jsp?productId=<%= prod.getProductId()%>&productName=<%= prod.getProductName()%>&price=<%= prod.getPrice()%>&STOCK_COUNT=<%= prod.getStockCount()%>&description=<%= prod.getDescription()%>&category=<%= prod.getCategoryId().getCategoryId()%>">Edit</a></td> 
 
                 </tr>
@@ -150,7 +150,7 @@
                 <div class="modal-content" style="width:600px;padding:20px ">
                     <span class="closeProdModal" id="closeProdModal" style="align-self:flex-end;font-size: 36px">&times;</span>
                     <div style="font-weight:900;font-size: 24px;text-align: center;padding-bottom: 10px">Create New Product</div>
-                    <form action="<%= request.getContextPath()%>/addProduct" method="post" enctype="multipart/form-data">
+                    <form action="<%= request.getContextPath()%>/ProductCRUD?action=add" method="post" enctype="multipart/form-data">
                         <div style="display: flex ;flex-direction: column">
 
                             <div>Product Name:</div>
