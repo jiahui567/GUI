@@ -8,6 +8,7 @@ import entity.Products;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -49,11 +50,17 @@ public class getProduct extends HttpServlet {
             Query query = em.createNamedQuery("Products.findAll");
             List<Products> prod = query.getResultList();
             session.setAttribute("productList",prod);
+//            request.setAttribute("productList", prod);
             
-            if(userType.equals("staff"))
+            if(userType.equals("staff")) {
                 response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
-            else if(userType.equals("customer"))
+            } else if(userType.equals("customer")) {
                 response.sendRedirect(request.getContextPath()+"/Customer/product.jsp");
+//                RequestDispatcher dispatcher = request.getRequestDispatcher("/Customer/product.jsp");
+//                dispatcher.forward(request, response);
+            }
+          
+//                
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }
