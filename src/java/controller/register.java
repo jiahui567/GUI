@@ -21,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Base64;
@@ -114,6 +115,15 @@ public class register extends HttpServlet {
                 if(rows>0){
                     System.out.println("create successfully");
                     request.setAttribute("status","success");
+                    pstmt = connection.prepareStatement("SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ? ");
+                    pstmt.setString(1,username);
+                    pstmt.setString(2,encryption);
+                    ResultSet rs = pstmt.executeQuery();
+                    rs.next();
+                    int userid = rs.getInt("USER_ID");
+                    pstmt = connection.prepareStatement("INSERT INTO cart(user_id) VALUES (?)");
+                    pstmt.setInt(1,userid);
+                    pstmt.executeUpdate();
                     response.sendRedirect(request.getContextPath()+"/index.jsp");
                 }
                 else{
