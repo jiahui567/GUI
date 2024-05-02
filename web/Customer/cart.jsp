@@ -49,9 +49,8 @@
 		<div class="untree_co-section before-footer-section">
             <div class="container">
               <div class="row mb-5">
-                <form class="col-md-12" method="post">
                   <div class="site-blocks-table">
-                    <table class="table">
+                    <table class="table" id="start">
                       <thead>
                         <tr>
                           <th class="product-thumbnail">Image</th>
@@ -68,6 +67,7 @@
                                 Products prod = cartItem.getProductid();
                                
                           %>
+                       <form class="col-md-12" action="<%=request.getContextPath()%>/CartCRUD?function=editQuantity&action=update&cartItem=<%=cartItem.getCartItemid()%>" method="post">
                           <tr>
                               <td>
                                     <img width="100%" height="100%" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(prod.getImage())%>">
@@ -79,19 +79,17 @@
                               <td>
                                 <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                     <div class="input-group-prepend">
-                                        <button class="btn btn-outline-black decrease" type="button"><a href="<%=request.getContextPath()%>/quantityCart?action=minus&cartItem=<%=cartItem.getCartItemid()%>" style="text-decoration:none">&minus;</a></button>
+                                        <button class="btn btn-outline-black decrease" type="button"><a href="<%=request.getContextPath()%>/CartCRUD?function=editQuantity&action=minus&cartItem=<%=cartItem.getCartItemid()%>" style="text-decoration:none">&minus;</a></button>
                                     </div>
-                                    <form action="<%=request.getContextPath()%>/quantityCart?action=update&cartItem=<%=cartItem.getCartItemid()%>" method="post">
-                                        <input type="number" name="qty" class="form-control text-center quantity-amount" value="<%= cartItem.getQuantity()%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                    </form>
+                                        <input type="number" name="qty" class="form-control text-center quantity-amount" value="<%= cartItem.getQuantity()%>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" >
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-black increase" type="button"><a href="<%=request.getContextPath()%>/quantityCart?action=inc&cartItem=<%=cartItem.getCartItemid()%>" style="text-decoration:none">&plus;</a></button>
+                                        <button class="btn btn-outline-black increase" type="button"><a href="<%=request.getContextPath()%>/CartCRUD?function=editQuantity&action=inc&cartItem=<%=cartItem.getCartItemid()%>" style="text-decoration:none">&plus;</a></button>
                                     </div>
                                 </div>
                                 <% double total = prod.getPrice() * cartItem.getQuantity();%>
                               <td><%=total%></td>
                                <td>
-                                   <a href="<%= request.getContextPath()%>/deleteCartItem?id=<%=cartItem.getCartItemid()%>" class="btn btn-black btn-sm">X</a></td>
+                                   <a href="<%= request.getContextPath()%>/CartCRUD?function=delete&id=<%=cartItem.getCartItemid()%>" class="btn btn-black btn-sm">X</a></td>
                                </td>
                           </tr>
                           <%}%>
@@ -142,10 +140,11 @@
                           <td>$49.00</td>
                           <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                         </tr>-->
+                        </form>
+
                       </tbody>
                     </table>
                   </div>
-                </form>
               </div>
         
               <div class="row">
@@ -155,7 +154,7 @@
                       <button class="btn btn-black btn-sm btn-block">Update Cart</button>
                     </div>-->
                     <div class="col-md-6">
-                        <a style="color:white;text-decoration: none" href="product.jsp"><button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button></a>
+                        <a style="color:white;text-decoration: none" href="<%=request.getContextPath()%>/ProductCRUD?action=get"><button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button></a>
                     </div>
                   </div>
                   <div class="row">
@@ -248,3 +247,11 @@
 	</body>
 
 </html>
+<script>
+    function SubmitForm() {
+    var oForm = document.getElementById("qtyform");
+        oForm.submit(); 
+   }
+
+    
+</script>
