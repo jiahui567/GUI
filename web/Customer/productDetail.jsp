@@ -277,7 +277,7 @@
                             <span>(18 reviews)</span>
                         </div>
                         <div class="product__details__price">RM<%= prod.getPrice()%></div>
-                        <form action="<%=request.getContextPath()%>/addToCart?user=<%=customer.getUserId()%>&product=<%=prod.getProductId()%>" method="post">
+                        <form action="<%=request.getContextPath()%>/CartCRUD?function=add&user=<%=customer.getUserId()%>&product=<%=prod.getProductId()%>" method="post">
                             <div class="product__details__quantity">
                                 <div class="quantity">
                                     <div class="pro-qty">
