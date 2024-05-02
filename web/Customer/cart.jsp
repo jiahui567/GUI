@@ -23,8 +23,7 @@
 
 		<!-- Start Header/Navigation -->
                 <%@include file="nav_bar.jsp"%>
-                <% List<CartItem> cartList = (List)session.getAttribute("cart");
-            %>
+                <% List<CartItem> cartList = (List)session.getAttribute("cart");%>
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
@@ -63,6 +62,9 @@
                         </tr>
                       </thead>
                       <tbody>
+                            <%!double subtotal = 0;%>
+                            <%!double totalamount = 0;%>
+                              
                           <% 
                             for (CartItem cartItem : cartList){
                                 Products prod = cartItem.getProductid();
@@ -89,6 +91,12 @@
                                     </div>
                                 </div>
                                 <% double total = prod.getPrice() * cartItem.getQuantity();%>
+                              
+                                <%!double shippingfee = 6.0;%>
+                              
+                                <% subtotal += total;%>
+                                <% totalamount = subtotal - shippingfee;%>
+                                
                               <td><%=total%></td>
                                <td>
                                    <a href="<%= request.getContextPath()%>/deleteCartItem?id=<%=cartItem.getCartItemid()%>" class="btn btn-black btn-sm">X</a></td>
@@ -184,7 +192,15 @@
                           <span class="text-black">Subtotal</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
+                          <strong class="text-black"><%=subtotal%></strong>
+                        </div>
+                      </div>
+                         <div class="row mb-3">
+                        <div class="col-md-6">
+                          <span class="text-black">Discount</span>
+                        </div>
+                        <div class="col-md-6 text-right">
+                          <strong class="text-black">$6.0</strong>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -192,13 +208,13 @@
                           <span class="text-black">Total</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
+                          <strong class="text-black"><%=totalamount%></strong>
                         </div>
                       </div>
         
                       <div class="row">
                         <div class="col-md-12">
-                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                            <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Customer/paypay.jsp?userId=<%= customer.getAddress()%>">Proceed To Checkout </a></button>
                         </div>
                       </div>
                     </div>
