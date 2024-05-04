@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="5.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
+    <context-param>
+        <param-name>storeName</param-name>
+        <param-value>Han-Kea</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contactUs</param-name>
+        <param-value>bling@gmail.com</param-value>
+    </context-param>
     <servlet>
         <servlet-name>register</servlet-name>
         <servlet-class>controller.register</servlet-class>
@@ -83,6 +91,10 @@
     <servlet>
         <servlet-name>EmployeeCRUD</servlet-name>
         <servlet-class>controller.EmployeeCRUD</servlet-class>
+        <init-param>
+            <param-name>addTitle</param-name>
+            <param-value>Edit Staff</param-value>
+        </init-param>
     </servlet>
     <servlet>
         <servlet-name>Loaddashboard</servlet-name>
@@ -137,6 +149,10 @@
         <servlet-class>controller.CartCRUD</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>getOrderStatus</servlet-name>
+        <servlet-class>controller.getOrderStatus</servlet-class>
+ </servlet>
+ <servlet>
         <servlet-name>changeOrderStatus</servlet-name>
         <servlet-class>controller.changeOrderStatus</servlet-class>
     </servlet>
@@ -267,6 +283,10 @@
     <servlet-mapping>
         <servlet-name>CartCRUD</servlet-name>
         <url-pattern>/CartCRUD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getOrderStatus</servlet-name>
+        <url-pattern>/getOrderStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>changeOrderStatus</servlet-name>

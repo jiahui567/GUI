@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConfig;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -110,6 +111,9 @@ public class EmployeeCRUD extends HttpServlet {
         List<Users> userlist = query.getResultList();
         HttpSession session = request.getSession();
         session.setAttribute("adminList", userlist);
+        ServletConfig config = getServletConfig();
+        String title = config.getInitParameter("addTitle");
+        session.setAttribute("title",title);
     }
 
     private void deleteEmployee(HttpServletRequest request) {
