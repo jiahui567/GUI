@@ -45,7 +45,6 @@
                 <th>USER ID</th>
                 <th>Order Status</th>
                 <th>Details</th>
-                
             </tr>
             <% for(Orders order:orderList){%>
             <tr>
@@ -55,17 +54,17 @@
                 <% if(order.getStatus().getStatusId() == 1){%>
                 <button class="selected-status">Pending</button>
                 <%} else {%>
-                <button>Pending</button>
+                <button><a href="<%= request.getContextPath()%>/changeOrderStatus?Id=<%=order.getOrderId()%>&status=1">Pending</a></button>
                 <%}%>
                 <% if(order.getStatus().getStatusId() == 2){%>
                 <button class="selected-status">Shipping</button>
                 <%} else {%>
-                <button>Shipping</button>
+                <button><a href="<%= request.getContextPath()%>/changeOrderStatus?Id=<%=order.getOrderId()%>&status=2">Shipping</a></button>
                 <%}%>
                 <% if(order.getStatus().getStatusId() == 3){%>
                 <button class="selected-status">Delivery</button>
                 <%} else {%>
-                <button>Delivery</button>
+                <button><a href="<%= request.getContextPath()%>/changeOrderStatus?Id=<%=order.getOrderId()%>&status=3">Delivery</a></button>
                 <%}%>
                 </td>
                 <td><button><a href="<%= request.getContextPath()%>/OrderDetail?Id=<%=order.getOrderId()%>">Show Details</a></button></td>

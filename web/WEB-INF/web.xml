@@ -151,6 +151,10 @@
     <servlet>
         <servlet-name>getOrderStatus</servlet-name>
         <servlet-class>controller.getOrderStatus</servlet-class>
+ </servlet>
+ <servlet>
+        <servlet-name>changeOrderStatus</servlet-name>
+        <servlet-class>controller.changeOrderStatus</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
@@ -283,6 +287,10 @@
     <servlet-mapping>
         <servlet-name>getOrderStatus</servlet-name>
         <url-pattern>/getOrderStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeOrderStatus</servlet-name>
+        <url-pattern>/changeOrderStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
