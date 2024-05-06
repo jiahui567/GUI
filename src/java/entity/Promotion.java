@@ -43,6 +43,28 @@ public class Promotion implements Serializable {
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @ManyToOne
     private Users userId;
+    @Basic(optional = false)
+    @Column(name = "AMOUNT")
+    private double amount;
+    @Basic(optional = false)
+    @Column(name = "STATUS")
+    private String status;
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Promotion() {
     }

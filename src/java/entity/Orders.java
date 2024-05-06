@@ -50,6 +50,9 @@ public class Orders implements Serializable {
     private Users userId;
     @OneToMany(mappedBy = "orderId")
     private List<OrderItem> orderItemList;
+    @Basic(optional = false)
+    @Column(name = "ADDRESS")
+    private String address;
 
     public Orders() {
     }
@@ -58,6 +61,15 @@ public class Orders implements Serializable {
         this.orderId = orderId;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    
     public Integer getOrderId() {
         return orderId;
     }
