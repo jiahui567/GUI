@@ -4,6 +4,8 @@
  */
 package controller;
 
+import entity.Cart;
+import entity.CartItem;
 import entity.Users;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
@@ -40,19 +42,18 @@ public class Checkout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Checkout</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Checkout at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+            HttpSession session = request.getSession();
+            Users customer = (Users) session.getAttribute("customer");
+            Query query = em.createNamedQuery("Cart.findByUserId");
+            query.setParameter("userId", customer);
+            Cart cart = (Cart) query.getSingleResult();
+            query = em.createNamedQuery("CartItem.findByCartId");
+            query.setParameter("cartId", cart);
+            List<CartItem> cartItem = query.getResultList();
+            request.setAttribute("cart", cartItem); 
+            request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response); 
+            response.sendRedirect("Customer/cart.jsp#start");
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,29 +83,8 @@ public class Checkout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-          String address = request.getParameter("address");
-          try{
-              
-              HttpSession session = request.getSession();
-                Users customer = (Users) session.getAttribute("customer");
-                int userID = customer.getUserId();
-                Query query = em.createNamedQuery("Users.findByUserId");
-                query.setParameter("userId",userID);
-                List<Users> user = query.getResultList();
-                Users userDetail = user.get(0);
-                
-                if(userDetail!=null){      
-                    userDetail.setAddress(address);
-                    utx.begin();
-                    em.merge(userDetail);
-                    utx.commit();
-                    session.setAttribute("customer", userDetail);
-                    RequestDispatcher rd = request.getRequestDispatcher("Customer/paypay.jsp");
-                    rd.forward(request, response);
-                }
-            }catch(Exception ex){
-                System.out.println(ex.getMessage());
-            }
+        
+        
     }
 
     /**
