@@ -151,8 +151,8 @@
     <servlet>
         <servlet-name>getOrderStatus</servlet-name>
         <servlet-class>controller.getOrderStatus</servlet-class>
- </servlet>
- <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>changeOrderStatus</servlet-name>
         <servlet-class>controller.changeOrderStatus</servlet-class>
     </servlet>
@@ -300,6 +300,45 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <security-constraint>
+        <display-name>Customer</display-name>
+        <web-resource-collection>
+            <web-resource-name>Customer</web-resource-name>
+            <description/>
+            <url-pattern>/secureCustomer/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>CustomerRole</role-name>
+            <role-name>StaffRole</role-name>
+            <role-name>AdminRole</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Staff</display-name>
+        <web-resource-collection>
+            <web-resource-name>Staff</web-resource-name>
+            <description/>
+            <url-pattern>/secureStaff/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>StaffRole</role-name>
+            <role-name>AdminRole</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Admin</display-name>
+        <web-resource-collection>
+            <web-resource-name>Admin</web-resource-name>
+            <description/>
+            <url-pattern>/secureAdmin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>AdminRole</role-name>
+        </auth-constraint>
+    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>jdbc-realm</realm-name>

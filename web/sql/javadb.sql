@@ -114,6 +114,11 @@ CREATE TABLE PROMOTION (
     USER_ID INT REFERENCES USERS(USER_ID)
 );
 
+CREATE TABLE USERGROUP (
+    USERNAME VARCHAR(50) NOT NULL primary key,
+    USERTYPE VARCHAR(20) NOT NULL
+);
+
 insert into USER_TYPE (type_name,description) values ('Manager','Can edit all permission for staff,product and customer');
 insert into USER_TYPE (type_name,description) values ('Staff','Help manage customer and product detail');
 insert into USER_TYPE (type_name,description) values ('Customer','Account to view website and buy product');
