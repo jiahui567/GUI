@@ -108,7 +108,7 @@
                     <td><%= adminUser.getContactNumber()%></td>
                     <td><%= adminUser.getGender()%></td>
                     <td><%= adminUser.getTypeId().getTypeName()%></td>
-                    <td> <button/><a href="<%= request.getContextPath()%>/EmployeeCRUD?action=delete&userID=<%=adminUser.getUserId()%>">Delete</a></td>
+                    <td> <button onclick="alertbox('<%=request.getContextPath()%>/EmployeeCRUD?action=delete&userID=<%=adminUser.getUserId()%>')"/>Delete</td>
                     <td> <button/><a class="uil uil-edit" href="edit.jsp?action=update&UserId=<%=adminUser.getUserId()%>&FullName=<%=adminUser.getFullname()%>&Age=<%=adminUser.getAge()%>&ContactNumber=<%=adminUser.getContactNumber()%>&Email=<%=adminUser.getEmail()%>" id="edit">Edit</a></td> 
 
                 </tr>
@@ -242,6 +242,13 @@
     </body>
 </html>
 <script>
+    function alertbox(url){
+        
+        if(confirm("Confirm delete selected user?")){
+            window.location.href = url;
+        }
+    }
+    
     const body = document.querySelector("body"),
             modeToggle = body.querySelector(".mode-toggle");
     sidebar = body.querySelector("nav");

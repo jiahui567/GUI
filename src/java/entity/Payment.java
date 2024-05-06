@@ -31,7 +31,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
     @NamedQuery(name = "Payment.findByPaymentId", query = "SELECT p FROM Payment p WHERE p.paymentId = :paymentId"),
-    @NamedQuery(name = "Payment.findByPaymentDate", query = "SELECT p FROM Payment p WHERE p.paymentDate = :paymentDate")})
+    @NamedQuery(name = "Payment.findByPaymentDate", query = "SELECT p FROM Payment p WHERE p.paymentDate = :paymentDate"),
+    @NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount"),
+    @NamedQuery(name = "Payment.findByPromotion", query = "SELECT p FROM Payment p WHERE p.promotion = :promotion")})
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,10 +42,15 @@ public class Payment implements Serializable {
     @Basic(optional = false)
     @Column(name = "PAYMENT_ID")
     private Integer paymentId;
-    @Basic(optional = false)
     @Column(name = "PAYMENT_DATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date paymentDate;
+    @Basic(optional = false)
+    @Column(name = "AMOUNT")
+    private double amount;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "PROMOTION")
+    private Double promotion;
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne
     private Orders orderId;
@@ -58,9 +65,9 @@ public class Payment implements Serializable {
         this.paymentId = paymentId;
     }
 
-    public Payment(Integer paymentId, Date paymentDate) {
+    public Payment(Integer paymentId, double amount) {
         this.paymentId = paymentId;
-        this.paymentDate = paymentDate;
+        this.amount = amount;
     }
 
     public Integer getPaymentId() {
@@ -77,6 +84,22 @@ public class Payment implements Serializable {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public Double getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Double promotion) {
+        this.promotion = promotion;
     }
 
     public Orders getOrderId() {

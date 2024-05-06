@@ -25,6 +25,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -56,23 +59,73 @@ public class updateProfile extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet profile</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet profile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         String action = request.getParameter("action");
+        if(action.equals("password")){
+            doPostPassword(request,response);
+        }else if(action.equals("profile")){
+            doPostProfile(request,response);
+        }else{
+            System.out.println("do something idk error in profile page");
         }
     }
     
-    @Override 
-    protected void doPost (HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    protected void doPostPassword (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         HttpSession session = request.getSession();
+            Users customer = (Users) session.getAttribute("customer");
+            String userPassword = customer.getPassword(); 
+            int userID = customer.getUserId();
+        
+            String password = request.getParameter("password");
+            String newPassword = request.getParameter("newpassword");
+            String confirmPassword = request.getParameter("confirmpassword");
+            MessageDigest digest;
+            String encodedPassword = "";
+            String encodedPassword2 = "";
+            try {
+                digest = MessageDigest.getInstance("SHA-256");
+                byte[] hash = digest.digest(newPassword.getBytes(StandardCharsets.UTF_8));
+                encodedPassword = Base64.getEncoder().encodeToString(hash);
+                byte[] hash2 = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+                encodedPassword2 = Base64.getEncoder().encodeToString(hash2);
+            } catch (NoSuchAlgorithmException ex) {
+                System.out.println(ex.getMessage());
+            }
+        
+            if(encodedPassword2.equals(userPassword)){
+                try{
+                    Query query = em.createNamedQuery("Users.findByUserId");
+                    query.setParameter("userId",userID);
+                    List<Users> user = query.getResultList();
+                    Users userDetail=user.get(0);
+                    
+                    if(userDetail!=null){
+                        userDetail.setPassword(encodedPassword);
+                        utx.begin();
+                        em.merge(userDetail);
+                        utx.commit();
+                        session.setAttribute("customer", userDetail);
+                        RequestDispatcher rd = request.getRequestDispatcher("Customer/profile.jsp");
+                        rd.forward(request, response);
+                    }
+                    
+                }catch(Exception ex){
+                    System.out.println("error at finding user");
+                }
+            }else{
+                String error = "Password not match. Please enter correct password.";
+                request.setAttribute("passworderror",error);
+                response.sendRedirect(request.getContextPath()+"/Staff/setting.jsp#settings");
+            }
+    }
+    
+    protected void doPostProfile (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     
             String fullname = request.getParameter("fullname");
