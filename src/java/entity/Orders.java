@@ -50,14 +50,32 @@ public class Orders implements Serializable {
     private Users userId;
     @OneToMany(mappedBy = "orderId")
     private List<OrderItem> orderItemList;
+    @Basic(optional = false)
+    @Column(name = "ADDRESS")
+    private String address;
 
     public Orders() {
+    }
+
+    public Orders(OrderStatus status, Users userId, String address) {
+        this.status = status;
+        this.userId = userId;
+        this.address = address;
     }
 
     public Orders(Integer orderId) {
         this.orderId = orderId;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    
     public Integer getOrderId() {
         return orderId;
     }

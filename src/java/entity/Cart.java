@@ -42,7 +42,7 @@ public class Cart implements Serializable {
     @Basic(optional = false)
     @Column(name = "CART_ID")
     private Integer cartId;
-    @OneToMany(mappedBy = "cartId")
+    @OneToMany(mappedBy = "cartId",orphanRemoval=true)
     private List<CartItem> cartItemList;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @OneToOne

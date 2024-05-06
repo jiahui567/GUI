@@ -28,6 +28,7 @@
         <!-- Start Hero Section -->
         <div class="hero">
             <div class="container">
+                <a href="cart.jsp"></a>
                 <div class="row justify-content-between">
                     <div class="col-lg-5">
                         <div class="intro-excerpt">

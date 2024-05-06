@@ -52,7 +52,6 @@ public class Checkout extends HttpServlet {
             List<CartItem> cartItem = query.getResultList();
             request.setAttribute("cart", cartItem); 
             request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response); 
-            response.sendRedirect("Customer/cart.jsp#start");
             
     }
 

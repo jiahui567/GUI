@@ -39,7 +39,7 @@
 
 
                     <div class="card p-3">
-                        <form action="" method="post">
+                        <form action="<%=request.getContextPath()%>/Payments?cartId=<%=cartList.get(0).getCartId().getCartId()%>" method="post">
                             <h6 class="text-uppercase">Payment details</h6>
                             <div class="inputbox mt-3">
                                 <input type="text" name="name" class="form-control" required="required"> 
@@ -85,7 +85,7 @@
                                     <div class="col-md-6">
                                         <div class="inputbox mt-3 mr-2"> 
                                             <a>Address</a> 
-                                            <input type="text" disabled name="address" id="address" value="<%= customer.getAddress()%>">
+                                            <input type="text" name="address" value="<%= customer.getAddress()%>">
 
                                         </div>
                                     </div>

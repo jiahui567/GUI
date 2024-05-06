@@ -7,6 +7,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -75,10 +76,20 @@ public class Users implements Serializable {
     @Lob
     @Column(name = "PROFILE_PIC")
     private byte[] profilePic;
+    @OneToMany(mappedBy = "userId")
+    private List<Reply> replyList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId",orphanRemoval=true)
+    private List<Delivery> deliveryList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId",orphanRemoval=true)
+    private List<Feedbacklog> feedbacklogList;
+    @OneToMany(mappedBy = "userId",orphanRemoval=true)
+    private List<Promotion> promotionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId",orphanRemoval=true)
+    private List<Orders> ordersList;
     @JoinColumn(name = "TYPE_ID", referencedColumnName = "TYPE_ID")
     @ManyToOne(optional = false)
     private UserType typeId;
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "userId",orphanRemoval=true)
     private List<Cart> cartList;
 
     public Users() {
@@ -187,6 +198,51 @@ public class Users implements Serializable {
 
     public void setProfilePic(byte[] profilePic) {
         this.profilePic = profilePic;
+    }
+
+    @XmlTransient
+    public List<Reply> getReplyList() {
+        return replyList;
+    }
+
+    public void setReplyList(List<Reply> replyList) {
+        this.replyList = replyList;
+    }
+
+    @XmlTransient
+    public List<Delivery> getDeliveryList() {
+        return deliveryList;
+    }
+
+    public void setDeliveryList(List<Delivery> deliveryList) {
+        this.deliveryList = deliveryList;
+    }
+
+    @XmlTransient
+    public List<Feedbacklog> getFeedbacklogList() {
+        return feedbacklogList;
+    }
+
+    public void setFeedbacklogList(List<Feedbacklog> feedbacklogList) {
+        this.feedbacklogList = feedbacklogList;
+    }
+
+    @XmlTransient
+    public List<Promotion> getPromotionList() {
+        return promotionList;
+    }
+
+    public void setPromotionList(List<Promotion> promotionList) {
+        this.promotionList = promotionList;
+    }
+
+    @XmlTransient
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
 
     public UserType getTypeId() {
