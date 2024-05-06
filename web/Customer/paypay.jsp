@@ -154,7 +154,7 @@
                                     <div class="row mt-2 ">
                                             <div class="mt-4 mb-4 d-flex justify-content-between">
                                                 <button class="btn btn-success px-3">Pay</button>
-                                                 <button class="btn btn-back px-3" ><a href="cart.jsp">Back</a></button>
+                                                 <button class="btn btn-back px-3" ><a href="cart.jsp" style="text-decoration:none" >Back</a></button>
                                                 
                                             </div>
                                            

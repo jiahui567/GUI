@@ -108,7 +108,7 @@
                     <td><%= prod.getDescription()%></td>
                     <td><%= prod.getPrice()%></td>
                     <td><%= prod.getCategoryId().getCatName()%></td>
-                    <td> <button/><a href="<%= request.getContextPath()%>/ProductCRUD?action=delete&productId=<%= prod.getProductId()%>">Delete</a></td>
+                    <td> <button onclick="alertbox('<%= request.getContextPath()%>/ProductCRUD?action=delete&productId=<%= prod.getProductId()%>')"/>Delete</td>
                     <td> <button/><a class="uil uil-edit" href="<%= request.getContextPath()%>/Staff/product_edit.jsp?productId=<%= prod.getProductId()%>&productName=<%= prod.getProductName()%>&price=<%= prod.getPrice()%>&STOCK_COUNT=<%= prod.getStockCount()%>&description=<%= prod.getDescription()%>&category=<%= prod.getCategoryId().getCategoryId()%>">Edit</a></td> 
 
                 </tr>
@@ -194,6 +194,11 @@
     </body>
 </html>
 <script>
+    function alertbox(url){
+        if(confirm("Confirm delete selected product?")){
+            window.location.href = url;
+        }
+    }
     const body = document.querySelector("body"),
             modeToggle = body.querySelector(".mode-toggle");
     sidebar = body.querySelector("nav");

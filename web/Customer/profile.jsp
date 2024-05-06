@@ -183,7 +183,7 @@
             <div id="profile" class="tabcontent">
                 <h2>Profile Information</h2>
                 
-                <form action="<%= request.getContextPath()%>/updateProfile" method="post" enctype="multipart/form-data">
+                <form action="<%= request.getContextPath()%>/updateProfile?action=profile" method="post" enctype="multipart/form-data">
                     <div class="profile-picture-container">
                         <% if(customer.getProfilePic() != null){%>
                           <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
@@ -237,8 +237,28 @@
             </div>
 
             <div id="settings" class="tabcontent">
-                <h2>Settings</h2>
-                <!-- Settings form goes here -->
+                <h2>Change password</h2>
+
+                    <form action="<%= request.getContextPath()%>/updateProfile?action=password" method="post" onsubmit="return validation()" >
+                        <div>
+                            <label for="password">Current Password:</label>
+                            <input type="password" name="password" id="password" required>
+                        </div>
+                        <div>
+                            <label for="newpassword">New Password : </label>
+                            <input type="password" name="newpassword" id="newpassword" required>
+                        </div>
+                        <div>
+                            <label for="confirmpassword">Confirm Password ：</label>
+                            <input type="password" name="confirmpassword" id="confirmpassword" required >   
+                        </div>
+
+                        <div style="margin-top:20px;justify-content: space-evenly; width: 500px">
+                            <input type="submit" value="Submit"/>
+                        </div>
+
+                      
+                    </form>
             </div>
 
             <div id="logout" class="tabcontent">

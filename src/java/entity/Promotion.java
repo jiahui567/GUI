@@ -5,7 +5,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,60 +15,61 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author User
  */
 @Entity
-@Table(name = "CART")
+@Table(name = "PROMOTION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
-    @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userId = :userId"),
-    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartId = :cartId")
-})
-public class Cart implements Serializable {
+    @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p"),
+    @NamedQuery(name = "Promotion.findByPromotionId", query = "SELECT p FROM Promotion p WHERE p.promotionId = :promotionId"),
+    @NamedQuery(name = "Promotion.findByPromoCode", query = "SELECT p FROM Promotion p WHERE p.promoCode = :promoCode")})
+public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "CART_ID")
-    private Integer cartId;
-    @OneToMany(mappedBy = "cartId",orphanRemoval=true)
-    private List<CartItem> cartItemList;
+    @Column(name = "PROMOTION_ID")
+    private Integer promotionId;
+    @Basic(optional = false)
+    @Column(name = "PROMO_CODE")
+    private String promoCode;
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @OneToOne
+    @ManyToOne
     private Users userId;
 
-    public Cart() {
+    public Promotion() {
     }
 
-    public Cart(Integer cartId) {
-        this.cartId = cartId;
+    public Promotion(Integer promotionId) {
+        this.promotionId = promotionId;
     }
 
-    public Integer getCartId() {
-        return cartId;
+    public Promotion(Integer promotionId, String promoCode) {
+        this.promotionId = promotionId;
+        this.promoCode = promoCode;
     }
 
-    public void setCartId(Integer cartId) {
-        this.cartId = cartId;
+    public Integer getPromotionId() {
+        return promotionId;
     }
 
-    @XmlTransient
-    public List<CartItem> getCartItemList() {
-        return cartItemList;
+    public void setPromotionId(Integer promotionId) {
+        this.promotionId = promotionId;
     }
 
-    public void setCartItemList(List<CartItem> cartItemList) {
-        this.cartItemList = cartItemList;
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
     }
 
     public Users getUserId() {
@@ -83,18 +83,18 @@ public class Cart implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cartId != null ? cartId.hashCode() : 0);
+        hash += (promotionId != null ? promotionId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cart)) {
+        if (!(object instanceof Promotion)) {
             return false;
         }
-        Cart other = (Cart) object;
-        if ((this.cartId == null && other.cartId != null) || (this.cartId != null && !this.cartId.equals(other.cartId))) {
+        Promotion other = (Promotion) object;
+        if ((this.promotionId == null && other.promotionId != null) || (this.promotionId != null && !this.promotionId.equals(other.promotionId))) {
             return false;
         }
         return true;
@@ -102,7 +102,7 @@ public class Cart implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Cart[ cartId=" + cartId + " ]";
+        return "entity.Promotion[ promotionId=" + promotionId + " ]";
     }
     
 }

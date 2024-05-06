@@ -126,7 +126,6 @@ public class EmployeeCRUD extends HttpServlet {
                 Users entity = em.merge(userDetail);
                 em.remove(entity);
                 utx.commit();
-
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }

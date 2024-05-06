@@ -75,7 +75,7 @@ public class CartItem implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
     public void increaseQuantity(){
         this.quantity++;
     }
