@@ -65,6 +65,19 @@ public class Payment implements Serializable {
         this.paymentId = paymentId;
     }
 
+    public Payment(double amount, Orders orderId, PaymentMethod paymentmethod) {
+        this.amount = amount;
+        this.orderId = orderId;
+        this.paymentmethod = paymentmethod;
+    }
+
+    public Payment(double amount, Double promotion, Orders orderId, PaymentMethod paymentmethod) {
+        this.amount = amount;
+        this.promotion = promotion;
+        this.orderId = orderId;
+        this.paymentmethod = paymentmethod;
+    }
+
     public Payment(Integer paymentId, double amount) {
         this.paymentId = paymentId;
         this.amount = amount;

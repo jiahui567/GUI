@@ -57,6 +57,12 @@ public class Orders implements Serializable {
     public Orders() {
     }
 
+    public Orders(OrderStatus status, Users userId, String address) {
+        this.status = status;
+        this.userId = userId;
+        this.address = address;
+    }
+
     public Orders(Integer orderId) {
         this.orderId = orderId;
     }

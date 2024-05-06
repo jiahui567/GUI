@@ -1,3 +1,5 @@
+<%@page import="java.util.*" %>
+<%@page import="entity.*" %>
 <!-- <%-- 
     Document   : paypay
     Created on : 30 Apr 2024, 10:49:55 pm
@@ -7,6 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <jsp:useBean id="customer" scope="session" class="entity.Users"/> 
+<% List<CartItem> cartList = (List)request.getAttribute("cart");%>
 <html>
 
     <head>
@@ -29,14 +32,14 @@
                 <span>Please make the payment and you can enjoy all the features and benefits.</span>
 
             </div>
-
+            
             <div class="row">
 
                 <div class="col-md-8">
 
 
                     <div class="card p-3">
-                        <form action="" method="post">
+                        <form action="<%=request.getContextPath()%>/Payments?cartId=<%=cartList.get(0).getCartId().getCartId()%>" method="post">
                             <h6 class="text-uppercase">Payment details</h6>
                             <div class="inputbox mt-3">
                                 <input type="text" name="name" class="form-control" required="required"> 
@@ -69,102 +72,79 @@
 
 
                                         <div class="inputbox mt-3 mr-2"> 
-                                            <input type="number" max="999" onKeyPress="if (this.value.length == 3)
+                                            <input type="number" onKeyPress="if (this.value.length == 3)
                                                         return false;" name="name" class="form-control" required="required"> 
                                             <span>CVV</span> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--                            <div class="mt-4 mb-4">
-                                                            <h6 class="text-uppercase">Billing Address</h6>
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-6">
-                                                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> 
-                                                                        <span>Street Address</span> 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <span>City</span>
-                                                                    <div class="inputbox mt-3 mr-2"> 
-                                                                        <select name="city" id="city">
-                                                                            <option value="kl">Kuala Lumpur</option>
-                                                                            <option value="kajang">Kajang</option>
-                                                                            <option value="pj">Petaling Jaya</option>
-                                                                            <option value="klang">Klang</option>
-                                                                            <option value="jb">Johor Bahru</option>
-                                                                            <option value="shahalam">Shah Alam</option>
-                                                                            <option value="gerogetown">George Town</option>
-                                                                            <option value="sandakan">Sandakan</option>
-                                                                            <option value="melaka">Malacca City</option>
-                                                                            <option value="alorsetar">Alor Setar</option>
-                                                                            <option value="batupahat">Batu Pahat</option>
-                                                                            <option value="padawan">Padawan</option>
-                                                                            <option value="kulai">Kulai</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                                <div class="col-md-6">
-                                                                    <div class="inputbox mt-3 mr-2">
-                                                                        <input type="number" pattern="/^-?\d+\.?\d*$/"
-                                                                               onKeyPress="if (this.value.length == 5)
-                                                                                           return false;" name="name"
-                                                                               class="form-control" required="required">
-                                                                        <span>Zip code</span>
-                                                                    </div>
-                                                                </div>
-                            
-                                                                <div class="col-md-6">
-                                                                    <span>State/Province</span>
-                                                                    <select name="state" id="state">
-                                                                        <option name="negerisembilan" id="">Negeri Sembilan</option>
-                                                                        <option name="perak" id="">Perak</option>
-                                                                        <option name="kedah" id="">Kedah</option>
-                                                                        <option name="kelantan" id="">Kelantan</option>
-                                                                        <option name="sarawak" id="">Sarawak</option>
-                                                                        <option name="selangor" id="">Selangor</option>
-                                                                        <option name="pahang" id="">Pahang</option>
-                                                                        <option name="terengganu" id="">Terengganu</option>
-                                                                        <option name="sabah" id="">Sabah</option>
-                                                                        <option name="johor" id="">Johor</option>
-                                                                        <option name="perlis" id="">Perlis</option>
-                                                                        <option name="penang" id="">Penang</option>
-                                                                        <option name="melaka" id="">Melaka</option>
-                                                                    </select>
-                                                                    <div class="row mt-2 ">
-                                                                        <div class="mt-4 mb-4 d-flex justify-content-between">
-                                                                            <button class="btn btn-success px-3">Pay</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
                             <div class="mt-4 mb-4">
                                 <h6 class="text-uppercase">Billing Address</h6>
                                 <div class="row mt-3">
                                     <div class="col-md-6">
                                         <div class="inputbox mt-3 mr-2"> 
                                             <a>Address</a> 
-                                            <input type="text" disabled name="address" id="address" value="<%= customer.getAddress()%>">
-                                            
+                                            <input type="text" name="address" value="<%= customer.getAddress()%>">
+
                                         </div>
                                     </div>
                                     <div class="row mt-2 ">
-                                            <div class="mt-4 mb-4 d-flex justify-content-between">
-                                                <button class="btn btn-success px-3">Pay</button>
-                                                 <button class="btn btn-back px-3" ><a href="cart.jsp" style="text-decoration:none" >Back</a></button>
-                                                
-                                            </div>
-                                           
+                                        <div class="mt-4 mb-4 d-flex justify-content-between">
+                                            <input type="submit" class="btn btn-success px-3" value="Pay">
+                                            <button class="btn btn-back px-3" ><a href="cart.jsp">Back</a></button>
+
                                         </div>
+
+                                    </div>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
-                </form>
+
             </div>
+            <div class="row" style="margin-top: 10px;">
+
+                <div class="col-md-8">
+
+
+                    <div class="card p-3">
+                        <h1>Receipt</h1>
+                        <h3>Product</h3>
+                        <% double totalamount = 0;%>
+                        <% for(CartItem item:cartList){%>
+                        <p style="text-align:left;">
+                            <%=item.getProductid().getProductName()%> x <%=item.getQuantity()%>
+                            <span style="float:right;">
+                                <%=item.getProductid().getPrice() * item.getQuantity()%>
+                                <% totalamount += item.getProductid().getPrice() * item.getQuantity();%>
+                            </span>
+                        </p>
+                        <%}%>
+                        <hr>
+                        <p style="text-align:left;">
+                            Delivery Fee
+                            <span style="float:right;">
+                                <%if(totalamount > 1000){%>
+                                    Free
+                                <%}else{
+                                totalamount +=25; %>
+                                25
+                                <%}%>
+                            </span>
+                        </p>
+                        <hr>
+                        <p style="text-align:left;">
+                            Total Amount
+                            <span style="float:right;">
+                                    <%=totalamount%>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>                                           
         </div>
     </div>
 </body>
@@ -270,60 +250,69 @@
     }
 
     .btn-success {
-    font-weight: 600;
-    padding: 12px 30px;
-    border-radius: 30px;
-    color: #ffffff;
-    background: #2f2f2f;
-    border-color: #2f2f2f;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 30px;
+        color: #ffffff;
+        background: #2f2f2f;
+        border-color: #2f2f2f;
     }
 
     .btn-success:hover {
-    font-weight: 600;
-    padding: 12px 30px;
-    border-radius: 30px;
-    color: #ffffff;
-    background: #2f2f2f;
-    border-color: #2f2f2f;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 30px;
+        color: #ffffff;
+        background: #2f2f2f;
+        border-color: #2f2f2f;
 
     }
 
     .btn-back{
-    font-weight: 600;
-    padding: 12px 30px;
-    border-radius: 30px;
-    color: #ffffff;
-    background: #2f2f2f;
-    border-color: #2f2f2f;
-    margin-left: 20px;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 30px;
+        color: #ffffff;
+        background: #2f2f2f;
+        border-color: #2f2f2f;
+        margin-left: 20px;
     }
-     .btn-back:focus{
-    font-weight: 600;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-color: #ffffff;
-    background: #2f2f2f;
-    border-color: #2f2f2f;
+    .btn-back:focus{
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-color: #ffffff;
+        background: #2f2f2f;
+        border-color: #2f2f2f;
     }
-      .btn-back:hover {
-    font-weight: 600;
-    padding: 12px 30px;
-    border-radius: 30px;
-    color: #ffffff;
-    background: #2f2f2f;
-    border-color: #2f2f2f;
+    .btn-back:hover {
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 30px;
+        color: #ffffff;
+        background: #2f2f2f;
+        border-color: #2f2f2f;
     }
     .decoration:hover {
 
         text-decoration: none;
         color: #fdcc49;
     }
-    a {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: transparent;
-    -webkit-text-decoration-skip: objects;
-}
+    a{
+        color: #ffffff;
+        text-decoration: none;
+        background-color: transparent;
+        -webkit-text-decoration-skip: objects;
+    }
+    a:hover{
+        color: #ffffff;
+        text-decoration: none;
+        background-color: transparent;
+        -webkit-text-decoration-skip: objects;
+    }
+    hr {
+        margin: 0;
+    }
 </style>
 
 

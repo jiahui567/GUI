@@ -28,6 +28,7 @@
         <!-- Start Hero Section -->
         <div class="hero">
             <div class="container">
+                <a href="cart.jsp"></a>
                 <div class="row justify-content-between">
                     <div class="col-lg-5">
                         <div class="intro-excerpt">
@@ -96,8 +97,13 @@
                                     </td>
                                 </tr>
                                 <%}%>
-                                <%!double shippingfee = 6.0;%>
-                                <% totalamount = subtotal + shippingfee;%>
+                                <% double shippingfee = 25.0;%>
+                                <% if(subtotal < 1000){
+                                        totalamount = subtotal + shippingfee;
+                                    }else{
+                                        totalamount = subtotal;
+                                    }
+                                %>
                                 <!--                        <tr>
                                                           <td class="product-thumbnail">
                                                             <img src="images/product-1.png" alt="Image" class="img-fluid">
@@ -196,7 +202,11 @@
                                         <span class="text-black">Shipping Fees</span>
                                     </div>
                                     <div class="col-md-6 text-right">
-                                        <strong class="text-black">+$6.0</strong>
+                                        <% if (subtotal < 1000){%>
+                                            <strong class="text-black">+$25.0</strong>
+                                        <%} else {%>
+                                            <strong class="text-black">Free</strong>
+                                            <%}%>
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -210,7 +220,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Customer/paypay.jsp?userId=<%= customer.getAddress()%>">Proceed To Checkout </a></button>
+                                        <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Checkout?Id=<%= customer.getUserId()%>">Proceed To Checkout </a></button>
                                     </div>
                                 </div>
                             </div>
