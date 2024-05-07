@@ -51,6 +51,11 @@ public class ImageTable implements Serializable {
         this.imageId = imageId;
     }
 
+    public ImageTable(byte[] image, Products productId) {
+        this.image = image;
+        this.productId = productId;
+    }
+
     public Integer getImageId() {
         return imageId;
     }

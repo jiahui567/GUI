@@ -25,7 +25,7 @@
         <%String description = (String) request.getParameter("description");%>
         <%int category = Integer.parseInt(request.getParameter("category"));%>
         <%@ include file="adminNavBar.jsp" %>
-        <form action="<%= request.getContextPath()%>/ProductCRUD?action=edit" method="post"">
+        <form action="<%= request.getContextPath()%>/ProductCRUD?action=edit" method="post">
             <div style=" padding-left: 300px; padding-top: 20px;" >
                 <div class="formbold-input-flex">
                     <div class="formbold-input-flex-left">
@@ -73,6 +73,15 @@
             </div>
 
         </form>
+        <hr style="margin:50px;">
+        <div style=" padding-left: 300px; padding-top: 20px;">
+        <h1>Add Image Here</h1>
+        <form action="<%= request.getContextPath()%>/ProductCRUD?action=addImage" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="productId" value="<%= productId%>"/>
+            <input type="file" name="AddImageList"> 
+            <input type="submit" name="AddImage">
+        </form>     
+        </div>
     </body>
 </html>
 <style>
