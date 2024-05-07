@@ -85,6 +85,7 @@ public class Search extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String action = request.getParameter("search");
+        String page = request.getParameter("page");
 
         if (action.equals("staff")) {
             String fullname = request.getParameter("value");
@@ -98,7 +99,11 @@ public class Search extends HttpServlet {
             Query query = em.createNativeQuery("SELECT * FROM Products WHERE PRODUCT_NAME LIKE '%" + fullname + "%'", Products.class);
             List<Products> product = query.getResultList();
             session.setAttribute("productList", product);
-            response.sendRedirect("Staff/productAdmin.jsp");
+            if(page.equals("admin")){
+                response.sendRedirect("Staff/productAdmin.jsp");
+            }else if(page.equals("customer")){
+                response.sendRedirect("Customer/product.jsp");
+            }
         }
 
     }

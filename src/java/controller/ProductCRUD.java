@@ -234,5 +234,8 @@ public class ProductCRUD extends HttpServlet {
             Query query = em.createNamedQuery("Products.findAll");
             List<Products> prod = query.getResultList();
             session.setAttribute("productList",prod);
+            query = em.createNamedQuery("Category.findAll");
+            List<find_Category> category = query.getResultList();
+            session.setAttribute("categoryList",category);
     }
 }

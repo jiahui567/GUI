@@ -64,6 +64,7 @@ public class Filter extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
+        String page = request.getParameter("page");
         
         if(action.equals("Role")){
             
@@ -90,13 +91,21 @@ public class Filter extends HttpServlet {
                 Query query = em.createNamedQuery("Products.findAll");
                 List<Products> products = query.getResultList();
                 session.setAttribute("productList",products);
-                response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+                if(page.equals("admin")){
+                    response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+                }else if(page.equals("customer")){
+                    response.sendRedirect("Customer/product.jsp");
+                }
             }else{
                 Category category = new Category(product);
                 Query query = em.createNamedQuery("Products.findByCategory").setParameter("categoryId", category);
                 List<Products> products = query.getResultList();
                 session.setAttribute("productList",products);
-                response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+                if(page.equals("admin")){
+                    response.sendRedirect(request.getContextPath()+"/Staff/productAdmin.jsp");
+                }else if(page.equals("customer")){
+                    response.sendRedirect(request.getContextPath()+"/Customer/product.jsp");
+                }
             }
         }
     }

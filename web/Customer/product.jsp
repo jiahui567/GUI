@@ -19,6 +19,7 @@
 	</head>
         <% 
             List<Products> productList = (List<Products>) session.getAttribute("productList");
+            List<Category> categoryList = (List) session.getAttribute("categoryList");
         %>
 	<body>
 
@@ -46,6 +47,26 @@
 		
 
 		<div class="untree_co-section product-section before-footer-section">
+                    <form method="post" action="<%= request.getContextPath()%>/Search?search=product&page=customer">
+                        <i class="uil uil-search"></i>
+                        <input type="text" name="value" placeholder="Search here..." onchange="this.form.submit()">
+                    </form>
+                    <div>
+                        <form action="<%= request.getContextPath()%>/Filter?action=Product&page=customer" method="post" margin="0">
+                            <label>Category: </label>
+                            <select name="Product" id="Product" onchange="this.form.submit()">
+                                <option selected disabled>
+                                    Filter
+                                </option>
+                                <option value="0">
+                                    All
+                                </option>
+                                <%for(Category cat: categoryList){%>
+                                <option value="<%=cat.getCategoryId()%>"> <%=cat.getCatName()%></option>
+                                <%}%>
+                            </select>
+                        </form>
+                    </div>
 		    <div class="container">
 		      	<div class="row">
 

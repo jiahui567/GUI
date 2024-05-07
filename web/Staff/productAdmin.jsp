@@ -62,7 +62,7 @@
             <div class="top">
                 <i class="uil uil-bars sidebar-toggle"></i>
 
-                <form method="post" action="<%= request.getContextPath()%>/Search?search=product">
+                <form method="post" action="<%= request.getContextPath()%>/Search?search=product&page=admin">
                     <i class="uil uil-search"></i>
                     <input type="text" name="value" placeholder="Search here..." onchange="this.form.submit()">
                 </form>
@@ -74,7 +74,7 @@
                 <h1>Product</h1>
             </div>
             <div style="margin-top:12%">
-                <form action="<%= request.getContextPath()%>/Filter?action=Product" method="post" margin="0">
+                <form action="<%= request.getContextPath()%>/Filter?action=Product&page=admin" method="post" margin="0">
                     <label>Category: </label>
                     <select name="Product" id="Product" onchange="this.form.submit()">
                         <option selected disabled>
