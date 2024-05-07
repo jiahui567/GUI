@@ -28,7 +28,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ImageTable.findAll", query = "SELECT i FROM ImageTable i"),
-    @NamedQuery(name = "ImageTable.findByImageId", query = "SELECT i FROM ImageTable i WHERE i.imageId = :imageId")})
+    @NamedQuery(name = "ImageTable.findByImageId", query = "SELECT i FROM ImageTable i WHERE i.imageId = :imageId"),
+    @NamedQuery(name = "ImageTable.findByProductId", query = "SELECT i FROM ImageTable i WHERE i.productId = :productId")})
 public class ImageTable implements Serializable {
 
     private static final long serialVersionUID = 1L;

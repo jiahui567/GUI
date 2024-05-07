@@ -67,7 +67,7 @@
                                 <% 
                                   for (CartItem cartItem : cartList){
                                       Products prod = cartItem.getProductid();
-                               
+                              
                                 %>
                             <form class="col-md-12" action="<%=request.getContextPath()%>/CartCRUD?function=editQuantity&action=update&cartItem=<%=cartItem.getCartItemid()%>" method="post">
                                 <tr>
