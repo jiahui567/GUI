@@ -4,14 +4,10 @@
  */
 package controller;
 
-import entity.Cart;
-import entity.CartItem;
-import entity.Users;
+import entity.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -24,13 +20,15 @@ import java.util.List;
 
 /**
  *
- * @author Ong
+ * @author User_01
  */
-public class Checkout extends HttpServlet {
-   @PersistenceContext
+public class Payments extends HttpServlet {
+
+    @PersistenceContext
     EntityManager em;
     @Resource
     UserTransaction utx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,16 +40,19 @@ public class Checkout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession();
-            Users customer = (Users) session.getAttribute("customer");
-            Query query = em.createNamedQuery("Cart.findByUserId");
-            query.setParameter("userId", customer);
-            Cart cart = (Cart) query.getSingleResult();
-            query = em.createNamedQuery("CartItem.findByCartId");
-            query.setParameter("cartId", cart);
-            List<CartItem> cartItem = query.getResultList();
-            request.setAttribute("cart", cartItem); 
-            request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response); 
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Payments</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Payments at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,9 +81,30 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        
+        HttpSession session = request.getSession();
+        try{
+        Users user = (Users)session.getAttribute("customer");
+        int cartId = Integer.parseInt(request.getParameter("cartId"));
+        double totalamount = Double.parseDouble(request.getParameter("totalAmount"));
+        PaymentMethod paymentmethod = em.find(PaymentMethod.class, Integer.parseInt(request.getParameter("paymentMethod")));
+        Cart cart = em.find(Cart.class, cartId);
+        List<CartItem> cartItem = cart.getCartItemList();
+        utx.begin();
+        Orders order = new Orders(em.find(OrderStatus.class, 1),user,request.getParameter("address"));
+        em.persist(order);
+        em.flush();
+        for(CartItem item:cartItem){
+            OrderItem orderItem = new OrderItem(item.getQuantity(),order,em.find(Products.class,item.getProductid().getProductId()));
+            em.persist(orderItem);
+        }
+        em.flush();
+        Payment userPayment = new Payment(totalamount,order,paymentmethod);
+        em.persist(userPayment);
+        utx.commit();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        response.sendRedirect("Customer/home.jsp");
     }
 
     /**

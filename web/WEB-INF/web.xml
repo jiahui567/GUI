@@ -160,6 +160,10 @@
         <servlet-name>Payments</servlet-name>
         <servlet-class>controller.Payments</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerLoadProfile</servlet-name>
+        <servlet-class>controller.CustomerLoadProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -299,6 +303,10 @@
     <servlet-mapping>
         <servlet-name>Payments</servlet-name>
         <url-pattern>/Payments</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerLoadProfile</servlet-name>
+        <url-pattern>/CustomerLoadProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

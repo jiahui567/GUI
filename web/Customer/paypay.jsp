@@ -1,5 +1,6 @@
 <%@page import="java.util.*" %>
 <%@page import="entity.*" %>
+<%@page import="java.text.DecimalFormat" %>
 <!-- <%-- 
     Document   : paypay
     Created on : 30 Apr 2024, 10:49:55 pm
@@ -24,28 +25,78 @@
     </head>
 
     <body>
-        <div class="container mt-5 px-5">
 
+        <div class="container mt-5 px-5">
+            <div class="row" style="margin-top: 10px;">
+
+                <div class="col-md-8">
+
+
+                    <div class="card p-3">
+                        <h1>Receipt</h1>
+                        <h3>Product</h3>
+                        <% double totalamount = 0;%>
+                        <% for(CartItem item:cartList){%>
+                        <p style="text-align:left;">
+                            <%=item.getProductid().getProductName()%> x <%=item.getQuantity()%>
+                            <span style="float:right;">
+                                <%=item.getProductid().getPrice() * item.getQuantity()%>
+                                <% totalamount += item.getProductid().getPrice() * item.getQuantity();%>
+                            </span>
+                        </p>
+                        <%}%>
+                        <hr>
+                        <p style="text-align:left;">
+                            Delivery Fee
+                            <span style="float:right;">
+                                <%if(totalamount > 1000){%>
+                                Free
+                                <%}else{
+                                totalamount +=25; %>
+                                25
+                                <%}%>
+                            </span>
+                        </p>
+                        <p style="text-align:left;">
+                            SST
+                            <span style="float:right;">
+                                <%  DecimalFormat priceFormatter = new DecimalFormat("#0.00");%>
+                                <%=priceFormatter.format((totalamount / 100) * 6)%>
+                                <%totalamount += Double.parseDouble(priceFormatter.format((totalamount / 100) * 6));%>
+                            </span>
+                        </p>
+                        <hr>
+                        <p style="text-align:left;">
+                            Total Amount
+                            <span style="float:right;">
+                                <%=totalamount%>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
             <div class="mb-4">
 
                 <h2>Confirm order and pay</h2>
                 <span>Please make the payment and you can enjoy all the features and benefits.</span>
 
             </div>
-            
-            <div class="row">
+            <p>Switch to:
+                <button id="switchMethod" onclick="switchMethod(this)">Cash On Delivery</button>
+            </p>
+            <div class="row" id="cardForm">
 
                 <div class="col-md-8">
-
-
                     <div class="card p-3">
                         <form action="<%=request.getContextPath()%>/Payments?cartId=<%=cartList.get(0).getCartId().getCartId()%>" method="post">
-                            <h6 class="text-uppercase">Payment details</h6>
+                            <h6 class="text-uppercase">Payment details<span style="float:right;"><img id="cardType" src="<%=request.getContextPath()%>/Customer/images/visa.png" width="50" height="50" style="display:none;"/></span></h6>
+                            <input id="paymentMethod" name="paymentMethod" type="text" value="" hidden>
+                            <input type="text" name="totalAmount" value="<%=totalamount%>" hidden>
                             <div class="inputbox mt-3">
                                 <input type="text" name="name" class="form-control" required="required"> 
                                 <span>Name on card</span> 
                             </div>
-
 
                             <div class="row">
 
@@ -53,7 +104,7 @@
 
                                     <div class="inputbox mt-3 mr-2">
                                         <input type="tel" name="card_number" id="cardNumber" inputmode="numeric"
-                                               pattern="[0-9]{4}[ ][0-9]{4}[ ][0-9]{4}[ ][0-9]{4}" maxlength="19"
+                                               pattern="[2,4,5]{1}[0-9]{3}[ ][0-9]{4}[ ][0-9]{4}[ ][0-9]{4}" maxlength="19"
                                                class="form-control" oninput="formatCardNumber(this)" required="required">
                                         <span>Card Number</span>
                                     </div>
@@ -85,8 +136,8 @@
                                     <div class="col-md-6">
                                         <div class="inputbox mt-3 mr-2"> 
                                             <a>Address</a> 
-                                            <input type="text" name="address" value="<%= customer.getAddress()%>">
-
+                                            <input type="text" name="address" value="<%= customer.getAddress()%>" readonly="readonly">
+                                            <p>*Address get from profile address</p>
                                         </div>
                                     </div>
                                     <div class="row mt-2 ">
@@ -104,47 +155,40 @@
                 </div>
 
             </div>
-            <div class="row" style="margin-top: 10px;">
+
+            <div class="row" id="cashForm" style="display:none;">
 
                 <div class="col-md-8">
-
-
                     <div class="card p-3">
-                        <h1>Receipt</h1>
-                        <h3>Product</h3>
-                        <% double totalamount = 0;%>
-                        <% for(CartItem item:cartList){%>
-                        <p style="text-align:left;">
-                            <%=item.getProductid().getProductName()%> x <%=item.getQuantity()%>
-                            <span style="float:right;">
-                                <%=item.getProductid().getPrice() * item.getQuantity()%>
-                                <% totalamount += item.getProductid().getPrice() * item.getQuantity();%>
-                            </span>
-                        </p>
-                        <%}%>
-                        <hr>
-                        <p style="text-align:left;">
-                            Delivery Fee
-                            <span style="float:right;">
-                                <%if(totalamount > 1000){%>
-                                    Free
-                                <%}else{
-                                totalamount +=25; %>
-                                25
-                                <%}%>
-                            </span>
-                        </p>
-                        <hr>
-                        <p style="text-align:left;">
-                            Total Amount
-                            <span style="float:right;">
-                                    <%=totalamount%>
-                            </span>
-                        </p>
+                        <div class="mt-4 mb-4">
+                            <form action="<%=request.getContextPath()%>/Payments?cartId=<%=cartList.get(0).getCartId().getCartId()%>" method="post">
+                                <input name="paymentMethod" type="text" value="3" hidden>
+                                <input type="text" name="totalAmount" value="<%=totalamount%>" hidden>
+                                <h6 class="text-uppercase">Billing Address</h6>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="inputbox mt-3 mr-2"> 
+                                            <a>Address</a> 
+                                            <input type="text" name="address" value="<%= customer.getAddress()%>" readonly="readonly">
+                                            <p>*Address get from profile address</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 ">
+                                        <div class="mt-4 mb-4 d-flex justify-content-between">
+                                            <input type="submit" class="btn btn-success px-3" value="Pay">
+                                            <button class="btn btn-back px-3" ><a href="cart.jsp">Back</a></button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
-            </div>                                           
+            </div>  
+
+
         </div>
     </div>
 </body>
@@ -318,9 +362,23 @@
 
 <script>
     function formatCardNumber(input) {
+        const image = document.getElementById("cardType");
         const value = input.value.trim();
         const formattedValue = value.replace(/\d{4}(?=\d)/g, '$& ').trim();
+        const method = document.getElementById("paymentMethod");
         input.value = formattedValue;
+        if (input.value.charAt(0) == "4") {
+            image.style.display = "block";
+            image.src = "<%=request.getContextPath()%>/Customer/images/visa.png";
+            method.value = "1";
+        } else if (input.value.charAt(0) == "5" || input.value.charAt(0) == "2") {
+            image.style.display = "block";
+            image.src = "<%=request.getContextPath()%>/Customer/images/mastercard.png";
+            method.value = "2";
+        } else {
+            image.style.display = "none";
+            method.value = "";
+        }
     }
     document.addEventListener('DOMContentLoaded', function () {
         var expiryDateInput = document.getElementById('expiry-date');
@@ -335,5 +393,17 @@
         });
      });
 
-
+    function switchMethod(btn) {
+        const cardForm = document.getElementById("cardForm");
+        const cashForm = document.getElementById("cashForm");
+        if (btn.innerHTML == "Credit/Debit") {
+            cardForm.style.display = "block";
+            cashForm.style.display = "none";
+            btn.innerHTML = "Cash On Delivery";
+        } else {
+            cardForm.style.display = "none";
+            cashForm.style.display = "block";
+            btn.innerHTML = "Credit/Debit";
+        }
+    }
 </script>

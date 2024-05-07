@@ -33,7 +33,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Payment.findByPaymentId", query = "SELECT p FROM Payment p WHERE p.paymentId = :paymentId"),
     @NamedQuery(name = "Payment.findByPaymentDate", query = "SELECT p FROM Payment p WHERE p.paymentDate = :paymentDate"),
     @NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount"),
-    @NamedQuery(name = "Payment.findByPromotion", query = "SELECT p FROM Payment p WHERE p.promotion = :promotion")})
+    @NamedQuery(name = "Payment.findByPromotion", query = "SELECT p FROM Payment p WHERE p.promotion = :promotion"),
+    @NamedQuery(name = "Payment.findByOrderId", query = "SELECT p FROM Payment p WHERE p.orderId = :orderId")})
 public class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +70,7 @@ public class Payment implements Serializable {
         this.amount = amount;
         this.orderId = orderId;
         this.paymentmethod = paymentmethod;
+        this.paymentDate = new Date();
     }
 
     public Payment(double amount, Double promotion, Orders orderId, PaymentMethod paymentmethod) {
@@ -76,6 +78,7 @@ public class Payment implements Serializable {
         this.promotion = promotion;
         this.orderId = orderId;
         this.paymentmethod = paymentmethod;
+        this.paymentDate = new Date();
     }
 
     public Payment(Integer paymentId, double amount) {

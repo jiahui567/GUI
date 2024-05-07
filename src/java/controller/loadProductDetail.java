@@ -4,14 +4,13 @@
  */
 package controller;
 
+import entity.ImageTable;
 import entity.Products;
-import entity.Users;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,8 +43,11 @@ public class loadProductDetail extends HttpServlet {
         int prodId = Integer.parseInt(request.getParameter("prodID"));
         try{
             Products prodDetail = em.find(Products.class, prodId);
+            Query query = em.createNamedQuery("ImageTable.findByProductId").setParameter("productId",prodDetail);
+            List<ImageTable> img = query.getResultList();
             HttpSession session = request.getSession();
             session.setAttribute("prodDetail",prodDetail);
+            session.setAttribute("productId",img);
             response.sendRedirect("Customer/productDetail.jsp");
             
         }catch(Exception ex){

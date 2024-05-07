@@ -4,33 +4,29 @@
  */
 package controller;
 
-import entity.Cart;
-import entity.CartItem;
+import entity.Orders;
+import entity.Payment;
 import entity.Users;
-import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.UserTransaction;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
- * @author Ong
+ * @author User_01
  */
-public class Checkout extends HttpServlet {
-   @PersistenceContext
+public class CustomerLoadProfile extends HttpServlet {
+    @PersistenceContext
     EntityManager em;
-    @Resource
-    UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,15 +39,17 @@ public class Checkout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             HttpSession session = request.getSession();
-            Users customer = (Users) session.getAttribute("customer");
-            Query query = em.createNamedQuery("Cart.findByUserId");
-            query.setParameter("userId", customer);
-            Cart cart = (Cart) query.getSingleResult();
-            query = em.createNamedQuery("CartItem.findByCartId");
-            query.setParameter("cartId", cart);
-            List<CartItem> cartItem = query.getResultList();
-            request.setAttribute("cart", cartItem); 
-            request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response); 
+            Users user = (Users)session.getAttribute("customer");
+            Query query = em.createNamedQuery("Orders.findByUserId").setParameter("userId",user);
+            List<Orders> order = query.getResultList();
+            List<Payment> payment = new ArrayList<Payment>();
+            for(Orders userOrder: order){
+                for(Payment pay:userOrder.getPaymentList()){
+                    payment.add(pay);
+                }
+            }
+            request.setAttribute("customerOrderList", payment); 
+            request.getRequestDispatcher("Customer/profile.jsp").forward(request, response); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -81,8 +79,6 @@ public class Checkout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
     }
 
     /**
