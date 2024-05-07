@@ -5,6 +5,7 @@
 package controller;
 
 import entity.Category;
+import entity.ImageTable;
 import entity.Products;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
@@ -18,6 +19,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
 import jakarta.transaction.UserTransaction;
 import java.io.InputStream;
 import java.util.List;
@@ -69,6 +75,9 @@ public class ProductCRUD extends HttpServlet {
                     getProduct(request);
                     response.sendRedirect("Staff/productAdmin.jsp");
                     break;
+                case "addImage":
+                    addImage(request);
+                    response.sendRedirect("Staff/productAdmin.jsp");
                 default:
                     break;
             }
@@ -237,5 +246,24 @@ public class ProductCRUD extends HttpServlet {
             query = em.createNamedQuery("Category.findAll");
             List<find_Category> category = query.getResultList();
             session.setAttribute("categoryList",category);
+    }
+    
+    private void addImage(HttpServletRequest request) throws IOException, ServletException{
+        int productId = Integer.parseInt(request.getParameter("productId"));
+        if(request.getPart("AddImageList") != null){
+        Part filePart = request.getPart("AddImageList");      
+        InputStream fileContent = filePart.getInputStream();
+        byte[] photoByte = fileContent.readAllBytes();
+        try{
+        utx.begin();
+        Products product = em.find(Products.class,productId);
+        ImageTable imageList = new ImageTable(photoByte,product);
+        em.persist(imageList);
+        utx.commit();
+        }catch(Exception e){
+        System.out.println(e.getMessage());
+        }
+        
+        }
     }
 }
