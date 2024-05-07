@@ -3,9 +3,11 @@
     Created on : 19 Apr 2024, 10:09:42 AM
     Author     : User
 --%>
-<jsp:useBean id="customer" scope="session" class="entity.Users"/> 
+<jsp:useBean id="customer" scope="session" class="entity.Users"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
+<%@page import="entity.*" %>
+<% List<Payment> orderList = (List) request.getAttribute("customerOrderList");%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,13 +226,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%for(Payment order:orderList){%>
                             <tr>
-                                <td>001</td>
-                                <td>2024-03-28</td>
-                                <td>$50.00</td>
-                                <td>Delivered</td>
-                                <td><button class="view-button" onclick="viewOrder()">View</button></td>
+                                <td><%=order.getOrderId().getAddress()%></td>
+                                <td><%=order.getPaymentDate()%></td>
+                                <td><%=order.getAmount()%></td>
+                                <td><%=order.getOrderId().getStatus().getStatusType()%></td>
                             </tr>
+                            <%}%>
                         </tbody>
                     </table>
                 </div>
