@@ -69,6 +69,7 @@ public class Payment implements Serializable {
         this.amount = amount;
         this.orderId = orderId;
         this.paymentmethod = paymentmethod;
+        this.paymentDate = new Date();
     }
 
     public Payment(double amount, Double promotion, Orders orderId, PaymentMethod paymentmethod) {
@@ -76,6 +77,7 @@ public class Payment implements Serializable {
         this.promotion = promotion;
         this.orderId = orderId;
         this.paymentmethod = paymentmethod;
+        this.paymentDate = new Date();
     }
 
     public Payment(Integer paymentId, double amount) {
