@@ -44,7 +44,7 @@
                                 <% if (name == null) {%>
                                 <a href="<%= request.getContextPath()%>/index.jsp">Login</a>
                                 <%}else{%>
-                                <a href="profile.jsp">View Profile</a>
+                                <a href="<%=request.getContextPath()%>/CustomerLoadProfile">View Profile</a>
                                 <a href="<%= request.getContextPath()%>/logout">Logout</a>
                                 <%}%>
                             </div>
