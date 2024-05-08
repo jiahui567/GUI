@@ -8,6 +8,7 @@
 <%@page import="java.util.*"%>
 <%@page import="entity.*" %>
 <% List<Payment> orderList = (List) request.getAttribute("customerOrderList");%>
+<% List<Promotion> promoteList = (List) request.getAttribute("customerPromotion");%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,6 +178,7 @@
                 <li><a href="#profile" onclick="openTab(event, 'profile')">Profile</a></li>
                 <li><a href="#orders" onclick="openTab(event, 'orders')">Order History</a></li>
                 <li><a href="#settings" onclick="openTab(event, 'settings')">Settings</a></li>
+                <li><a href="#promotion" onclick="openTab(event, 'promotion')">Promotion</a></li>
                 <li><a href="<%= request.getContextPath()%>/logout" onclick="logout()">Logout</a></li>
                 <li><a href="<%= request.getContextPath()%>/Customer/home.jsp">Home</a></li>
             </ul>
@@ -238,7 +240,31 @@
                     </table>
                 </div>
             </div>
-
+            <div id="promotion" class="tabcontent">
+                <h2>Promotion</h2>
+                <div class="order-history">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Promote Code</th>
+                                <th>Promotion Amount</th>
+                                <th>Minimum Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%for(Promotion promote:promoteList){%>
+                            <tr>
+                                <td><%=promote.getPromoCode()%></td>
+                                <td><%=promote.getAmount()%></td>
+                                <td><%=promote.getMinAmount()%></td>
+                                <td><%=promote.getStatus()%></td>
+                            </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div id="settings" class="tabcontent">
                 <h2>Change password</h2>
 
