@@ -54,7 +54,10 @@ public class ProductCRUD extends HttpServlet {
         HttpSession session = request.getSession();
         String userType = (String) session.getAttribute("userType");
         String action = request.getParameter("action");
-        if(userType == "staff"){
+        if(userType==null){
+            custGetProduct(request);
+            response.sendRedirect(request.getContextPath()+"/Customer/product.jsp");
+        }else if(userType == "staff"){
             switch (action) {
                 case "add":
                     addProduct(request);
