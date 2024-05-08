@@ -33,7 +33,7 @@
 html,
 body {
 	height: 100%;
-	font-family: "Cairo", sans-serif;
+	font-family: "Poppins", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -47,7 +47,7 @@ h6 {
 	margin: 0;
 	color: #111111;
 	font-weight: 400;
-	font-family: "Cairo", sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 
 h1 {
@@ -76,7 +76,7 @@ h6 {
 
 p {
 	font-size: 16px;
-	font-family: "Cairo", sans-serif;
+	font-family: "Poppins", sans-serif;
 	color: #6f6f6f;
 	font-weight: 400;
 	line-height: 26px;
@@ -164,10 +164,10 @@ ol {
 	display: inline-block;
 	font-size: 14px;
 	padding: 10px 28px 10px;
-	color: #ffffff;
+	color: #1f6924;
 	text-transform: uppercase;
 	font-weight: 700;
-	background: #7fad39;
+	background: #b3e9c7;
 	letter-spacing: 2px;
 }
 
@@ -175,10 +175,10 @@ ol {
 	font-size: 14px;
 	color: #ffffff;
 	font-weight: 800;
-	text-transform: uppercase;
+	text-transform: uppercase;  
 	display: inline-block;
 	padding: 13px 30px 12px;
-	background: #7fad39;
+	background: #b3e9c7;
 	border: none;
 }
 
@@ -610,7 +610,7 @@ ol {
 	right: 18px;
 	top: 9px;
 	content: "3";
-	font-family: "ElegantIcons";
+	font-family: "Poppins",sans-serif;
 	font-size: 18px;
 	color: #ffffff;
 }
@@ -1715,6 +1715,7 @@ ol {
 	padding: 16px 28px 14px;
 	margin-right: 6px;
 	margin-bottom: 5px;
+        font-family: "Poppins",san-serif;
 }
 
 .product__details__text .heart-icon {

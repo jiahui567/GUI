@@ -4,7 +4,7 @@
  */
 package controller;
 
-import entity.Products;
+import entity.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -42,9 +42,17 @@ public class reportGenerate extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         try{
-            Query query = em.createNamedQuery("Products.findAll");
-            List<Products> prod = query.getResultList();
-            session.setAttribute("productList",prod);
+//            Query query = em.createNativeQuery("SELECT P.PRODUCT_NAME,\n" +
+//            "SUM(OI.QUANTITY) AS totalquan\n" +
+//            "FROM ORDER_ITEM OI\n" +
+//            "JOIN PRODUCTS P ON OI.PRODUCT_ID = P.PRODUCT_ID\n" +
+//            "GROUP BY OI.PRODUCT_ID, P.PRODUCT_NAME\n" +
+//            "ORDER BY totalquan DESC\n" +
+//            "FETCH FIRST 10 ROWS ONLY");
+            Query query = em.createNativeQuery("select sum(QUANTITY) as totalquan,PRODUCT_ID from ORDER_ITEM Group by PRODUCT_ID Order By totalquan DESC FETCH FIRST 10 ROWS ONLY");
+            List<OrderItem> orderItem = query.getResultList();
+            System.out.println(orderItem);
+            session.setAttribute("orderList",orderItem);
             
         }catch(Exception ex){
             System.out.println(ex.getMessage());
