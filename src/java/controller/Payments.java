@@ -173,7 +173,6 @@ public class Payments extends HttpServlet {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             try {
-                utx.rollback();
             } catch (Exception rollbackEx) {
                 System.out.println("Rollback failed: " + rollbackEx.getMessage());
             }
