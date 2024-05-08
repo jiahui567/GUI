@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <jsp:useBean id="customer" scope="session" class="entity.Users"/> 
 <% List<CartItem> cartList = (List)request.getAttribute("cart");%>
+<% Promotion userPromote = (Promotion)request.getAttribute("coupon");%>
 <html>
 
     <head>
@@ -66,6 +67,17 @@
                             </span>
                         </p>
                         <hr>
+                        <%if(userPromote != null){
+                        totalamount -= userPromote.getAmount();
+                        %>
+                        <p style="text-align:left;">
+                            Promote Coupon(<%=userPromote.getPromotionId()%>)
+                            <span style="float:right;">
+                                -<%=userPromote.getAmount()%>
+                            </span>
+                        </p>
+                        <hr>
+                           <%}%>
                         <p style="text-align:left;">
                             Total Amount
                             <span style="float:right;">
@@ -161,7 +173,7 @@
                 <div class="col-md-8">
                     <div class="card p-3">
                         <div class="mt-4 mb-4">
-                            <form action="<%=request.getContextPath()%>/Payments?cartId=<%=cartList.get(0).getCartId().getCartId()%>" method="post">
+                            <form action="<%=request.getContextPath()%>/Payments?cartId=<%=cartList.get(0).getCartId().getCartId()%><%if(userPromote != null){%>&coupon=<%=userPromote.getPromotionId()%><%}%>" method="post">
                                 <input name="paymentMethod" type="text" value="3" hidden>
                                 <input type="text" name="totalAmount" value="<%=totalamount%>" hidden>
                                 <h6 class="text-uppercase">Billing Address</h6>

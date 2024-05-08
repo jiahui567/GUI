@@ -168,6 +168,10 @@
         <servlet-name>loadHome</servlet-name>
         <servlet-class>controller.loadHome</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>couponRedeem</servlet-name>
+        <servlet-class>controller.couponRedeem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -315,6 +319,10 @@
     <servlet-mapping>
         <servlet-name>loadHome</servlet-name>
         <url-pattern>/loadHome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>couponRedeem</servlet-name>
+        <url-pattern>/couponRedeem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

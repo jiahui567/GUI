@@ -26,6 +26,13 @@
         <!-- Start Header/Navigation -->
         <%@include file="nav_bar.jsp"%>
         <% List<CartItem> cartList = (List)session.getAttribute("cart");%>
+        <%  Promotion userPromote = new Promotion();
+         if(session.getAttribute("couponValid") != null){
+         if((boolean)session.getAttribute("couponValid")){ 
+            userPromote = (Promotion)session.getAttribute("coupon");
+        }
+            }%>
+
         <!-- End Header/Navigation -->
 
         <!-- Start Hero Section -->
@@ -48,7 +55,7 @@
 
 
 
-        <div class="untree_co-section before-footer-section">
+        <div class="untree_co-section before-footer-section" style="margin-bottom: 100px;">
             <div class="container">
                 <div class="row mb-5">
                     <div class="site-blocks-table">
@@ -171,18 +178,30 @@
                                 <a style="color:white;text-decoration: none" href="<%=request.getContextPath()%>/ProductCRUD?action=get"><button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button></a>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="text-black h4" for="coupon">Coupon</label>
-                                <p>Enter your coupon code if you have one.</p>
+                        <form action="<%= request.getContextPath()%>/couponRedeem" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="text-black h4" for="coupon">Coupon(Only one per Transaction)</label>
+                                    <%if(session.getAttribute("couponValid") == null){%>
+                                    <p>Enter your coupon code if you have one.</p>
+                                    <%}else if((boolean)session.getAttribute("couponValid")){
+                                    totalamount -= userPromote.getAmount();
+                                    %>
+                                    <p>Promotion value:<%=userPromote.getAmount()%></p>
+                                    <%}else if(!(boolean)session.getAttribute("couponValid")){%>
+                                    <p><%=session.getAttribute("coupon")%></p>
+                                    <%}%>
+                                </div>
+                                <div class="col-md-8 mb-3 mb-md-0">
+                                    <input type="text" name="subtotal" value="<%=subtotal%>" readonly hidden>
+                                    <input type="text" name="coupon" class="form-control py-3" id="coupon" placeholder="Coupon Code">
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-black" onclick="this.form.submit()">Apply Coupon</button>
+                                </div>
                             </div>
-                            <div class="col-md-8 mb-3 mb-md-0">
-                                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-black">Apply Coupon</button>
-                            </div>
-                        </div>
+                        </form>
+
                     </div>
                     <div class="col-md-6 pl-5">
                         <div class="row justify-content-end">
@@ -223,8 +242,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                         <%if(!cartList.isEmpty()){%>
-                                         <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Checkout?Id=<%= customer.getUserId()%>">Proceed To Checkout </a></button>
+                                        <%if(!cartList.isEmpty()){%>
+                                        <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Checkout?Id=<%= customer.getUserId()%><%if(session.getAttribute("couponValid") != null && (boolean)session.getAttribute("couponValid")){%>&coupon=<%=userPromote.getPromotionId()%><%}%>">Proceed To Checkout </a></button>
                                         <%}else{%>
                                         <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" >Proceed To Checkout </a></button>
                                         <%}%>

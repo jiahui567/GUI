@@ -6,6 +6,7 @@ package controller;
 
 import entity.Cart;
 import entity.CartItem;
+import entity.Promotion;
 import entity.Users;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
@@ -50,6 +51,10 @@ public class Checkout extends HttpServlet {
             query = em.createNamedQuery("CartItem.findByCartId");
             query.setParameter("cartId", cart);
             List<CartItem> cartItem = query.getResultList();
+            if(request.getParameter("coupon")!= null){
+            Promotion userPromote = em.find(Promotion.class,Integer.parseInt(request.getParameter("coupon")));
+            request.setAttribute("coupon", userPromote); 
+            }
             request.setAttribute("cart", cartItem); 
             request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response); 
     }

@@ -91,6 +91,14 @@ public class Promotion implements Serializable {
         this.promoCode = promoCode;
     }
 
+    public Promotion(String promoCode, Users userId, double amount, double minAmount, String status) {
+        this.promoCode = promoCode;
+        this.userId = userId;
+        this.amount = amount;
+        this.minAmount = minAmount;
+        this.status = status;
+    }
+
     public Integer getPromotionId() {
         return promotionId;
     }
