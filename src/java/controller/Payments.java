@@ -16,7 +16,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -106,10 +108,35 @@ public class Payments extends HttpServlet {
                em.remove(remove);
             }
             if (totalamount >= 1000) {
-//        String randomCode = 
-//        Promotion promote
+            Random random = new Random();
+
+            String promoteCode = random.ints(97, 123)
+            .limit(10)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+            
+            if(request.getParameter("coupon")!= null){
+                Promotion usedPromotion = em.find(Promotion.class,Integer.parseInt(request.getParameter("coupon")));
+                usedPromotion.setStatus("Used");
+                em.merge(usedPromotion);
+                em.flush();
+            }
+            
+            Promotion userPromotion = new Promotion(promoteCode,user,80,800,"Unused");
+            em.persist(userPromotion);
+            }else if(totalamount >= 500){
+            Random random = new Random();
+
+            String promoteCode = random.ints(97, 123)
+            .limit(10)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+            Promotion userPromotion = new Promotion(promoteCode,user,40,400,"Unused");
+            em.persist(userPromotion);
             }
             utx.commit();
+            session.setAttribute("coupon",null);
+            session.setAttribute("couponValid",null);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
