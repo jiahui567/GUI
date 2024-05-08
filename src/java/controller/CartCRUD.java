@@ -96,10 +96,13 @@ public class CartCRUD extends HttpServlet {
         try {
             utx.begin();
             CartItem itemDetail = em.find(CartItem.class, cartitem);
+            Products prod = em.find(Products.class,itemDetail.getProductid().getProductId());
             if (action.equals("minus")) {
                 itemDetail.decreaseQuantity();
             } else if (action.equals("inc")) {
+                if(prod.getStockCount() > itemDetail.getQuantity()+1){
                 itemDetail.increaseQuantity();
+                }
             }
             utx.commit();
         } catch (Exception ex) {
@@ -115,6 +118,7 @@ public class CartCRUD extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int productID = Integer.parseInt(request.getParameter("product"));
         Products prod = em.find(Products.class, productID);
+        if(prod.getStockCount() >= quantity){
         Users customer = (Users) session.getAttribute("customer");
         Query query = em.createNamedQuery("Cart.findByUserId");
         query.setParameter("userId", customer);
@@ -130,6 +134,7 @@ public class CartCRUD extends HttpServlet {
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+        }
         }
     }
 
