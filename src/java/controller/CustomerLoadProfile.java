@@ -6,6 +6,7 @@ package controller;
 
 import entity.Orders;
 import entity.Payment;
+import entity.Promotion;
 import entity.Users;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -48,6 +49,9 @@ public class CustomerLoadProfile extends HttpServlet {
                     payment.add(pay);
                 }
             }
+            query = em.createNamedQuery("Promotion.findByUserId").setParameter("userId",user);
+            List<Promotion> userPromotion = query.getResultList();
+            request.setAttribute("customerPromotion",userPromotion);
             request.setAttribute("customerOrderList", payment); 
             request.getRequestDispatcher("Customer/profile.jsp").forward(request, response); 
     }

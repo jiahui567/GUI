@@ -9,7 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Untree.co">
   <link rel="shortcut icon" href="favicon.png">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
@@ -30,14 +32,15 @@
                                     <div class="row justify-content-between">
                                         <div class="col-lg-5">
                                             <div class="intro-excerpt">
-                                                <h1>Elegance & Comfort<span clsas="d-block"><br>A Guide to Home Furniture</span></h1>
+                                                <h1>HAN-KEA</h1>
+                                                <h2 clsas="d-block">A Guide to Home Furniture</h2>
                                                 <p class="mb-4">Transform Your Space with Timeless Designs and Cozy Accents</p>
-                                                <p><a href="<%= request.getContextPath()%>/getProduct" class="btn btn-secondary me-2">Shop Now</a><a href="<%= request.getContextPath()%>/getProduct" class="btn btn-white-outline">Explore</a></p>
+                                                <p><a href="<%= request.getContextPath()%>/Customer/product.jsp" class="btn btn-secondary me-2">Shop Now</a><a href="<%= request.getContextPath()%>/Customer/aboutUs.jsp" class="btn btn-white-outline">Explore Us</a></p>
                                             </div>
                                         </div>
                                         <div class="col-lg-7">
                                             <div class="hero-img-wrap">
-                                                <img src="images/sofa.jpg" class="img-fluid">
+                                                <img src="images/purpleSofa.png" class="img-fluid">
                                             </div>
                                         </div>
                                     </div>
@@ -52,9 +55,9 @@
 
 					<!-- Start Column 1 -->
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-						<h2 class="mb-4 section-title">Harmony Haven: Modern Living Room Furniture Set</h2>
+						<h2 class="mb-4 section-title">Our Top Sales Product : </h2>
 						<p class="mb-4">Create Serenity in Your Living Space with Sleek Designs and Comfortable Seating.</p>
-						<p><a href="shop.html" class="btn">Explore</a></p>
+						<p><a href="<%= request.getContextPath()%>/Customer/product.jsp" class="btn">Explore The Product</a></p>
 					</div> 
 					<!-- End Column 1 -->
 
