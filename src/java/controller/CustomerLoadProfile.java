@@ -45,9 +45,8 @@ public class CustomerLoadProfile extends HttpServlet {
             List<Orders> order = query.getResultList();
             List<Payment> payment = new ArrayList<Payment>();
             for(Orders userOrder: order){
-                for(Payment pay:userOrder.getPaymentList()){
-                    payment.add(pay);
-                }
+                query = em.createNamedQuery("Payment.findByOrderId").setParameter("orderId",userOrder);
+                payment.addAll( query.getResultList());
             }
             query = em.createNamedQuery("Promotion.findByUserId").setParameter("userId",user);
             List<Promotion> userPromotion = query.getResultList();

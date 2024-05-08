@@ -4,9 +4,11 @@
  */
 package controller;
 
+import entity.OrderItem;
 import entity.Orders;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -36,7 +38,9 @@ EntityManager em;
         HttpSession session = request.getSession();
         int orderId = Integer.parseInt(request.getParameter("Id"));
         Orders order = em.find(Orders.class, orderId);
-        session.setAttribute("orderItemList",order.getOrderItemList());
+        Query query = em.createNamedQuery("OrderItem.findByOrderId").setParameter("orderId",order);
+        List<OrderItem> item = query.getResultList();
+        session.setAttribute("orderItemList",item);
         response.sendRedirect(request.getContextPath()+"/Staff/OrderDetail.jsp?orderId="+orderId);
     }
 

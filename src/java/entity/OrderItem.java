@@ -29,7 +29,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderItem.findAll", query = "SELECT o FROM OrderItem o"),
     @NamedQuery(name = "OrderItem.findByOrderItemid", query = "SELECT o FROM OrderItem o WHERE o.orderItemid = :orderItemid"),
     @NamedQuery(name = "OrderItem.findByQuantity", query = "SELECT o FROM OrderItem o WHERE o.quantity = :quantity"),
-    @NamedQuery(name = "OrderItem.findByPrice", query = "SELECT o FROM OrderItem o WHERE o.price = :price")})
+    @NamedQuery(name = "OrderItem.findByPrice", query = "SELECT o FROM OrderItem o WHERE o.price = :price"),
+    @NamedQuery(name = "OrderItem.findByOrderId", query = "SELECT o FROM OrderItem o WHERE o.orderId = :orderId")})
 public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;

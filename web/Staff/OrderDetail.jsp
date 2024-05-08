@@ -40,8 +40,8 @@
             </tr>
             <% for(OrderItem item:itemList){%>
             <tr>
-                <td><%=item.getProductid().getProductId()%></td>
-                <td><%=item.getProductid().getProductName()%></td>
+                <td><%=item.getProductId().getProductId()%></td>
+                <td><%=item.getProductId().getProductName()%></td>
                 <td><%=item.getQuantity()%></td>
                 <td><%=item.getPrice()%></td>
             </tr>
