@@ -99,6 +99,7 @@ public class login extends HttpServlet {
                 }
                 System.out.println("LoginSuccess");
             }else{
+                request.setAttribute("loginStatus","failed");
                 dispatcher = request.getRequestDispatcher("index.jsp");
                 dispatcher.include(request,response);
                 System.out.println(count);

@@ -220,7 +220,11 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Checkout?Id=<%= customer.getUserId()%>">Proceed To Checkout </a></button>
+                                         <%if(!cartList.isEmpty()){%>
+                                         <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" href="<%= request.getContextPath()%>/Checkout?Id=<%= customer.getUserId()%>">Proceed To Checkout </a></button>
+                                        <%}else{%>
+                                        <button class="btn btn-black btn-lg py-3 btn-block" > <a style="text-decoration: none; color: #ffffff;" >Proceed To Checkout </a></button>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>

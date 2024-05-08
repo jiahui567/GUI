@@ -82,26 +82,35 @@ public class Payments extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        try{
-        Users user = (Users)session.getAttribute("customer");
-        int cartId = Integer.parseInt(request.getParameter("cartId"));
-        double totalamount = Double.parseDouble(request.getParameter("totalAmount"));
-        PaymentMethod paymentmethod = em.find(PaymentMethod.class, Integer.parseInt(request.getParameter("paymentMethod")));
-        Cart cart = em.find(Cart.class, cartId);
-        List<CartItem> cartItem = cart.getCartItemList();
-        utx.begin();
-        Orders order = new Orders(em.find(OrderStatus.class, 1),user,request.getParameter("address"));
-        em.persist(order);
-        em.flush();
-        for(CartItem item:cartItem){
-            OrderItem orderItem = new OrderItem(item.getQuantity(),order,em.find(Products.class,item.getProductid().getProductId()));
-            em.persist(orderItem);
-        }
-        em.flush();
-        Payment userPayment = new Payment(totalamount,order,paymentmethod);
-        em.persist(userPayment);
-        utx.commit();
-        }catch(Exception e){
+        try {
+            Users user = (Users) session.getAttribute("customer");
+            int cartId = Integer.parseInt(request.getParameter("cartId"));
+            double totalamount = Double.parseDouble(request.getParameter("totalAmount"));
+            PaymentMethod paymentmethod = em.find(PaymentMethod.class, Integer.parseInt(request.getParameter("paymentMethod")));
+            Cart cart = em.find(Cart.class, cartId);
+            List<CartItem> cartItem = cart.getCartItemList();
+            utx.begin();
+            Orders order = new Orders(em.find(OrderStatus.class, 1), user, request.getParameter("address"));
+            em.persist(order);
+            em.flush();
+            for (CartItem item : cartItem) {
+                OrderItem orderItem = new OrderItem(item.getQuantity(), order, em.find(Products.class, item.getProductid().getProductId()));
+                em.persist(orderItem);
+            }
+            em.flush();
+            Payment userPayment = new Payment(totalamount, order, paymentmethod);
+            em.persist(userPayment);
+            em.flush();
+            for (CartItem item : cartItem) {
+                CartItem remove = em.find(CartItem.class,item.getCartItemid());
+               em.remove(remove);
+            }
+            if (totalamount >= 1000) {
+//        String randomCode = 
+//        Promotion promote
+            }
+            utx.commit();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         response.sendRedirect("Customer/home.jsp");
