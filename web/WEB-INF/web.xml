@@ -165,8 +165,8 @@
         <servlet-class>controller.reportGenerate</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Promotion</servlet-name>
-        <servlet-class>controller.Promotion</servlet-class>
+        <servlet-name>loadHome</servlet-name>
+        <servlet-class>controller.loadHome</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
@@ -313,8 +313,8 @@
         <url-pattern>/reportGenerate</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Promotion</servlet-name>
-        <url-pattern>/Promotion</url-pattern>
+        <servlet-name>loadHome</servlet-name>
+        <url-pattern>/loadHome</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

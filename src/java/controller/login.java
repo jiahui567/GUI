@@ -85,7 +85,7 @@ public class login extends HttpServlet {
                     Users customer = user.get(0);
                     session.setAttribute("customer",customer);
                     session.setAttribute("userType","customer");
-                    response.sendRedirect(request.getContextPath()+"/Customer/home.jsp ");
+                    response.sendRedirect(request.getContextPath()+"/loadHome");
                 }else if(usertype==1||usertype==2){
                     Query staff = em.createNamedQuery("Users.findAccount");
                     staff.setParameter("username",username);
