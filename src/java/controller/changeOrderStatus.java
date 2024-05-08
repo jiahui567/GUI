@@ -52,7 +52,7 @@ public class changeOrderStatus extends HttpServlet {
             order.setStatus(orderStatus);
             em.merge(order);
             utx.commit();
-            response.sendRedirect(request.getContextPath()+"/Staff/orderstatus.jsp");
+            response.sendRedirect(request.getContextPath()+"/Order");
         } catch (Exception ex) {
             Logger.getLogger(changeOrderStatus.class.getName()).log(Level.SEVERE, null, ex);
         }

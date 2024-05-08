@@ -1,8 +1,3 @@
-<%-- 
-    Document   : profile
-    Created on : 19 Apr 2024, 10:09:42 AM
-    Author     : User
---%>
 <jsp:useBean id="customer" scope="session" class="entity.Users"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
@@ -224,7 +219,6 @@
                                 <th>Date</th>
                                 <th>Total Amount</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -12,6 +12,9 @@
         <div class="wrapper">
             <div class="title"><span>Login Form</span></div>
             <form action= "<%= request.getContextPath()%>/login" method="POST">
+                <% if(request.getAttribute("loginStatus")== "failed"){%>
+                <p style="color: red;">Wrong Username or Password</p>
+                <%}%>
                 <div class="row">
                     <i class="fas fa-user"></i>
                     <input type="text" placeholder="Username" name="username" required >
