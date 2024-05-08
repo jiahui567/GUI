@@ -571,7 +571,7 @@ a {
     .footer-section .subscription-form .form-control {
       height: 50px;
       border-radius: 10px;
-      font-family: "Inter", sans-serif; }
+      font-family: "Poppins", sans-serif; }
       .footer-section .subscription-form .form-control:active, .footer-section .subscription-form .form-control:focus {
         outline: none;
         -webkit-box-shadow: none;
@@ -617,12 +617,15 @@ a {
       text-align: center;
       line-height: 40px;
       display: inline-block;
-      background: #dce5e4;
-      color: #3b5d50;
+      background: #E9E2F3;
+      color: #55356E;
       border-radius: 50%; }
       .footer-section .custom-social li a:hover {
         background: #3b5d50;
-        color: #ffffff; }
+        color: #ffffff; }    
+      .footer-section .custom-social li a span{
+          padding:13px;
+      }
   .footer-section .border-top {
     border-color: #dce5e4; }
     .footer-section .border-top.copyright {
@@ -634,7 +637,7 @@ a {
 .form-control {
   height: 50px;
   border-radius: 10px;
-  font-family: "Inter", sans-serif; }
+  font-family: "Poppins", sans-serif; }
   .form-control:active, .form-control:focus {
     outline: none;
     -webkit-box-shadow: none;
