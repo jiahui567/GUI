@@ -98,6 +98,7 @@ public class Payments extends HttpServlet {
             for (CartItem item : cartItem) {
                 OrderItem orderItem = new OrderItem(item.getQuantity(), order, em.find(Products.class, item.getProductid().getProductId()));
                 em.persist(orderItem);
+                deductStock(item.getProductid().getProductId(),item.getQuantity());
             }
             em.flush();
             Payment userPayment = new Payment(totalamount, order, paymentmethod);
@@ -152,5 +153,31 @@ public class Payments extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void deductStock(int productId, int quantityPurchased) {
+        try {
+            Products product = em.find(Products.class, productId);
+            
+            if (product != null) {
+                int currentStock = product.getStockCount();
+                if (currentStock >= quantityPurchased) {
+                    product.setStockCount(currentStock - quantityPurchased);
+                    em.merge(product);
+                    System.out.println("Stock deducted successfully.");
+                } else {
+                    System.out.println("Insufficient stock for product: " + product.getProductName());
+                }
+            } else {
+                System.out.println("Product with ID " + productId + " not found.");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            try {
+                utx.rollback();
+            } catch (Exception rollbackEx) {
+                System.out.println("Rollback failed: " + rollbackEx.getMessage());
+            }
+        }
+    }
 
 }
