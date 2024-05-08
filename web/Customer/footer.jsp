@@ -19,7 +19,7 @@
 					<img src="images/sofa.png" alt="Image" class="img-fluid">
 				</div>
 
-				<div class="row">
+<!--				<div class="row">
 					<div class="col-lg-8">
 						<div class="subscription-form">
 							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
@@ -40,7 +40,7 @@
 
 						</div>
 					</div>
-				</div>
+				</div>-->
 
 				<div class="row g-5 mb-5">
 					<div class="col-lg-4">
@@ -59,21 +59,20 @@
 						<div class="row links-wrap">
 							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">
-									<li><a href="#">About us</a></li>
-									<li><a href="#">Services</a></li>
-									<li><a href="#">Blog</a></li>
-									<li><a href="#">Contact us</a></li>
+									<li><a href="<%= request.getContextPath()%>/Customer/aboutUs.jsp">About us</a></li>
+									<li><a href="<%= request.getContextPath()%>/Customer/service.jsp">Services</a></li>
+									<li><a href="<%= request.getContextPath()%>/Customer/contactUs.jsp">Contact us</a></li>
 								</ul>
 							</div>
 
-							<div class="col-6 col-sm-6 col-md-3">
+<!--							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">
 									<li><a href="#">Support</a></li>
 									<li><a href="#">Knowledge base</a></li>
 									<li><a href="#">Live chat</a></li>
 								</ul>
-							</div>
-
+							</div>-->
+<!--
 							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">
 									<li><a href="#">Jobs</a></li>
@@ -81,7 +80,7 @@
 									<li><a href="#">Leadership</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 								</ul>
-							</div>
+							</div>-->
 						</div>
 					</div>
 
