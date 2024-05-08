@@ -6,6 +6,7 @@ package controller;
 
 import entity.Cart;
 import entity.CartItem;
+import entity.Products;
 import entity.Promotion;
 import entity.Users;
 import jakarta.annotation.Resource;
@@ -51,12 +52,32 @@ public class Checkout extends HttpServlet {
             query = em.createNamedQuery("CartItem.findByCartId");
             query.setParameter("cartId", cart);
             List<CartItem> cartItem = query.getResultList();
+            boolean enough = true;
+            try {
+            utx.begin();
+            for (CartItem item : cartItem) {
+                Products prod = em.find(Products.class, item.getProductid().getProductId());
+                prod.setStockCount(prod.getStockCount()-item.getQuantity());
+                em.merge(prod);
+                em.flush();
+                if(prod.getStockCount() < 0){
+                    enough = false;
+                    utx.rollback();
+                    response.sendRedirect("Customer/home.jsp");
+                }
+            }
+            utx.rollback();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
             if(request.getParameter("coupon")!= null){
             Promotion userPromote = em.find(Promotion.class,Integer.parseInt(request.getParameter("coupon")));
             request.setAttribute("coupon", userPromote); 
             }
+            if(enough){
             request.setAttribute("cart", cartItem); 
-            request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response); 
+            request.getRequestDispatcher("Customer/paypay.jsp").forward(request, response);
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
