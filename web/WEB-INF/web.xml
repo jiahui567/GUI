@@ -164,6 +164,10 @@
         <servlet-name>reportGenerate</servlet-name>
         <servlet-class>controller.reportGenerate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadHome</servlet-name>
+        <servlet-class>controller.loadHome</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -307,6 +311,10 @@
     <servlet-mapping>
         <servlet-name>reportGenerate</servlet-name>
         <url-pattern>/reportGenerate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadHome</servlet-name>
+        <url-pattern>/loadHome</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
