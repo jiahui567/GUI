@@ -28,7 +28,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Promotion.findAll", query = "SELECT p FROM Promotion p"),
     @NamedQuery(name = "Promotion.findByPromotionId", query = "SELECT p FROM Promotion p WHERE p.promotionId = :promotionId"),
-    @NamedQuery(name = "Promotion.findByPromoCode", query = "SELECT p FROM Promotion p WHERE p.promoCode = :promoCode")})
+    @NamedQuery(name = "Promotion.findByPromoCode", query = "SELECT p FROM Promotion p WHERE p.promoCode = :promoCode"),
+    @NamedQuery(name = "Promotion.findByUserId", query = "SELECT p FROM Promotion p WHERE p.userId = :userId")})
+
 public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +48,9 @@ public class Promotion implements Serializable {
     @Basic(optional = false)
     @Column(name = "AMOUNT")
     private double amount;
+    @Basic(optional = false)
+    @Column(name = "MINAMOUNT")
+    private double minAmount;
     @Basic(optional = false)
     @Column(name = "STATUS")
     private String status;
@@ -67,6 +72,14 @@ public class Promotion implements Serializable {
     }
 
     public Promotion() {
+    }
+
+    public double getMinAmount() {
+        return minAmount;
+    }
+
+    public void setMinAmount(double minAmount) {
+        this.minAmount = minAmount;
     }
 
     public Promotion(Integer promotionId) {
