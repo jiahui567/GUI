@@ -53,8 +53,8 @@ public class updateStaffPassword extends HttpServlet {
             doPostPassword(request,response);
         }else if(action.equals("profile")){
             doPostProfile(request,response);
-        }else{
-            System.out.println("do something idk error in profile page");
+        }else if(action.equals("deletePic")){
+            doPostDelete(request, response);
         }
     }
     @Override
@@ -86,6 +86,32 @@ public class updateStaffPassword extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void doPostDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        HttpSession session = request.getSession();
+        Users customer = (Users) session.getAttribute("staff");
+        int userID = customer.getUserId();
+
+        try {
+            Query query = em.createNamedQuery("Users.findByUserId");
+            query.setParameter("userId", userID);
+            List<Users> user = query.getResultList();
+            Users userDetail = user.get(0);
+            if (userDetail != null) {
+                userDetail.setProfilePic(null);
+                utx.begin();
+                em.merge(userDetail);
+                utx.commit();
+                session.setAttribute("customer", userDetail);
+                response.sendRedirect(request.getContextPath()+"/Staff/setting.jsp#settings");
+
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }    
+    
+    
     protected void doPostProfile(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
             String fullname = request.getParameter("fullname");

@@ -236,10 +236,9 @@
                                 <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(staff.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
                                 <%}%>
                                 <input class="file" name="profilePic" type="file">
-                                <button class="delete-photo-button" onclick="deleteProfilePicture()">Delete Photo</button>
+                                <a href="<%= request.getContextPath()%>/updateStaffPassword?action=deletePic"><button class="delete-photo-button" >Delete Photo</button></a>
                             </div>
                         </div>
-
                         <div class="profile">
                             <label for="name">Name:</label>
                             <input type="text" name="fullname" id="name" value="<%= staff.getFullname()%>" required><br>
