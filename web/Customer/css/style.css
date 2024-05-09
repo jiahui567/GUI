@@ -470,12 +470,20 @@ a {
       -o-transition: .3s all ease;
       transition: .3s all ease; }
       .testimonial-slider-wrap #testimonial-nav > span:hover {
-        background: #3b5d50;
+        background: #55356E;
         color: #ffffff; }
     .testimonial-slider-wrap #testimonial-nav .prev {
-      left: -10px; }
+      left: -10px;
+          display:flex;
+    align-items:center;
+    justify-content: center;
+    }
     .testimonial-slider-wrap #testimonial-nav .next {
-      right: 0; }
+      right: 0;
+          display:flex;
+    align-items:center;
+    justify-content: center;
+    }
   .testimonial-slider-wrap .tns-nav {
     position: absolute;
     bottom: -50px;
