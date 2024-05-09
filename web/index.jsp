@@ -24,7 +24,6 @@
                     <i class="fas fa-lock"></i>
                     <input type="password" placeholder="Password" name="password" required>
                 </div>
-                <div class="pass"><a href="forgotPassword.jsp">Forgot password?</a></div>
                 <div class="row button">
                     <input type="submit" value="Login">
                 </div>
