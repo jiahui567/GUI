@@ -43,63 +43,66 @@
         </div>
 
         <div class="untree_co-section">
-            <div class="container">
+            <div style="display:flex; padding:5%;max-width: 90%; justify-content: center; align-items: center; " class="container">
+                <div style="width:40%; margin-right:3%;">
+                    <h3 style="font-weight: 700; color:#55356E">HAN-KEA Furniture Sdn. Bhd.</h3>
+                    <p style="font-size:18px; color: #191308;">Bringing you timeless, stylish, and budget-friendly furniture solutions dedicated to transforming your living space into a sanctuary.</p>
+                </div>
+                <div style="width:60%; ">
+                    <p style="font-size:18px; line-height: 30px; color:#191308;">With a rich legacy in the furniture industry, HAN-KEA stands out from the crowd. Our commitment is unwavering - to offer you furniture pieces of unparalleled quality that speak volumes wherever they're placed. 
+                        </br> Beyond aesthetics, we prioritize functionality, ensuring that every piece enhances your lifestyle. Our mission extends beyond the transaction; we're here for the long haul. We strive to provide an experience that transcends mere ownership, encompassing the entire lifespan of your cherished furniture. 
+                        </br>At HAN-KEA, comfort, style, and affordability converge seamlessly to create a home you'll love coming back to.</p>
+                </div>
+            </div>
 
+            <div class="container">
                 <div class="row mb-5">
                     <div class="col-lg-5 mx-auto text-center">
                         <h2 class="section-title">Our Team</h2>
                     </div>
                 </div>
 
-                <div class="row">
-
-
-                    <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-                        <img src="images/user1.jpg" class="img-fluid mb-5">
-                        <h3 clas><span class="">Lee Jia Hui</a></h3>
+                <div class="row" style="display:flex;">
+                    <div class="col-12 col-md-6 col-lg-2 mb-5 mb-md-0">
+                        <img src="images/user1.png" class="img-fluid mb-5">
+                        <h3><span class="">Lee Jia Hui</span></h3>
                         <span class="d-block position mb-4">CEO, Founder.</span>
                     </div> 
 
-                    <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                    <div class="col-12 col-md-6 col-lg-2 mb-5 mb-md-0">
                         <img src="images/user2.png" class="img-fluid mb-5">
-
-                        <h3 clas><span class="">Kok Nai Yen</a></h3>
+                        <h3><span class="">Kok Nai Yen</span></h3>
                         <span class="d-block position mb-4">CEO, Founder.</span>
                     </div> 
 
-                    <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                    <div class="col-12 col-md-6 col-lg-2 mb-5 mb-md-0">
                         <img src="images/user5.webp" class="img-fluid mb-5">
-                        <h3 clas><span class="">Liew Kim Wah</a></h3>
+                        <h3><span class="">Liew Kim Wah</span></h3>
                         <span class="d-block position mb-4">CEO, Founder.</span>
                     </div> 
 
-                    <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-                        <img src="images/user3.jpg" class="img-fluid mb-5">
-
-                        <h3 clas><span class="">Ong Han-Jie</a></h3>
+                    <div class="col-12 col-md-6 col-lg-2 mb-5 mb-md-0">
+                        <img src="images/user3.png" class="img-fluid mb-5">
+                        <h3><span class="">Ong Han-Jie</span></h3>
                         <span class="d-block position mb-4">CEO, Founder.</span>
                     </div> 
-                    
-                    <div class="col-6 col-md-3 col-lg-3 ">
-                        <img src="images/user4.jpg" class="img-fluid mb-5">
 
-                        <h3 clas><span class="">Wong Shi Min</a></h3>
-                        <span class="d-block position mb-4">CEO, Founder.</span>
-                    </div>
-                    
-                    <div class="col-6 col-md-3 col-lg-3">
-                        <img src="images/user6.jpg" class="img-fluid mb-5">
-
-                        <h3 clas><span class="">Tharani</a></h3>
+                    <div class="col-12 col-md-6 col-lg-2 mb-5 mb-md-0">
+                        <img src="images/user4.png" class="img-fluid mb-5">
+                        <h3><span class="">Wong Shi Min</span></h3>
                         <span class="d-block position mb-4">CEO, Founder.</span>
                     </div>
 
-
-
+                    <div class="col-12 col-md-6 col-lg-2 mb-5 mb-md-0">
+                        <img src="images/user6.png" class="img-fluid mb-5">
+                        <h3><span class="">Tharani</span></h3>
+                        <span class="d-block position mb-4">CEO, Founder.</span>
+                    </div>
                 </div>
+
             </div>
         </div>
-       
+
         <%@include file="footer.jsp" %>
 
 
