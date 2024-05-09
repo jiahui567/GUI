@@ -8,6 +8,7 @@ import entity.*;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -90,7 +91,8 @@ public class Payments extends HttpServlet {
             double totalamount = Double.parseDouble(request.getParameter("totalAmount"));
             PaymentMethod paymentmethod = em.find(PaymentMethod.class, Integer.parseInt(request.getParameter("paymentMethod")));
             Cart cart = em.find(Cart.class, cartId);
-            List<CartItem> cartItem = cart.getCartItemList();
+            Query query = em.createNamedQuery("CartItem.findByCartId").setParameter("cartId",cart);
+            List<CartItem> cartItem = query.getResultList();
             utx.begin();
             Orders order = new Orders(em.find(OrderStatus.class, 1), user, request.getParameter("address"));
             em.persist(order);
@@ -108,13 +110,6 @@ public class Payments extends HttpServlet {
                 CartItem remove = em.find(CartItem.class,item.getCartItemid());
                em.remove(remove);
             }
-            if (totalamount >= 1000) {
-            Random random = new Random();
-
-            String promoteCode = random.ints(97, 123)
-            .limit(10)
-            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-            .toString();
             
             if(request.getParameter("coupon")!= null){
                 Promotion usedPromotion = em.find(Promotion.class,Integer.parseInt(request.getParameter("coupon")));
@@ -123,6 +118,14 @@ public class Payments extends HttpServlet {
                 em.flush();
             }
             
+            if (totalamount >= 1000) {
+            Random random = new Random();
+
+            String promoteCode = random.ints(97, 123)
+            .limit(10)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+
             Promotion userPromotion = new Promotion(promoteCode,user,80,800,"Unused");
             em.persist(userPromotion);
             }else if(totalamount >= 500){
@@ -172,10 +175,6 @@ public class Payments extends HttpServlet {
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            try {
-            } catch (Exception rollbackEx) {
-                System.out.println("Rollback failed: " + rollbackEx.getMessage());
-            }
         }
     }
 
