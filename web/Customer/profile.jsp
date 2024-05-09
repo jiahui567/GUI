@@ -180,9 +180,12 @@
         </div>
         <div class="content">
             <div id="profile" class="tabcontent">
+                <%if(request.getAttribute("passworderror")=="error"){%>
+                <p>Change password failed. Please try again</p>
+                <%}%>
                 <h2>Profile Information</h2>
                 
-                <form action="<%= request.getContextPath()%>/updateProfile?action=profile" method="post" enctype="multipart/form-data">
+                <form action="<%= request.getContextPath()%>/updateProfile?action=profile" method="post" enctype="multipart/form-data" onsubmit="return validation()">
                     <div class="profile-picture-container">
                         <% if(customer.getProfilePic() != null){%>
                           <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
@@ -292,6 +295,15 @@
     </div>
 
     <script>
+        function validation(){
+            let password = document.getElementById("newpassword").value;
+            let password2 = document.getElementById("confirmpassword").value;
+            
+            if(password != password2){
+                alert("Confirm password not match please check");
+                return false;
+            }
+        }
         
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;

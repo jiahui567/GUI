@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,18 +44,30 @@ public class reportGenerate extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         try{
-//            Query query = em.createNativeQuery("SELECT P.PRODUCT_NAME,\n" +
-//            "SUM(OI.QUANTITY) AS totalquan\n" +
-//            "FROM ORDER_ITEM OI\n" +
-//            "JOIN PRODUCTS P ON OI.PRODUCT_ID = P.PRODUCT_ID\n" +
-//            "GROUP BY OI.PRODUCT_ID, P.PRODUCT_NAME\n" +
-//            "ORDER BY totalquan DESC\n" +
-//            "FETCH FIRST 10 ROWS ONLY");
-            Query query = em.createNativeQuery("select sum(QUANTITY) as totalquan,PRODUCT_ID from ORDER_ITEM Group by PRODUCT_ID Order By totalquan DESC FETCH FIRST 10 ROWS ONLY");
-            List<OrderItem> orderItem = query.getResultList();
-            System.out.println(orderItem);
-            session.setAttribute("orderList",orderItem);
-            
+            Query query = em.createNativeQuery("SELECT SUM(ORDER_ITEM.quantity) AS total,ORDER_ITEM.PRODUCT_ID, sum(ORDER_ITEM.PRICE) as revenue,PRODUCTS.PRODUCT_NAME\n" +
+                "FROM ORDER_ITEM \n" +
+                "JOIN PRODUCTS ON PRODUCTS.PRODUCT_ID = ORDER_ITEM.PRODUCT_ID JOIN PAYMENT ON PAYMENT.ORDER_ID = ORDER_ITEM.ORDER_ID\n" +
+                "WHERE YEAR(PAYMENT.PAYMENT_DATE) = YEAR(CURRENT_DATE) AND MONTH(PAYMENT.PAYMENT_DATE) = MONTH(CURRENT_DATE)\n" +
+                "GROUP BY ORDER_ITEM.PRODUCT_ID,PRODUCTS.PRODUCT_NAME\n" +
+                "ORDER BY total DESC \n" +
+                "FETCH FIRST 10 ROWS ONLY"
+            );
+            List<Object[]> prod = query.getResultList();
+            List<Products> salesMonth = new ArrayList<>();
+            for(Object[] row:prod){
+                int sum = (int) row[0];
+                int id = (int) row[1];
+                double revenue = (double) row[2];
+                String name = (String) row[3];
+                Products topProd = new Products();
+                topProd.setStockCount(sum);
+                topProd.setProductId(id);
+                topProd.setPrice(revenue);
+                topProd.setProductName(name);
+                salesMonth.add(topProd);
+            }
+            session.setAttribute("sales",salesMonth);
+            response.sendRedirect(request.getContextPath()+"/Staff/report.jsp");
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         

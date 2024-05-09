@@ -15,7 +15,7 @@
         <footer class="footer-section">
 			<div class="container relative">
 
-				<div class="sofa-img">
+				<div class="sofa-img" style="margin-top:10%">
 					<img src="images/sofa.png" alt="Image" class="img-fluid">
 				</div>
 
