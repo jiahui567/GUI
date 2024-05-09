@@ -155,7 +155,7 @@
                                     <div class="row mt-2 ">
                                         <div class="mt-4 mb-4 d-flex justify-content-between">
                                             <input type="submit" class="btn btn-success px-3" value="Pay">
-                                            <button class="btn btn-back px-3" ><a href="cart.jsp">Back</a></button>
+                                            <button class="btn btn-back px-3" ><a href="<%= request.getContextPath()%>/CartCRUD?function=get">Back</a></button>
 
                                         </div>
 
