@@ -1,4 +1,4 @@
-<%@page import="entity.Users" %>
+<%@page import="entity.*" %>
 <%@page import="java.util.*"%>
 <%--<jsp:useBean id="users" class="entity.Users" scope="session" ></jsp:useBean>--%>
 <%--<jsp:useBean name="users" property="*" ></jsp:useBean>--%>
@@ -21,7 +21,7 @@
   <link href="css/style.css" rel="stylesheet">
 
 	</head> 
-
+<% List<Products> topProd = (List) session.getAttribute("topProd");%>
 	<body>
 		<!-- Start Header/Navigation -->
                 <%@include file="nav_bar.jsp" %>
@@ -61,8 +61,21 @@
 					</div> 
 					<!-- End Column 1 -->
 
-					<!-- Start Column 2 -->                                        
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+					<!-- Start Column 2 -->     
+                                        <% for(Products prod:topProd){%>
+                                        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+						<a class="product-item" href="<%=request.getContextPath()%>/loadProductDetail?prodID=<%=prod.getProductId()%>">
+                                                    <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(prod.getImage())%>" style="height:100%" class="img-fluid product-thumbnail">
+							<h3 class="product-title"><%=prod.getProductName()%></h3>
+							<strong class="product-price"><%=prod.getPrice()%></strong>
+
+							<span class="icon-cross">
+								<img src="images/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+                                        <%}%>
+<!--					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 						<a class="product-item" href="cart.html">
 							<img src="images/product-1.png" class="img-fluid product-thumbnail">
 							<h3 class="product-title">Nordic Chair</h3>
@@ -73,9 +86,9 @@
 							</span>
 						</a>
 					</div> 
-					<!-- End Column 2 -->
+					 End Column 2 
 
-					<!-- Start Column 3 -->
+					 Start Column 3 
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 						<a class="product-item" href="cart.html">
 							<img src="images/product-2.png" class="img-fluid product-thumbnail">
@@ -87,9 +100,9 @@
 							</span>
 						</a>
 					</div>
-					<!-- End Column 3 -->
+					 End Column 3 
 
-					<!-- Start Column 4 -->
+					 Start Column 4 
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 						<a class="product-item" href="cart.html">
 							<img src="images/product-3.png" class="img-fluid product-thumbnail">
@@ -101,7 +114,7 @@
 							</span>
 						</a>
 					</div>
-					<!-- End Column 4 -->
+					 End Column 4 -->
 
 				</div>
 			</div>

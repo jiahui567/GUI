@@ -62,6 +62,7 @@ public class updateProfile extends HttpServlet {
          String action = request.getParameter("action");
         if(action.equals("password")){
             doPostPassword(request,response);
+
         }else if(action.equals("profile")){
             doPostProfile(request,response);
         }else{
@@ -111,17 +112,19 @@ public class updateProfile extends HttpServlet {
                         em.merge(userDetail);
                         utx.commit();
                         session.setAttribute("customer", userDetail);
-                        RequestDispatcher rd = request.getRequestDispatcher("Customer/profile.jsp");
-                        rd.forward(request, response);
+                        response.sendRedirect(request.getContextPath()+"/CustomerLoadProfile#settings");
+
                     }
                     
                 }catch(Exception ex){
                     System.out.println("error at finding user");
                 }
             }else{
-                String error = "Password not match. Please enter correct password.";
-                request.setAttribute("passworderror",error);
-                response.sendRedirect(request.getContextPath()+"/Staff/setting.jsp#settings");
+//                String error = "Password not match. Please enter correct password.";
+                request.setAttribute("passworderror","error");
+                RequestDispatcher rd = request.getRequestDispatcher("Customer/profile.jsp");
+                rd.forward(request, response);
+
             }
     }
     

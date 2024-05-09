@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,10 +38,15 @@ public class loadHome extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        Query query = em.createNativeQuery("SELECT * FROM PRODUCTS ORDER BY STOCK_COUNT DESC FETCH FIRST 3 ROWS ONLY",Products.class);
-        List<Products> prod = query.getResultList();
-        System.out.println(prod);
-        session.setAttribute("topProd",prod);
+        Query query = em.createNativeQuery("SELECT sum(quantity) as total,PRODUCT_ID FROM ORDER_ITEM GROUP BY PRODUCT_ID ORDER BY total DESC FETCH FIRST 3 ROWS ONLY");
+        List<Object[]> prod = query.getResultList();
+        List<Products> topProdList = new ArrayList<>();
+        for(Object[] row:prod){
+            int id = (int) row[1];
+            Products topProd = em.find(Products.class,id);
+            topProdList.add(topProd);
+        }
+        session.setAttribute("topProd",topProdList);
         response.sendRedirect(request.getContextPath()+"/Customer/home.jsp");
         
     }
