@@ -253,8 +253,13 @@ public class ProductCRUD extends HttpServlet {
     
     private void addImage(HttpServletRequest request) throws IOException, ServletException{
         int productId = Integer.parseInt(request.getParameter("productId"));
-        if(request.getPart("AddImageList") != null){
-        Part filePart = request.getPart("AddImageList");      
+        List<Part> p = (List) request.getParts();
+        System.out.println(p);
+        
+        for(Part p2:p){
+        if(p2.getContentType() != null){
+        if(p2.getContentType().startsWith("image")){
+        Part filePart = p2;      
         InputStream fileContent = filePart.getInputStream();
         byte[] photoByte = fileContent.readAllBytes();
         try{
@@ -267,6 +272,8 @@ public class ProductCRUD extends HttpServlet {
         System.out.println(e.getMessage());
         }
         
+        }
+        }
         }
     }
 }

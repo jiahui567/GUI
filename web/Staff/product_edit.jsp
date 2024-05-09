@@ -78,7 +78,9 @@
         <h1>Add Image Here</h1>
         <form action="<%= request.getContextPath()%>/ProductCRUD?action=addImage" method="post" enctype="multipart/form-data">
             <input type="hidden" name="productId" value="<%= productId%>"/>
-            <input type="file" name="AddImageList"> 
+            <div id="imageField">
+            <input onchange="addOneInput(this)" type="file" name="AddImageList"> 
+            </div>
             <input type="submit" name="AddImage">
         </form>     
         </div>
@@ -185,5 +187,16 @@
         } else {
             localStorage.setItem("status", "open");
         }
-    })
+    });
+    
+    
+    function addOneInput(input){
+        const imageField = document.getElementById("imageField");
+        const input2 = `<input onchange="addOneInput(this)" type="file" name="AddImageList">`;
+        if(input.files.length > 0){
+            imageField.insertAdjacentHTML('beforeend', input2);
+        }
+        
+        
+    }
 </script>
