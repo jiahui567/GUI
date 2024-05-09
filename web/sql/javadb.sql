@@ -123,6 +123,10 @@ CREATE TABLE USERGROUP (
     USERTYPE VARCHAR(20) NOT NULL
 );
 
+INSERT INTO AYMENT_METHOD (METHOD_NAME) VALUES ('VISA');
+INSERT INTO PAYMENT_METHOD (METHOD_NAME) VALUES ('Master');
+INSERT INTO PAYMENT_METHOD (METHOD_NAME) VALUES ('Cash');
+
 insert into USER_TYPE (type_name,description) values ('Manager','Can edit all permission for staff,product and customer');
 insert into USER_TYPE (type_name,description) values ('Staff','Help manage customer and product detail');
 insert into USER_TYPE (type_name,description) values ('Customer','Account to view website and buy product');
