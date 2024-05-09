@@ -236,7 +236,7 @@
                             <li>Tailored advice and consultations to understand your preferences, lifestyle, and design aspirations.</li>
                             <li> From concept to execution, we handle the details, ensuring a smooth and stress-free transformation of your living spaces.</li>
                         </ul>
-                        <p><a herf="product.jsp" class="btn">Explore</a></p>
+                        <p><a href="<%= request.getContextPath()%>/Customer/product.jsp" class="btn">Explore</a></p>
                     </div>
                 </div>
             </div>
