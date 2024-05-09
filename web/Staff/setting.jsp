@@ -19,13 +19,13 @@
             @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Nunito:wght@400;900&family=Roboto:wght@400;900&display=swap");
 
             body {
-                background: linear-gradient(to right, #3fb6a8, #7ed386);
+                background: #C499F3;
                 overflow: hidden;
                 box-sizing: border-box;
             }
 
             .container {
-                background: #fff;
+                background: #f2ebfb;
                 width: 850px;
                 height: 500px;
                 margin: 0 auto;
@@ -41,7 +41,7 @@
                 position: absolute;
                 width: 15%;
                 height: 110%;
-                background: #7ed386;
+                background:  #C499F3;
                 box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
             }
 
@@ -110,7 +110,7 @@
                 cursor: pointer;
                 outline: none;
                 color: #fff;
-                background-color: #7ed386;
+                background-color: #C499F3;
                 border: none;
                 border-radius: 10px;
             }
@@ -118,7 +118,7 @@
             .change-photo-button:hover,
             .delete-photo-button:hover,
             .view-button:hover{
-                background-color: #3e8e41;
+                background-color:#C499F3;
             }
 
             .change-photo-button:active,
@@ -140,13 +140,14 @@
 
             .profile input{
                 border: 0;
-                border-bottom: 1px solid #3fb6a8;
+                border-bottom: 1px solid #C499F3;
                 width: 60%;
                 font-family: "Montserrat", sans-serif;
                 font-size: 13px;
                 padding: 7px 0;
                 color: #070707;
                 outline: none;
+                background-color: #f2ebfb;
             }
 
 
@@ -172,7 +173,7 @@
 
             h1 {
                 font-family: "Montserrat", sans-serif;
-                color: #7ed386;
+                color: #C499F3;
                 font-size: 1em;
                 margin-top: 40px;
                 margin-bottom: 35px;
@@ -185,19 +186,31 @@
                 border-radius: 10px;
                 border: none;
                 color: #fff;
-                background: #7ed386;
+                background: #C499F3;
                 padding: 7px 15px;
                 box-shadow: 0px 2px 4px 0px;
                 cursor: pointer;
                 margin-top: 15px
             }
             .formbold-input-flex {
-                display: flex;
-                gap: 20px;
-                margin-bottom: 15px;
+                color: #777;
+                font-family: "Roboto", sans-serif;
+                width: 80%;
+                text-transform: uppercase;
+                font-size: 13px;
+                letter-spacing: 1px;
+                margin-left: 2px;
             }
-            .formbold-input-flex > div {
-                width: 50%;
+            .formbold-input-flex input {
+                border: 0;
+                border-bottom: 1px solid #C499F3;
+                width: 60%;
+                font-family: "Montserrat", sans-serif;
+                font-size: 13px;
+                padding: 7px 0;
+                color: #C499F3;
+                outline: none;
+                background-color: #f2ebfb;
             }
             .formbold-btn {
                 font-size: 16px;
@@ -256,7 +269,7 @@
                 </div>  
 
                 <div id="settings" class="tabcontent">
-                    <h2>Change password</h2>
+                    <h1>Change password</h1>
 
                     <form action="<%= request.getContextPath()%>/updateStaffPassword?action=password" method="post" onsubmit="return validation()" >
                         <div class="formbold-input-flex">
@@ -273,7 +286,7 @@
                         </div>
 
                         <div style="margin-top:20px;justify-content: space-evenly; width: 500px">
-                            <input class="formbold-btn" type="submit" value="Submit"/>
+                            <input class="btn-update" type="submit" value="Submit"/>
                         </div>
 
                       
