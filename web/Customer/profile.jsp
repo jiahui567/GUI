@@ -6,264 +6,271 @@
 <% List<Promotion> promoteList = (List) request.getAttribute("customerPromotion");%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <title>User Profile</title>
+        <style>
 
-        .container {
-            display: flex;
-            flex-direction: row;
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+            body {
+                font-family: "Poppins", sans-serif;
+                margin: 80px 0;
+                padding: 0;
+                background: #C499F3;
 
-        .sidebar {
-            width: 250px;
-            background-color: #f0f0f0;
-            padding: 20px;
-        }
+            }
 
-        .sidebar h2 {
-            margin-bottom: 20px;
-        }
+            .container {
+                display: flex;
+                flex-direction: row;
+                max-width: 1200px;
+                margin: 20px auto;
+                background-color: #f2ebfb;
+                border-radius: 8px;
+                overflow: hidden;
+            }
 
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
+            .sidebar {
+                width: 250px;
+                background-color: #f2ebfb;
+                padding: 20px;
+            }
 
-        .sidebar ul li {
-            margin-bottom: 10px;
-        }
+            .sidebar h2 {
+                margin-bottom: 20px;
+            }
 
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-        }
+            .sidebar ul {
+                list-style-type: none;
+                padding: 0;
+            }
 
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
+            .sidebar ul li {
+                margin-bottom: 10px;
+            }
 
-        .tabcontent {
-            display: none;
-        }
+            .sidebar ul li a {
+                text-decoration: none;
+                color: #333;
+            }
 
-        .tabcontent.active {
-            display: block;
-        }
+            .content {
+                flex: 1;
+                padding: 20px;
+                border-left:2px solid #C499F3;
+            }
 
-        .profile-picture-container {
-            text-align: center;
-        }
+            .tabcontent {
+                display: none;
+            }
 
-        .profile-picture {
-            background-color: black;
-            display: inline-block;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+            .tabcontent.active {
+                display: block;
+            }
 
-        .profile-picture-actions {
-            margin-top: 10px;
-        }
+            .profile-picture-container {
+                text-align: center;
+            }
 
-        .change-photo-button,
-        .delete-photo-button,
-        #profile-image-upload{
-            padding: 10px 15px;
-            font-size: 13px;
-            text-align: center;
-            cursor: pointer;
-            outline: none;
-            color: #fff;
-            background-color: #04AA6D;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px #999;
-        }
+            .profile-picture {
+                background-color: black;
+                display: inline-block;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
 
-        .change-photo-button:hover,
-        .delete-photo-button:hover {
-            background-color: #3e8e41;
-        }
+            .profile-picture-actions {
+                margin-top: 10px;
+            }
 
-        .change-photo-button:active,
-        .delete-photo-button:active {
-            background-color: #3e8e41;
-            box-shadow: 0 2px #666;
-            transform: translateY(2px);
-        }
+            .change-photo-button,
+            .delete-photo-button,
+            #profile-image-upload{
+                padding: 10px 15px;
+                font-size: 13px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #04AA6D;
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0 5px #999;
+            }
 
-        .profile-info label {
-            font-weight: bold;
-        }
+            .change-photo-button:hover,
+            .delete-photo-button:hover {
+                background-color: #3e8e41;
+            }
 
-        .profile-info input {
-            width: calc(100% - 16px);
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            color: rgba(0, 0, 0, 0.5);
-        }
+            .change-photo-button:active,
+            .delete-photo-button:active {
+                background-color: #3e8e41;
+                box-shadow: 0 2px #666;
+                transform: translateY(2px);
+            }
 
-        .btn-save {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+            .profile-info label {
+                font-weight: bold;
+            }
 
-        .btn-save:hover {
-            background-color: #0056b3;
-        }
+            .profile-info input {
+                width: calc(100% - 16px);
+                padding: 8px;
+                margin-top: 5px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                color: rgba(0, 0, 0, 0.5);
+            }
 
-        .order-history table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: transparent;
-        }
+            .btn-save {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
 
-        .order-history th,
-        .order-history td {
-            padding: 8px;
-            border-bottom: 1px solid transparent;
-            text-align: left;
-        }
+            .btn-save:hover {
+                background-color: #0056b3;
+            }
 
-        .order-history th {
-            background-color: rgba(242, 242, 242, 0.5);
-        }
+            .order-history table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: transparent;
+            }
 
-        .view-button {
-            transition: background-color 0.3s ease;
-        }
+            .order-history th,
+            .order-history td {
+                padding: 8px;
+                border-bottom: 1px solid transparent;
+                text-align: left;
+            }
 
-        .view-button:hover {
-            background-color: skyblue;
-        }
-    </style>
-</head>
+            .order-history th {
+                background-color: rgba(242, 242, 242, 0.5);
+            }
 
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>My Account</h2>
-            <ul>
-                <li><a href="#profile" onclick="openTab(event, 'profile')">Profile</a></li>
-                <li><a href="#orders" onclick="openTab(event, 'orders')">Order History</a></li>
-                <li><a href="#settings" onclick="openTab(event, 'settings')">Settings</a></li>
-                <li><a href="#promotion" onclick="openTab(event, 'promotion')">Promotion</a></li>
-                <li><a href="<%= request.getContextPath()%>/logout" onclick="logout()">Logout</a></li>
-                <li><a href="<%= request.getContextPath()%>/Customer/home.jsp">Home</a></li>
-            </ul>
-        </div>
-        <div class="content">
-            <div id="profile" class="tabcontent">
+            .view-button {
+                transition: background-color 0.3s ease;
+            }
+
+            .view-button:hover {
+                background-color: skyblue;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <h2>My Account</h2>
+                <ul>
+                    <li><a href="#profile" onclick="openTab(event, 'profile')">Profile</a></li>
+                    <li><a href="#orders" onclick="openTab(event, 'orders')">Order History</a></li>
+                    <li><a href="#settings" onclick="openTab(event, 'settings')">Settings</a></li>
+                    <li><a href="#promotion" onclick="openTab(event, 'promotion')">Promotion</a></li>
+                    <li><a href="<%= request.getContextPath()%>/logout" onclick="logout()">Logout</a></li>
+                    <li><a href="<%= request.getContextPath()%>/Customer/home.jsp">Home</a></li>
+                </ul>
+            </div>
+            <div class="content">
+                <div id="profile" class="tabcontent">
                 <%if(request.getAttribute("passworderror")=="error"){%>
                 <p>Change password failed. Please try again</p>
                 <%}%>
-                <h2>Profile Information</h2>
-                
+                    <h2>Profile Information</h2>
+
                 <form action="<%= request.getContextPath()%>/updateProfile?action=profile" method="post" enctype="multipart/form-data" onsubmit="return validation()">
-                    <div class="profile-picture-container">
-                        <% if(customer.getProfilePic() != null){%>
-                          <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
-                        <%}%>
-                        <img>
-                        <div class="profile-picture-actions">
-                            <input name="profilePic" type="file">
-                            <button class="delete-photo-button" onclick="deleteProfilePicture()">Delete Photo</button>
+                        <div class="profile-picture-container">
+                            <% if(customer.getProfilePic() != null){%>
+                            <img src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(customer.getProfilePic())%>" alt="Profile Picture" class="profile-picture" id="profile-picture">
+                            <%}else{%>
+                            <img src="images/defaultProfile.png" alt="default profile img" class="profile-picture" id="profile-picture">
+                            <%}%>
+                            <img>
+                            <div class="profile-picture-actions">
+                                <input name="profilePic" type="file">
+                                <a href="<%= request.getContextPath()%>/updateProfile?action=deletePic"><button class="delete-photo-button">Delete Photo</button></a>
+                            </div>
                         </div>
-                    </div>
-                
-                    <div class="profile-info">
-                        <label for="name">Name:</label>
-                        <input type="text" name="fullname" id="name" value="<%= customer.getFullname()%>" required>
-                        <label for="email">Email: </label>
-                        <input type="email" name="email" id="email" value="<%= customer.getEmail()%>" required>
-                        <label for="address">Address:</label>
-                        <input type="text" name="address" id="address" value="<%= customer.getAddress()%>">
-                        <label for="phoneNumber">Phone Number:</label>
-                        <input type="text" name="contact" id="phoneNumber" value="<%= customer.getContactNumber()%>" required>
-                    </div>
-                    <input class="btn btn-save" type="submit" value="Save"></input>
-                </form>
-            </div>
+
+                        <div class="profile-info">
+                            <label for="name">Name:</label>
+                            <input type="text" name="fullname" id="name" value="<%= customer.getFullname()%>" required>
+                            <label for="email">Email: </label>
+                            <input type="email" name="email" id="email" value="<%= customer.getEmail()%>" required>
+                            <label for="address">Address:</label>
+                            <input type="text" name="address" id="address" value="<%= customer.getAddress()%>">
+                            <label for="phoneNumber">Phone Number:</label>
+                            <input type="text" name="contact" id="phoneNumber" value="<%= customer.getContactNumber()%>" required>
+                        </div>
+                        <input class="btn btn-save" type="submit" value="Save"></input>
+                    </form>
+                </div>
 
 
-            <div id="orders" class="tabcontent">
-                <h2>Order History</h2>
-                <div class="order-history">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Date</th>
-                                <th>Total Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%for(Payment order:orderList){%>
-                            <tr>
-                                <td><%=order.getOrderId().getAddress()%></td>
-                                <td><%=order.getPaymentDate()%></td>
-                                <td><%=order.getAmount()%></td>
-                                <td><%=order.getOrderId().getStatus().getStatusType()%></td>
-                            </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
+                <div id="orders" class="tabcontent">
+                    <h2>Order History</h2>
+                    <div class="order-history">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Total Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(Payment order:orderList){%>
+                                <tr>
+                                    <td><%=order.getOrderId().getAddress()%></td>
+                                    <td><%=order.getPaymentDate()%></td>
+                                    <td><%=order.getAmount()%></td>
+                                    <td><%=order.getOrderId().getStatus().getStatusType()%></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div id="promotion" class="tabcontent">
-                <h2>Promotion</h2>
-                <div class="order-history">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Promote Code</th>
-                                <th>Promotion Amount</th>
-                                <th>Minimum Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%for(Promotion promote:promoteList){%>
-                            <tr>
-                                <td><%=promote.getPromoCode()%></td>
-                                <td><%=promote.getAmount()%></td>
-                                <td><%=promote.getMinAmount()%></td>
-                                <td><%=promote.getStatus()%></td>
-                            </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
+                <div id="promotion" class="tabcontent">
+                    <h2>Promotion</h2>
+                    <div class="order-history">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Promote Code</th>
+                                    <th>Promotion Amount</th>
+                                    <th>Minimum Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(Promotion promote:promoteList){%>
+                                <tr>
+                                    <td><%=promote.getPromoCode()%></td>
+                                    <td><%=promote.getAmount()%></td>
+                                    <td><%=promote.getMinAmount()%></td>
+                                    <td><%=promote.getStatus()%></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div id="settings" class="tabcontent">
-                <h2>Change password</h2>
+                <div id="settings" class="tabcontent">
+                    <h2>Change password</h2>
 
                     <form action="<%= request.getContextPath()%>/updateProfile?action=password" method="post" onsubmit="return validation()" >
                         <div>
@@ -283,102 +290,106 @@
                             <input type="submit" value="Submit"/>
                         </div>
 
-                      
-                    </form>
-            </div>
 
-            <div id="logout" class="tabcontent">
-                <h2>Logout</h2>
-                <!-- Logout button or link goes here -->
+                    </form>
+                </div>
+
+                <div id="logout" class="tabcontent">
+                    <h2>Logout</h2>
+                    <!-- Logout button or link goes here -->
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
+        <script>
         function validation(){
             let password = document.getElementById("newpassword").value;
             let password2 = document.getElementById("confirmpassword").value;
-            
+
             if(password != password2){
                 alert("Confirm password not match please check");
                 return false;
             }
+            if(password.length<8){
+                alert("Password must longer than 8 character");
+                return false;
+            }
         }
         
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+            function openTab(evt, tabName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByTagName("a");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].classList.remove("active");
+                }
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.classList.add("active");
             }
-            tablinks = document.getElementsByTagName("a");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
+            document.getElementsByTagName("a")[0].click();
+
+            function viewOrder() {
+                view.html
+                window.location.href = "view.html";
             }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.classList.add("active");
-        }    
-        document.getElementsByTagName("a")[0].click();
 
-        function viewOrder() {
-             view.html
-            window.location.href = "view.html";
-        }
-
-        function uploadProfilePicture(event) {
-            var input = event.target;
-            if (input.files.length > 0) {
-                var file = input.files[0];
-                if (file.type.match('image.*')) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById('profile-picture').src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    alert('Please select an image file.');
+            function uploadProfilePicture(event) {
+                var input = event.target;
+                if (input.files.length > 0) {
+                    var file = input.files[0];
+                    if (file.type.match('image.*')) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById('profile-picture').src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert('Please select an image file.');
+                    }
                 }
             }
-        }
 
-        function deleteProfilePicture() {
-            document.getElementById('profile-picture').src = 'https://bootdey.com/img/Content/avatar/avatar1.png';
-            document.getElementById('profile-image-upload').value = '';
-        }
+//            function deleteProfilePicture() {
+//                document.getElementById('profile-picture').src = 'images/defaultProfile'
+//                document.getElementById('profile-image-upload').value = '';
+//            }
 
-        function saveProfile() {
-            var name = document.getElementById('name').value;
-            var email = document.getElementById('email').value;
-            var address = document.getElementById('address').value;
-            var phoneNumber = document.getElementById('phoneNumber').value;
-            var postcode = document.getElementById('postcode').value;
+            function saveProfile() {
+                var name = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var address = document.getElementById('address').value;
+                var phoneNumber = document.getElementById('phoneNumber').value;
+                var postcode = document.getElementById('postcode').value;
 
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            var phonePattern = /^\d{3}-\d{7,10}$/;
-            var postcodePattern = /^\d+$/;
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var phonePattern = /^\d{3}-\d{7,10}$/;
+                var postcodePattern = /^\d+$/;
 
-            if (name.trim() === '' || address.trim() === '' || postcode.trim() === '') {
-                alert('Please fill in all required fields.');
-                return;
+                if (name.trim() === '' || address.trim() === '' || postcode.trim() === '') {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+
+                if (!emailPattern.test(email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+
+                if (!phonePattern.test(phoneNumber)) {
+                    alert('Please enter a valid phone number in the format XXX-XXXXXXX or XXX-XXX-XXXX.');
+                    return;
+                }
+
+                if (!postcodePattern.test(postcode)) {
+                    alert('Please enter a valid postcode with numbers only.');
+                    return;
+                }
+
+                alert('Profile saved!');
             }
-
-            if (!emailPattern.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
-            if (!phonePattern.test(phoneNumber)) {
-                alert('Please enter a valid phone number in the format XXX-XXXXXXX or XXX-XXX-XXXX.');
-                return;
-            }
-
-            if (!postcodePattern.test(postcode)) {
-                alert('Please enter a valid postcode with numbers only.');
-                return;
-            }
-
-            alert('Profile saved!');
-        }
-    </script>
-</body>
+        </script>
+    </body>
 </html>
