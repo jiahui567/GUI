@@ -105,24 +105,25 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                     <div class="product__details__tab__desc">
-                                        <h6>Products Infomation</h6>
+                                        <h6>Products Information</h6>
                                         <p><%= prod.getDescription()%></p>
                                     </div>
                                 </div>
-        <%@include file="footer.jsp" %>
+                                </section>
+                                <%@include file="footer.jsp" %>
 
 
-        <!-- Js Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
+                                <!-- Js Plugins -->
+                                <script src="js/jquery-3.3.1.min.js"></script>
+                                <script src="js/bootstrap.min.js"></script>
+                                <script src="js/jquery.nice-select.min.js"></script>
+                                <script src="js/jquery-ui.min.js"></script>
+                                <script src="js/jquery.slicknav.js"></script>
+                                <script src="js/mixitup.min.js"></script>
+                                <script src="js/owl.carousel.min.js"></script>
+                                <script src="js/main.js"></script>
 
 
-    </body>
+                                </body>
 
-</html>
+                                </html>
