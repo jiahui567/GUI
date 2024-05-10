@@ -29,7 +29,7 @@
                         <div class="intro-excerpt">
                             <h1>Contact</h1>
                             <p class="mb-4">Feel free to reach out to us with any questions, concerns, or inquiries you may have. Our dedicated team is here to assist you every step of the way.</p>
-                            <p><a href="product.jsp" class="btn btn-secondary me-2">Shop Now</a></p>
+                            <p><a href="<%= request.getContextPath()%>/ProductCRUD?action=get" class="btn btn-secondary me-2">Shop Now</a></p>
                         </div>
                     </div>
                     <div class="col-lg-7">
