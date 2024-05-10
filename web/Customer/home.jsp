@@ -65,7 +65,7 @@
                             <h1>HAN-KEA</h1>
                             <h2 clsas="d-block">A Guide to Home Furniture</h2>
                             <p class="mb-4">Transform Your Space with Timeless Designs and Cozy Accents</p>
-                            <p><a href="<%= request.getContextPath()%>/Customer/product.jsp" class="btn btn-secondary me-2">Shop Now</a><a href="<%= request.getContextPath()%>/Customer/aboutUs.jsp" class="btn btn-white-outline">Explore Us</a></p>
+                            <p><a href="<%= request.getContextPath()%>/ProductCRUD?action=get" class="btn btn-secondary me-2">Shop Now</a><a href="<%= request.getContextPath()%>/Customer/aboutUs.jsp" class="btn btn-white-outline">Explore Us</a></p>
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -87,7 +87,7 @@
                     <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
                         <h2 class="mb-4 section-title">Our Top Sales Product : </h2>
                         <p class="mb-4">Create Serenity in Your Living Space with Sleek Designs and Comfortable Seating.</p>
-                        <p><a href="<%= request.getContextPath()%>/Customer/product.jsp" class="btn">Explore The Product</a></p>
+                        <p><a href="<%= request.getContextPath()%>/ProductCRUD?action=get class="btn">Explore The Product</a></p>
                     </div> 
                     <!-- End Column 1 -->
 

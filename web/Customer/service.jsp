@@ -33,7 +33,7 @@
                         <div class="intro-excerpt">
                             <h1>Services</h1>
                             <p class="mb-4">With a dedication to quality, professionalism, and customer satisfaction, our team of experts is committed to delivering outstanding results every time. </p>
-                            <p><a href="product.jsp" class="btn btn-secondary me-2">Shop Now</a></p>
+                            <p><a href="<%= request.getContextPath()%>/ProductCRUD?action=get" class="btn btn-secondary me-2">Shop Now</a></p>
                         </div>
                     </div>
                     <div class="col-lg-7">

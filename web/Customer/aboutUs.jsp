@@ -30,7 +30,7 @@
                         <div class="intro-excerpt">
                             <h1>About Us</h1>
                             <p class="mb-4">Welcome to a world where convenience meets excellence ? Welcome to HAN-KEA.</p>
-                            <p><a href="product.jsp" class="btn btn-secondary me-2">Shop Now</a></p>
+                            <p><a href="<%= request.getContextPath()%>/ProductCRUD?action=get" class="btn btn-secondary me-2">Shop Now</a></p>
                         </div>
                     </div>
                     <div class="col-lg-7">
